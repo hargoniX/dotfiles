@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/hboeving/.oh-my-zsh"
 export PATH=$HOME/.local/bin:$PATH
+export FPATH=$HOME/shared_scripts/zsh_completion:$FPATH
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -80,7 +81,6 @@ plugins=(
 zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab
 
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

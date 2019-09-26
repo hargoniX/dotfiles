@@ -15,4 +15,6 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
+source ~/shared_scripts/dotdrop-completion.bash
+
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml

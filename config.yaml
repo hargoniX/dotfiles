@@ -27,6 +27,9 @@ dotfiles:
   d_oh-my-zsh:
     src: oh-my-zsh
     dst: ~/.oh-my-zsh
+  d_shared_scripts:
+    src: shared_scripts
+    dst: ~/shared_scripts
 profiles:
   hornberg:
     dotfiles:
@@ -38,3 +41,4 @@ profiles:
     - d_vim
     - f_config
     - d_oh-my-zsh
+    - d_shared_scripts
