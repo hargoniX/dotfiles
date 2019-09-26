@@ -1,0 +1,40 @@
+config:
+  backup: true
+  create: true
+  dotpath: dotfiles
+dotfiles:
+  f_vimrc:
+    src: vimrc
+    dst: ~/.vimrc
+  f_xinitrc:
+    src: xinitrc
+    dst: ~/.xinitrc
+  f_xresources:
+    src: Xresources
+    dst: ~/.Xresources
+  f_zshrc:
+    src: zshrc
+    dst: ~/.zshrc
+  f_bashrc:
+    src: bashrc
+    dst: ~/.bashrc
+  d_vim:
+    src: vim
+    dst: ~/.vim
+  f_config:
+    src: config/i3/config
+    dst: ~/.config/i3/config
+  d_oh-my-zsh:
+    src: oh-my-zsh
+    dst: ~/.oh-my-zsh
+profiles:
+  hornberg:
+    dotfiles:
+    - f_vimrc
+    - f_xinitrc
+    - f_xresources
+    - f_zshrc
+    - f_bashrc
+    - d_vim
+    - f_config
+    - d_oh-my-zsh
