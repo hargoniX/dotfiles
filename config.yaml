@@ -30,30 +30,34 @@ dotfiles:
   d_shared_scripts:
     src: shared_scripts
     dst: ~/shared_scripts
+  f_i3status_config:
+    src: config/i3status/config
+    dst: ~/.config/i3status/config
 profiles:
   workstation:
     dotfiles:
-        - f_xresources
-        - f_xinitrc
-        - f_i3_config
+    - f_xresources
+    - f_xinitrc
+    - f_i3_config
+    - f_i3status_config
     include:
-        - dev_zsh
-        - dev_bash
-        - dev_vim 
+    - dev_zsh
+    - dev_bash
+    - dev_vim
   server:
     include:
-        - dev_bash
-        - dev_vim
+    - dev_bash
+    - dev_vim
   dev_zsh:
     dotfiles:
-        - f_zshrc
-        - d_oh-my-zsh
-        - d_shared_scripts
+    - f_zshrc
+    - d_oh-my-zsh
+    - d_shared_scripts
   dev_bash:
     dotfiles:
-        - f_bashrc
-        - d_shared_scripts
+    - f_bashrc
+    - d_shared_scripts
   dev_vim:
     dotfiles:
-        - f_vimrc
-        - d_vim
+    - f_vimrc
+    - d_vim
