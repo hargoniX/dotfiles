@@ -33,6 +33,9 @@ dotfiles:
   f_i3status_config:
     src: config/i3status/config
     dst: ~/.config/i3status/config
+  d_zsh_completions:
+    src: zsh/completions
+    dst: ~/.zsh/completions
 profiles:
   workstation:
     dotfiles:
@@ -52,7 +55,7 @@ profiles:
     dotfiles:
     - f_zshrc
     - d_oh-my-zsh
-    - d_shared_scripts
+    - d_zsh_completions    
   dev_bash:
     dotfiles:
     - f_bashrc
@@ -61,3 +64,4 @@ profiles:
     dotfiles:
     - f_vimrc
     - d_vim
+
