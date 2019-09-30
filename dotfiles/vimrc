@@ -65,6 +65,19 @@ let g:ale_fixers = {
 \}
 
 let g:ale_fix_on_save = 1
+if isdirectory("/data/git/hboeving/gg")
+    let g:ale_perl_perl_options = "-c -Mwarnings " .
+    \'-I~/gg/gg '.
+    \'-I~/gg/gg/libdata/perl5 '.
+    \'-I~/gg/gg/libdata/perl5/adminweb '.
+    \'-I~/gg/test/TestTools/lib '.
+    \'-I~/gg/test/TestTools/lib/dns '.
+    \'-I~/gg/test/TestTools/lib/smtp '.
+    \'-I~/gg/test/TestTools/lib/telnet '.
+    \'-MGGlib '
+endif
+   
 
 set laststatus=2
 set noshowmode
+
