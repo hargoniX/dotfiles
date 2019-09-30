@@ -4,7 +4,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/hboeving/.oh-my-zsh"
 export PATH=$HOME/.local/bin:$PATH
-export FPATH=$HOME/shared_scripts/zsh_completion:$FPATH
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -113,3 +112,5 @@ export EDITOR="vim"
 alias lizenz='cat /home/mfriedl/LIZENZ'
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
+fpath=(~/.zsh/completions $fpath)
+autload -U compinit && compinit
