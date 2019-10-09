@@ -27,8 +27,13 @@ set backspace=indent,eol,start
 set colorcolumn=80
 colorscheme gruvbox
 set background=dark
+set termguicolors
 let g:airline_theme='gruvbox'
 set cursorline
+
+set list
+set listchars=tab:•\ ,trail:•,extends:»,precedes:«
+
 
 
 execute pathogen#infect()
