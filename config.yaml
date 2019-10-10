@@ -36,6 +36,15 @@ dotfiles:
   d_zsh_completions:
     src: zsh/completions
     dst: ~/.zsh/completions
+  d_static:
+    src: fonts/iA-Fonts/iA Writer Mono/Static
+    dst: ~/fonts/iA-Fonts/iA Writer Mono/Static
+  d_variable:
+    src: fonts/iA-Fonts/iA Writer Mono/Variable
+    dst: ~/fonts/iA-Fonts/iA Writer Mono/Variable
+  d_webfonts:
+    src: fonts/iA-Fonts/iA Writer Mono/Webfonts
+    dst: ~/fonts/iA-Fonts/iA Writer Mono/Webfonts
 profiles:
   workstation:
     dotfiles:
@@ -47,6 +56,7 @@ profiles:
     - dev_zsh
     - dev_bash
     - dev_vim
+    - fonts
   server:
     include:
     - dev_bash
@@ -55,7 +65,7 @@ profiles:
     dotfiles:
     - f_zshrc
     - d_oh-my-zsh
-    - d_zsh_completions    
+    - d_zsh_completions
   dev_bash:
     dotfiles:
     - f_bashrc
@@ -64,4 +74,8 @@ profiles:
     dotfiles:
     - f_vimrc
     - d_vim
-
+  fonts:
+    dotfiles:
+    - d_static
+    - d_variable
+    - d_webfonts
