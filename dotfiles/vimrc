@@ -34,7 +34,10 @@ set cursorline
 set list
 set listchars=tab:•\ ,trail:•,extends:»,precedes:«
 
-
+" Change cursor shape in different modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 execute pathogen#infect()
 
