@@ -109,7 +109,6 @@ source $ZSH/oh-my-zsh.sh
 alias psg="ps aux | grep"
 export TERM="xterm-256color"
 export EDITOR="vim"
-alias lizenz='cat /home/mfriedl/LIZENZ'
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 fpath=(~/.zsh/completions $fpath)
