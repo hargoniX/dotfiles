@@ -4,11 +4,6 @@
 [submodule "dotfiles/oh-my-zsh"]
 	path = dotfiles/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh
-
-[submodule "dotfiles/vim/bundle/code-analysis/ale"]
-	path = dotfiles/vim/bundle/code-analysis/ale
-	url = https://github.com/dense-analysis/ale
-
 [submodule "dotfiles/vim/bundle/code-analysis/tagbar"]
 	path = dotfiles/vim/bundle/code-analysis/tagbar
 	url = https://github.com/majutsushi/tagbar
