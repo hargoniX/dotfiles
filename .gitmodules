@@ -13,12 +13,6 @@
 [submodule "dotfiles/vim/bundle/colorschemes/gruvbox"]
 	path = dotfiles/vim/bundle/colorschemes/gruvbox
 	url = https://github.com/morhetz/gruvbox
-[submodule "dotfiles/vim/bundle/colorschemes/vim-airline"]
-	path = dotfiles/vim/bundle/colorschemes/vim-airline
-	url = https://github.com/vim-airline/vim-airline
-[submodule "dotfiles/vim/bundle/colorschemes/vim-airline-themes"]
-	path = dotfiles/vim/bundle/colorschemes/vim-airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes
 [submodule "dotfiles/vim/bundle/edit-utils/auto-pairs"]
 	path = dotfiles/vim/bundle/edit-utils/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs
