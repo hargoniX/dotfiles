@@ -171,5 +171,8 @@ bar {
 }
 
 # lock screen
-bindsym $mod+Shift+d exec "isweg && xlock -mode galaxy -pipepassCmd /opt/genua/bin/isda"
+bindsym $mod+Shift+d exec "xlock -mode galaxy -startCmd /opt/genua/bin/isweg -endCmd /opt/genua/bin/isda"
 bindsym $mod+Shift+t exec "tnt"
+bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
