@@ -13,9 +13,6 @@
 [submodule "dotfiles/vim/bundle/colorschemes/gruvbox"]
 	path = dotfiles/vim/bundle/colorschemes/gruvbox
 	url = https://github.com/morhetz/gruvbox
-[submodule "dotfiles/vim/bundle/edit-utils/auto-pairs"]
-	path = dotfiles/vim/bundle/edit-utils/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs
 [submodule "dotfiles/vim/bundle/edit-utils/ctrlp.vim"]
 	path = dotfiles/vim/bundle/edit-utils/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim
