@@ -22,3 +22,6 @@
 [submodule "dotfiles/vim/bundle/edit-utils/vim-illuminate"]
 	path = dotfiles/vim/bundle/edit-utils/vim-illuminate
 	url = https://github.com/RRethy/vim-illuminate
+[submodule "dotfiles/vim/bundle/edit-utils/pear-tree"]
+	path = dotfiles/vim/bundle/edit-utils/pear-tree
+	url = https://github.com/tmsvg/pear-tree
