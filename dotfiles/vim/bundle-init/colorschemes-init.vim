@@ -1,7 +1,6 @@
 " gruvbox
-colorscheme gruvbox
+colorscheme happy_hacking
 set background=dark
-set termguicolors
 
 " line limit column
 set colorcolumn=80
