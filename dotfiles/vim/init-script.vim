@@ -18,6 +18,7 @@ set nobackup
 set spelllang=en_us,de_de
 set ruler
 set relativenumber
+set number
 set laststatus=2
 set noshowmode
 filetype on
