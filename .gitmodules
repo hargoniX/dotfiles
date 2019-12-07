@@ -25,3 +25,9 @@
 [submodule "dotfiles/vim/bundle/edit-utils/pear-tree"]
 	path = dotfiles/vim/bundle/edit-utils/pear-tree
 	url = https://github.com/tmsvg/pear-tree
+[submodule "dotfiles/vim/bundle/colorschemes/nord-vim"]
+	path = dotfiles/vim/bundle/colorschemes/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim
+[submodule "dotfiles/vim/bundle/edit-utils/auto-pairs"]
+	path = dotfiles/vim/bundle/edit-utils/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs

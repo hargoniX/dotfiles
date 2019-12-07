@@ -1,6 +1,6 @@
 " gruvbox
-colorscheme happy_hacking
-set background=dark
+colorscheme nord
+"set background=dark
 
 " line limit column
 set colorcolumn=80
