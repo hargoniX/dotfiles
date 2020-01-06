@@ -46,7 +46,7 @@
 *.color14: nord7
 *.color15: nord6
 
-XTerm.vt100.faceName:     xft:Fira Code:style=Light:pixelsize=12:antialias=true
+XTerm.vt100.faceName:     xft:Fira Code:style=Light:size=11:antialias=true
 
 XTerm.vt100.scrollBar: false
 Xterm.vt100.scrollBar.widht:1
