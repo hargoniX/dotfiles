@@ -31,3 +31,15 @@
 [submodule "dotfiles/vim/bundle/edit-utils/auto-pairs"]
 	path = dotfiles/vim/bundle/edit-utils/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs
+[submodule "dotfiles/vim/bundle/code-analysis/syntastic"]
+	path = dotfiles/vim/bundle/code-analysis/syntastic
+	url = https://github.com/vim-syntastic/syntastic
+[submodule "dotfiles/vim/bundle/rust.vim"]
+	path = dotfiles/vim/bundle/rust.vim
+	url = https://github.com/rust-lang/rust.vim
+[submodule "dotfiles/vim/bundle/c.vim"]
+	path = dotfiles/vim/bundle/c.vim
+	url = https://github.com/vim-scripts/c.vim
+[submodule "dotfiles/vim/bundle/vim-rails"]
+	path = dotfiles/vim/bundle/vim-rails
+	url = https://github.com/tpope/vim-rails

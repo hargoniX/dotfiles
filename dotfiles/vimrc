@@ -8,3 +8,5 @@ source ~/.vim/bundle-init/edit-utils-init.vim
 
 execute pathogen#infect("~/.vim/bundle/colorschemes/{}")
 source ~/.vim/bundle-init/colorschemes-init.vim
+
+call pathogen#helptags()
