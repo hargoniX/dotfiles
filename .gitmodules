@@ -34,12 +34,12 @@
 [submodule "dotfiles/vim/bundle/code-analysis/syntastic"]
 	path = dotfiles/vim/bundle/code-analysis/syntastic
 	url = https://github.com/vim-syntastic/syntastic
-[ubmodule "dotfiles/vim/bundle/code-analysis/vim-rails"]
-	path = dotfiles/vim/bundle/code-analysis/vim-rails
-	url = https://github.com/tpope/vim-rails
 [submodule "dotfiles/vim/bundle/code-analysis/c.vim"]
 	path = dotfiles/vim/bundle/code-analysis/c.vim
 	url = https://github.com/vim-scripts/c.vim
 [submodule "dotfiles/vim/bundle/code-analysis/rust.vim"]
 	path = dotfiles/vim/bundle/code-analysis/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "dotfiles/vim/bundle/code-analysis/--force"]
+	path = dotfiles/vim/bundle/code-analysis/--force
+	url = https://github.com/tpope/vim-rails
