@@ -27,8 +27,7 @@ prompt_pygmalion_precmd(){
 
 
   if [ ${#gitinfo} -ne 0 ] ; then
-    post_prompt='';
-    gitinfo=${gitinfo[1,-2]}
+    gitinfo=${gitinfo[1,-3]}
   fi
 
   if [[ $prompt_length -gt 40 ]]; then
