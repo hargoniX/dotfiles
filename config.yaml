@@ -24,62 +24,39 @@ dotfiles:
   d_oh-my-zsh:
     src: oh-my-zsh
     dst: ~/.oh-my-zsh
-  d_shared_scripts:
-    src: shared_scripts
-    dst: ~/shared_scripts
   f_i3status_config:
     src: config/i3status/config
     dst: ~/.config/i3status/config
-  d_zsh_completions:
-    src: zsh/completions
-    dst: ~/.zsh/completions
-  d_static:
-    src: fonts/iA-Fonts/iA Writer Mono/Static
-    dst: ~/fonts/iA-Fonts/iA Writer Mono/Static
-  d_variable:
-    src: fonts/iA-Fonts/iA Writer Mono/Variable
-    dst: ~/fonts/iA-Fonts/iA Writer Mono/Variable
-  d_webfonts:
-    src: fonts/iA-Fonts/iA Writer Mono/Webfonts
-    dst: ~/fonts/iA-Fonts/iA Writer Mono/Webfonts
   d_lsp_init:
     src: ls/lsp_init
     dst: ~/.ls/lsp_init
   d_vim:
     src: vim
     dst: ~/.vim
+  f_zsh_pygmalion:
+    src: zsh/hbv-pygmalion.zsh-theme
+    dst: ~/.oh-my-zsh/themes/hbv-pygmalion.zsh-theme
 profiles:
   workstation:
     include:
     - dev_zsh
     - dev_bash
     - dev_vim
-    - fonts
     - x_server
     - i3_work
-  server:
-    include:
-    - dev_bash
-    - dev_vim
   dev_zsh:
     dotfiles:
     - f_zshrc
     - d_oh-my-zsh
-    - d_zsh_completions
+    - f_zsh_pygmalion
   dev_bash:
     dotfiles:
     - f_bashrc
-    - d_shared_scripts
   dev_vim:
     dotfiles:
     - f_vimrc
     - d_vim
     - d_lsp_init
-  fonts:
-    dotfiles:
-    - d_static
-    - d_variable
-    - d_webfonts
   x_server:
     dotfiles:
     - f_xinitrc
