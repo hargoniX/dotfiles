@@ -9,9 +9,11 @@ set colorcolumn=80
 set cursorline
 
 " show whitespaces / tabs
+{%@@ if "dev" not in profile @@%}
+" only on non dev servers as openbsd doesnt recognize these
 set list
 set listchars=tab:•\ ,trail:•,extends:»,precedes:«
-
+{%@@ endif @@%}
 " Change cursor shape in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"

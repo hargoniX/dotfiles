@@ -37,31 +37,53 @@ dotfiles:
     src: zsh/hbv-pygmalion.zsh-theme
     dst: ~/.oh-my-zsh/themes/hbv-pygmalion.zsh-theme
 profiles:
+  # Meta packages
+  # 1 monitor private laptop
+  laptop:
+    include:
+    - zsh
+    - bash
+    - vim
+    - x11
+    - i3
+  # 2 monitor setup at work
   workstation:
     include:
-    - dev_zsh
-    - dev_bash
-    - dev_vim
-    - x_server
-    - i3_work
-  dev_zsh:
+    - zsh
+    - bash
+    - vim
+    - x11
+    - i3
+  # dev server zsh setup
+  dev-zsh:
+    include:
+    - zsh
+    - vim
+  # dev server bash setup
+  dev-bash:
+    include:
+    - bash
+    - vim
+
+  # Actual packages supposed to be consumed through meta packages
+  zsh:
     dotfiles:
     - f_zshrc
     - d_oh-my-zsh
     - f_zsh_pygmalion
-  dev_bash:
+  bash:
     dotfiles:
     - f_bashrc
-  dev_vim:
+  vim:
     dotfiles:
     - f_vimrc
     - d_vim
     - d_lsp_init
-  x_server:
+  x11:
     dotfiles:
     - f_xinitrc
     - f_xresources
-  i3_work:
+  i3:
     dotfiles:
     - f_i3_config
     - f_i3status_config

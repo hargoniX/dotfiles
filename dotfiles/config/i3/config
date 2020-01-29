@@ -168,17 +168,18 @@ bar {
 }
 
 # lock screen
-bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /opt/genua/bin/isweg -endCmd /opt/genua/bin/isda"
-bindsym $mod+Shift+t exec "tnt"
 bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 
 
+{%@@ if profile == "workstation" @@%}
+bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /opt/genua/bin/isweg -endCmd /opt/genua/bin/isda"
+bindsym $mod+Shift+t exec "tnt"
+
 # Autostart
 exec --no-startup-id "xterm -e '/home/hboeving/com-tmux'"
 exec --no-startup-id "firefox"
-
 for_window [class="XTerm" instance="xterm" title="com-tmux"] move container to workspace 10
 for_window [class="Firefox" instance="Navigator" window_role="browser"] move container to workspace 9
 
@@ -188,12 +189,11 @@ set $monitor_2 "HDMI-2"
 workspace $ws10 output $monitor_2
 workspace $ws9 output $monitor_2
 
-
 # Move workspaces between monitors
 bindsym $mod+Mod1+1 move workspace to output $monitor_1
 bindsym $mod+Mod1+2 move workspace to output $monitor_2
 
-
 # Move windows between monitors
 bindsym $mod+q move container to output $monitor_1
 bindsym $mod+w move container to output $monitor_2
+{%@@ endif @@%}

@@ -1,20 +1,8 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
-export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="hbv-pygmalion"
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
   git
@@ -24,13 +12,23 @@ plugins=(
   ssh-agent
 )
 
-zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab
+{%@@ if profile == "workstation" @@%}
+zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab github
+{%@@ elif profile == "laptop" @@%}
+zstyle :omz:plugins:ssh-agent indentities id_rsa
+{%@@ endif @@%}
 
 source $ZSH/oh-my-zsh.sh
 export TERM="xterm-256color"
 export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
+export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
+
+{%@@if "dev" in profile @@%}
+export http_proxy=http://tst-proxy.genua.de:8888
+export https_proxy=http://tst-proxy.genua.de:8888
+{%@@ endif @@%}
 
 touch ~/.zshrc_local
 source ~/.zshrc_local
