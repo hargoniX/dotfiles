@@ -40,6 +40,6 @@
 [submodule "dotfiles/vim/bundle/code-analysis/rust.vim"]
 	path = dotfiles/vim/bundle/code-analysis/rust.vim
 	url = https://github.com/rust-lang/rust.vim
-[submodule "dotfiles/vim/bundle/code-analysis/--force"]
-	path = dotfiles/vim/bundle/code-analysis/--force
+[submodule "dotfiles/vim/bundle/code-analysis/vim-rails"]
+	path = dotfiles/vim/bundle/code-analysis/vim-rails
 	url = https://github.com/tpope/vim-rails
