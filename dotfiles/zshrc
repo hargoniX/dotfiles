@@ -31,3 +31,6 @@ export TERM="xterm-256color"
 export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
+
+touch ~/.zshrc_local
+source ~/.zshrc_local
