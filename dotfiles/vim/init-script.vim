@@ -13,6 +13,8 @@ set history=200                 " Ich suche lieber ewig nach schon getippten Zei
 set showmatch                   " Anzeige passender Klammern
 set noswapfile
 
+set backspace=indent,eol,start
+
 set noautowrite
 set nobackup
 set spelllang=en_us,de_de
