@@ -1,3 +1,9 @@
+{%@@if "dev" in profile @@%}
+export http_proxy=http://tst-proxy.genua.de:8888
+export https_proxy=http://tst-proxy.genua.de:8888
+alias grep=grep
+{%@@ endif @@%}
+
 export ZSH="/home/$USER/.oh-my-zsh"
 ZSH_THEME="hbv-pygmalion"
 DISABLE_AUTO_UPDATE="true"
@@ -24,11 +30,6 @@ export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
-
-{%@@if "dev" in profile @@%}
-export http_proxy=http://tst-proxy.genua.de:8888
-export https_proxy=http://tst-proxy.genua.de:8888
-{%@@ endif @@%}
 
 touch ~/.zshrc_local
 source ~/.zshrc_local
