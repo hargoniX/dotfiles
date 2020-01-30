@@ -174,7 +174,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 
 
 {%@@ if profile == "workstation" @@%}
-bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /opt/genua/bin/isweg -endCmd /opt/genua/bin/isda"
+bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /share/bin/isweg -endCmd /share/bin/isda"
 bindsym $mod+Shift+t exec "tnt"
 
 # Autostart
@@ -196,11 +196,11 @@ bindsym $mod+Mod1+2 move workspace to output $monitor_2
 # Move windows between monitors
 bindsym $mod+q move container to output $monitor_1
 bindsym $mod+w move container to output $monitor_2
-{%@@ elsif profile == "laptop" @@%}
+{%@@ elif profile == "laptop" @@%}
 mode "lock" {
     bindsym l exec "xlock -mode matrix"
-    bindsym h exec "xlock -mode matrix"
-    bindsym s exec "xlock -mode matrix"
+    bindsym h exec "xlock -mode matrix -startCmd systemctl hibernate"
+    bindsym s exec "xlock -mode matrix -startCmd systemctl suspend"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
