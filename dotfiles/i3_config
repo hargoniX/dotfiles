@@ -167,7 +167,7 @@ bar {
         status_command i3status
 }
 
-# lock screen
+# Audio keys
 bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
@@ -196,4 +196,14 @@ bindsym $mod+Mod1+2 move workspace to output $monitor_2
 # Move windows between monitors
 bindsym $mod+q move container to output $monitor_1
 bindsym $mod+w move container to output $monitor_2
+{%@@ elsif profile == "laptop" @@%}
+mode "lock" {
+    bindsym l exec "xlock -mode matrix"
+    bindsym h exec "xlock -mode matrix"
+    bindsym s exec "xlock -mode matrix"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+d mode "lock"
 {%@@ endif @@%}

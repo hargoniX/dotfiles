@@ -19,13 +19,13 @@ dotfiles:
     src: bashrc
     dst: ~/.bashrc
   f_i3_config:
-    src: config/i3/config
+    src: i3_config
     dst: ~/.config/i3/config
   d_oh-my-zsh:
     src: oh-my-zsh
     dst: ~/.oh-my-zsh
   f_i3status_config:
-    src: config/i3status/config
+    src: i3status_config
     dst: ~/.config/i3status/config
   d_lsp_init:
     src: ls/lsp_init
