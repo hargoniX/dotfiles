@@ -187,9 +187,9 @@ bindsym $mod+Mod1+2 move workspace to output $monitor_2
 # Move windows between monitors
 {%@@ elif profile == "laptop" @@%}
 mode "lock" {
-    bindsym l exec "xlock -mode matrix"
-    bindsym h exec "xlock -mode matrix -startCmd 'systemctl hibernate'"
-    bindsym s exec "xlock -mode matrix -startCmd 'systemctl suspend'"
+    bindsym l exec "xlock -mode matrix -endCmd 'i3-msg mode default'"
+    bindsym h exec "xlock -mode matrix -startCmd 'systemctl hibernate' -endCmd 'i3-msg mode default'"
+    bindsym s exec "xlock -mode matrix -startCmd 'systemctl suspend' -endCmd 'i3-msg mode default'"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
