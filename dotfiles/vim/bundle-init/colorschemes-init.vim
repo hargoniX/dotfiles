@@ -1,6 +1,9 @@
 " gruvbox
-colorscheme nord
-"set background=dark
+colorscheme gruvbox
+set background=dark
+
+" transparency
+hi Normal guibg=NONE ctermbg=NONE
 
 " line limit column
 set colorcolumn=80

@@ -31,7 +31,7 @@ new_window none
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm -e zsh
+bindsym $mod+Return exec ~/.local/bin/st
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -160,6 +160,9 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 
+exec --no-startup-id picom -b
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 {%@@ if profile == "workstation" @@%}
 bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /share/bin/isweg -endCmd /share/bin/isda"
@@ -182,8 +185,6 @@ bindsym $mod+Mod1+1 move workspace to output $monitor_1
 bindsym $mod+Mod1+2 move workspace to output $monitor_2
 
 # Move windows between monitors
-bindsym $mod+q move container to output $monitor_1
-bindsym $mod+w move container to output $monitor_2
 {%@@ elif profile == "laptop" @@%}
 mode "lock" {
     bindsym l exec "xlock -mode matrix"

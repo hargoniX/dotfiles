@@ -33,7 +33,8 @@ export https_proxy=http://tst-proxy.genua.de:8888
 alias grep=grep
 {%@@ endif @@%}
 
-
+touch ~/.github_token
+source ~/.github_token
 
 touch ~/.zshrc_local
 source ~/.zshrc_local
