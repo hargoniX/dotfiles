@@ -159,10 +159,14 @@ bar {
 bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 exec --no-startup-id picom -b
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+exec --no-startu-id feh --bg-scale ~/dotfiles/lee.png
 
 {%@@ if profile == "workstation" @@%}
 bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /share/bin/isweg -endCmd /share/bin/isda"
