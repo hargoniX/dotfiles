@@ -1,27 +1,37 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+" Fuzzy search
 Plugin 'kien/ctrlp.vim'
 
+" Autopairs
 Plugin 'tmsvg/pear-tree'
 
+" Git diff in gutter
 Plugin 'airblade/vim-gitgutter'
 
+" Illuminate equal words
 Plugin 'RRethy/vim-illuminate'
 
+" Colorscheme
 Plugin 'morhetz/gruvbox'
 
+" Language server
 Plugin 'natebosch/vim-lsc'
 
+" Tagbar
 Plugin 'majutsushi/tagbar'
 
+" Rust plugin
 Plugin 'rust-lang/rust.vim'
 
+" C plugin
 Plugin 'vim-scripts/c.vim'
 
+" Rails plugin
 Plugin 'tpope/vim-rails'
-
 call vundle#end()
 
+" General settings
 source ~/.vim/local-settings.vim
 behave xterm
 syntax enable
@@ -33,9 +43,9 @@ set softtabstop=4
 set expandtab
 set nowrap
 set showfulltag
-set undolevels=1000             " Wir machen ja viele Fehler
-set history=200                 " Ich suche lieber ewig nach schon getippten Zeil»
-set showmatch                   " Anzeige passender Klammern
+set undolevels=1000
+set history=200
+set showmatch
 set noswapfile
 
 set backspace=indent,eol,start
@@ -52,11 +62,7 @@ filetype on
 filetype plugin on
 filetype indent plugin on
 
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
+" LSC config
 let g:lsc_enable_diagnostics = 1
 
 let g:lsc_server_commands = {
@@ -177,6 +183,7 @@ map <C-t> :TagbarToggle<CR>
 " git gutter
 autocmd BufWritePost * GitGutter
 
+" Git gutter
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspace = 1
