@@ -1,35 +1,34 @@
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 " Fuzzy search
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 
 " Autopairs
-Plugin 'tmsvg/pear-tree'
+Plug 'tmsvg/pear-tree'
 
 " Git diff in gutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " Illuminate equal words
-Plugin 'RRethy/vim-illuminate'
+Plug 'RRethy/vim-illuminate'
 
 " Colorscheme
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " Language server
-Plugin 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc'
 
 " Tagbar
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Rust plugin
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 
 " C plugin
-Plugin 'vim-scripts/c.vim'
+Plug 'vim-scripts/c.vim'
 
 " Rails plugin
-Plugin 'tpope/vim-rails'
-call vundle#end()
+Plug 'tpope/vim-rails'
+call plug#end()
 
 " General settings
 source ~/.vim/local-settings.vim
