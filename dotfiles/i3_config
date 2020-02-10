@@ -173,9 +173,9 @@ bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /share/bin/isweg -endCmd
 bindsym $mod+Shift+t exec "tnt"
 
 # Autostart
-exec --no-startup-id "xterm -e '/home/hboeving/com-tmux'"
+exec --no-startup-id "~/.local/bin/st -e '/home/hboeving/com-tmux'"
 exec --no-startup-id "firefox"
-for_window [class="XTerm" instance="xterm" title="com-tmux"] move container to workspace 10
+for_window [class="st-256color" instance="st-256color" title="/home/hboeving/com-tmux"] move container to workspace 10
 for_window [class="Firefox" instance="Navigator" window_role="browser"] move container to workspace 9
 
 # Monitor Management
