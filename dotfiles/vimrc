@@ -1,15 +1,9 @@
 call plug#begin('~/.vim/plugged')
-" Fuzzy search
-Plug 'kien/ctrlp.vim'
-
 " Autopairs
 Plug 'tmsvg/pear-tree'
 
 " Git diff in gutter
 Plug 'airblade/vim-gitgutter'
-
-" Illuminate equal words
-Plug 'RRethy/vim-illuminate'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
@@ -24,17 +18,13 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'majutsushi/tagbar'
 
 " Rust plugin
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 " C plugin
-Plug 'vim-scripts/c.vim'
+Plug 'vim-scripts/c.vim', {'for': 'c'}
 
 " Rails plugin
-Plug 'tpope/vim-rails'
-
-" NERDTree
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-rails', {'for': 'ruby'}
 
 " Status line
 Plug 'vim-airline/vim-airline'
@@ -105,20 +95,18 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
+" Netrw config
+let g:netrw_banner = 0
+let g:netrw_browse_split = 1
 
-" automatically open NERDTree when no file is specified
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" automatically open NERDTree when opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
-" automatically close vim if the last window is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" automatically open netrw when no file is specified
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
+" automatically open netrw when opening a directory
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 
 " open NERDTree on Ctrl + N
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :Ex<CR>
 
 " Tagbar
 map <C-t> :TagbarToggle<CR>
