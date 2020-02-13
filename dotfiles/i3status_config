@@ -28,7 +28,7 @@ wireless _first_ {
 
 volume master {
     format = "<span background='#781e0e'> %volume </span>"
-    format_muted = "<span background='#ebcb8b'> Muted </span>"
+    format_muted = "<span background='#781e0e'> Muted </span>"
     device = "default"
     mixer = "Master"
     mixer_idx = 0
@@ -37,11 +37,11 @@ volume master {
 battery all {
     last_full_capacity = true
     format = "<span background='#fc6f03'> %status %percentage </span>"
-    format_down = "No Battery"
-    status_chr = "Charging"
-    status_bat = "Battery"
-    status_unk = "Unknown"
-    status_full = "Charged"
+    format_down = "<span background='#fc6f03'> No Battery </span>"
+    status_chr = "<span background='#fc6f03'> Charging </span>"
+    status_bat = "<span background='#fc6f03'> Battery </span>"
+    status_unk = "<span background='#fc6f03'> Unknown </span>"
+    status_full = "<span background='#fc6f03'> Charged </span>"
     path = "/sys/class/power_supply/BAT%d/uevent"
     low_threshold = 10
 }
