@@ -97,7 +97,7 @@ let &t_EI = "\<Esc>[2 q"
 
 " Netrw config
 let g:netrw_banner = 0
-let g:netrw_browse_split = 1
+let g:netrw_browse_split = 2
 
 autocmd StdinReadPre * let s:std_in=1
 " automatically open netrw when no file is specified
@@ -105,8 +105,8 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 " automatically open netrw when opening a directory
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 
-" open NERDTree on Ctrl + N
-map <C-n> :Ex<CR>
+" open netrw on Ctrl + N
+map <C-n> :Vex<CR>
 
 " Tagbar
 map <C-t> :TagbarToggle<CR>
