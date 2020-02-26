@@ -169,7 +169,7 @@ bindsym $mod+e layout toggle split
 exec --no-startu-id feh --bg-scale ~/dotfiles/lee.png
 
 {%@@ if profile == "workstation" @@%}
-bindsym $mod+Shift+d exec "xlock -mode matrix -startCmd /share/bin/isweg -endCmd /share/bin/isda"
+bindsym $mod+Shift+d exec "xlock -mode blank -startCmd /share/bin/isweg -endCmd /share/bin/isda"
 bindsym $mod+Shift+t exec "tnt"
 
 # Autostart
