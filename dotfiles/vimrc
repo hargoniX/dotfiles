@@ -17,18 +17,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Tagbar
 Plug 'majutsushi/tagbar'
 
-" Rust plugin
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-
-" C plugin
-Plug 'vim-scripts/c.vim', {'for': 'c'}
-
-" Rails plugin
-Plug 'tpope/vim-rails', {'for': 'ruby'}
-
-" Status line
-Plug 'vim-airline/vim-airline'
-
+" Show indentation
 Plug 'Yggdroot/indentLine'
 call plug#end()
 " General settings
@@ -55,7 +44,6 @@ set ruler
 set relativenumber
 set number
 set laststatus=2
-set noshowmode
 filetype on
 filetype plugin on
 filetype indent plugin on
@@ -118,9 +106,6 @@ autocmd BufWritePost * GitGutter
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspace = 1
-
-let g:airline_theme='gruvbox'
-let g:airline_powerline_fonts = 1
 
 if executable('pyls')
     " pip install python-language-server
