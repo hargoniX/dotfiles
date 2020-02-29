@@ -27,7 +27,7 @@
 *color7:  #a89984
 *color15: #ebdbb2
 
-XTerm.vt100.faceName:     xft:FuraCode Nerd Font:style=Light:size=11:antialias=true
+XTerm.vt100.faceName:     xft:Source Code Pro for Powerline:style=Light:size=11:antialias=true
 
 XTerm.vt100.scrollBar: false
 Xterm.vt100.scrollBar.widht:1
