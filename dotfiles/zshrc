@@ -21,7 +21,6 @@ zstyle :omz:plugins:ssh-agent indentities id_rsa
 {%@@ endif @@%}
 
 source $ZSH/oh-my-zsh.sh
-export TERM="xterm-256color"
 export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml

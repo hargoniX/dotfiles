@@ -1,12 +1,10 @@
 actions:
   post:
     st_installation: sh ~/dotfiles/st_install.sh
-
 config:
   backup: true
   create: true
   dotpath: dotfiles
-
 dotfiles:
   f_vimrc:
     src: vimrc
@@ -43,9 +41,10 @@ dotfiles:
   f_zsh_pygmalion:
     src: zsh/hbv-pygmalion.zsh-theme
     dst: ~/.oh-my-zsh/themes/hbv-pygmalion.zsh-theme
+  f_tmux.conf:
+    src: tmux.conf
+    dst: ~/.tmux.conf
 profiles:
-  # Meta packages
-  # 1 monitor private laptop
   laptop:
     include:
     - zsh
@@ -53,6 +52,7 @@ profiles:
     - vim
     - x11
     - i3
+    - tmux
   # 2 monitor setup at work
   workstation:
     include:
@@ -61,6 +61,7 @@ profiles:
     - vim
     - x11
     - i3
+    - tmux
   # dev server zsh setup
   dev-zsh:
     include:
@@ -93,3 +94,6 @@ profiles:
     dotfiles:
     - f_i3_config
     - f_i3status_config
+  tmux:
+    dotfiles:
+    - f_tmux.conf
