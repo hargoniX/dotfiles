@@ -8,17 +8,14 @@ Plug 'airblade/vim-gitgutter'
 " Colorscheme
 Plug 'morhetz/gruvbox'
 
-" Language server
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
 " Tagbar
 Plug 'majutsushi/tagbar'
 
 " Show indentation
 Plug 'Yggdroot/indentLine'
+
+" Fugitive
+Plug 'tpope/vim-fugitive'
 call plug#end()
 " General settings
 source ~/.vim/local-settings.vim
@@ -26,9 +23,8 @@ behave xterm
 syntax enable
 
 set autoindent
+set smarttab
 set textwidth=120
-set shiftwidth=4
-set softtabstop=4
 set expandtab
 set nowrap
 set showfulltag
@@ -73,11 +69,8 @@ set colorcolumn=80
 set cursorline
 
 " show whitespaces / tabs
-{%@@ if "dev" not in profile @@%}
-" only on non dev servers as openbsd doesnt recognize these
 set list
-set listchars=tab:•\ ,trail:•,extends:»,precedes:«
-{%@@ endif @@%}
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " Change cursor shape in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -106,43 +99,3 @@ autocmd BufWritePost * GitGutter
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspace = 1
-
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
-
-if executable('solargraph')
-    " gem install solargraph
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
-        \ })
-endif
-
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_signs_error = {'text': 'X'}
-let g:lsp_signs_warning = {'text': '>'}
-let g:lsp_signs_hint = {'text': '>'}
-
-" Tab completion
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-
-autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2 expandtab
