@@ -32,9 +32,6 @@ dotfiles:
   f_i3status_config:
     src: i3status_config
     dst: ~/.config/i3status/config
-  d_lsp_init:
-    src: ls/lsp_init
-    dst: ~/.ls/lsp_init
   d_vim:
     src: vim
     dst: ~/.vim
@@ -85,7 +82,6 @@ profiles:
     dotfiles:
     - f_vimrc
     - d_vim
-    - d_lsp_init
   x11:
     dotfiles:
     - f_xinitrc
