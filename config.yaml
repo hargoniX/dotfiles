@@ -38,6 +38,9 @@ dotfiles:
   f_zsh_pygmalion:
     src: zsh/hbv-pygmalion.zsh-theme
     dst: ~/.oh-my-zsh/themes/hbv-pygmalion.zsh-theme
+  f_tmux_mode:
+    src: scripts/tmux_mode.sh
+    dst: ~/.local/bin/tmux_mode.sh
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
@@ -93,3 +96,4 @@ profiles:
   tmux:
     dotfiles:
     - f_tmux.conf
+    - f_tmux_mode

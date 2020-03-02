@@ -43,10 +43,10 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h focus left; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+j focus down; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+k focus up; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+l focus right; exec "~/.local/bin/tmux_mode.sh"
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -92,16 +92,16 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1 workspace $ws1; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+2 workspace $ws2; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+3 workspace $ws3; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+4 workspace $ws4; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+5 workspace $ws5; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+6 workspace $ws6; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+7 workspace $ws7; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+8 workspace $ws8; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+9 workspace $ws9; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+0 workspace $ws10; exec "~/.local/bin/tmux_mode.sh"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -121,6 +121,22 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+mode "tmux" {
+    bindsym $mod+1 workspace $ws1; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+2 workspace $ws2; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+3 workspace $ws3; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+4 workspace $ws4; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+5 workspace $ws5; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+6 workspace $ws6; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+7 workspace $ws7; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+8 workspace $ws8; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+9 workspace $ws9; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+0 workspace $ws10; exec "~/.local/bin/tmux_mode.sh"
+    bindsym $mod+t mode default
+}
+
+bindsym $mod+t mode tmux
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
