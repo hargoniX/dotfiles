@@ -22,6 +22,7 @@ source ~/.vim/local-settings.vim
 behave xterm
 syntax enable
 
+set nocompatible
 set autoindent
 set smarttab
 set textwidth=120
@@ -35,11 +36,48 @@ set noswapfile
 set backspace=indent,eol,start
 set noautowrite
 set nobackup
-set spelllang=en_us,de_de
 set ruler
 set relativenumber
 set number
 set laststatus=2
+set ignorecase
+set whichwrap=b,s,h,l,<,>,[,]   " Alle links/rechts-Tasten sollen Zeilengrenzen berschreiten knnen.
+
+{%@@ if profile == "workstation" @@%}
+let first_char_of_hostname = substitute(system('hostname | cut -c1'), '\n', '', '')
+if first_char_of_hostname == "g"
+    set tabstop=8                   " Entfernung zwischen den Tab Stops
+    set shiftwidth=4
+    set softtabstop=4
+elseif first_char_of_hostname == "z"
+    set shiftwidth=2
+    set softtabstop=2
+    set expandtab
+else
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+endif
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+if first_char_of_hostname == "g"
+    match ExtraWhitespace /\v\s+$| +\ze\t|\S\zs\t+ +|^\s*( {8})+/
+elseif first_char_of_hostname == "z"
+    match ExtraWhitespace /\v\s+$|\t/
+endif
+
+{%@@ else @@%}
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+{%@@ endif @@%}
+
+set encoding=utf-8
+set termencoding=utf-8
+set fileencodings=ucs-bom,ascii,utf-8,latin1
+set fenc=utf-8
+
 filetype on
 filetype plugin on
 filetype indent plugin on
@@ -53,7 +91,6 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
-
 
 " gruvbox
 colorscheme gruvbox
