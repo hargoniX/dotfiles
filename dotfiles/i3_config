@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -134,6 +134,11 @@ mode "tmux" {
     bindsym $mod+9 workspace $ws9; exec "~/.local/bin/tmux_mode.sh"
     bindsym $mod+0 workspace $ws10; exec "~/.local/bin/tmux_mode.sh"
     bindsym $mod+t mode default
+    {%@@ if profile == "workstation" @@%}
+    bindsym $mod+Shift+d exec "xlock -mode blank -startCmd /share/bin/isweg -endCmd /share/bin/isda"
+    {%@@ elif profile == "laptop" @@%}
+    bindsym $mod+Shift+d mode "lock"
+    {%@@ endif @@%}
 }
 
 bindsym $mod+t mode tmux
@@ -182,7 +187,7 @@ exec --no-startup-id picom -b
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-exec --no-startu-id feh --bg-scale ~/dotfiles/lee.png
+exec --no-startup-id feh --bg-scale ~/dotfiles/lee.png
 
 {%@@ if profile == "workstation" @@%}
 bindsym $mod+Shift+d exec "xlock -mode blank -startCmd /share/bin/isweg -endCmd /share/bin/isda"
@@ -199,10 +204,6 @@ set $monitor_1 "HDMI-1"
 set $monitor_2 "HDMI-2"
 workspace $ws10 output $monitor_2
 workspace $ws9 output $monitor_2
-
-# Move workspaces between monitors
-bindsym $mod+Mod1+1 move workspace to output $monitor_1
-bindsym $mod+Mod1+2 move workspace to output $monitor_2
 
 # Move windows between monitors
 {%@@ elif profile == "laptop" @@%}
