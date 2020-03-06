@@ -11,9 +11,6 @@ Plug 'morhetz/gruvbox'
 " Tagbar
 Plug 'majutsushi/tagbar'
 
-" Fugitive
-Plug 'tpope/vim-fugitive'
-
 " Automatically switch indent config
 Plug 'tpope/vim-sleuth'
 call plug#end()
