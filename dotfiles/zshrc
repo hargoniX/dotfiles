@@ -13,9 +13,6 @@ plugins=(
   vi-mode
 )
 
-# common-aliases changes this to grep --color, this doesnt work under obsd
-alias grep=grep
-
 {%@@ if profile == "workstation" @@%}
 zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab github
 {%@@ elif profile == "laptop" @@%}
@@ -34,6 +31,9 @@ export http_proxy=http://tst-proxy.genua.de:8888
 export https_proxy=http://tst-proxy.genua.de:8888
 alias grep=grep
 {%@@ endif @@%}
+
+# common-aliases changes this to grep --color, this doesnt work under obsd
+alias grep=grep
 
 touch ~/.github_token
 source ~/.github_token
