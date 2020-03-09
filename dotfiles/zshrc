@@ -9,10 +9,12 @@ plugins=(
   common-aliases
   compleat
   history
-  {%@@ if "dev" not in profile @@%}
   ssh-agent
-  {%@@ endif @@%}
+  vi-mode
 )
+
+# common-aliases changes this to grep --color, this doesnt work under obsd
+alias grep=grep
 
 {%@@ if profile == "workstation" @@%}
 zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab github
@@ -25,6 +27,7 @@ export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
+export KEYTIMEOUT=1 # for vi mode switch
 
 {%@@if "dev" in profile @@%}
 export http_proxy=http://tst-proxy.genua.de:8888
