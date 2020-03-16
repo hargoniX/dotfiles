@@ -39,6 +39,7 @@ set number
 set laststatus=2
 set ignorecase
 set whichwrap=b,s,h,l,<,>,[,]   " Alle links/rechts-Tasten sollen Zeilengrenzen berschreiten knnen.
+set hlsearch
 
 set encoding=utf-8
 set termencoding=utf-8
