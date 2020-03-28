@@ -31,7 +31,11 @@ new_window none
 floating_modifier $mod
 
 # start a terminal
+{%@@ if profile == "workstation" @@%}
+bindsym $mod+Return exec xterm
+{%@@ elif profile == "laptop" @@%}
 bindsym $mod+Return exec ~/.local/bin/st
+{%@@ endif @@%}
 # kill focused window
 bindsym $mod+Shift+q kill
 
