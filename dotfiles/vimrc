@@ -1,19 +1,29 @@
 call plug#begin('~/.vim/plugged')
-" Autopairs
-Plug 'tmsvg/pear-tree'
-
-" Git diff in gutter
-Plug 'airblade/vim-gitgutter'
+" Surround
+Plug 'tpope/vim-surround'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
 
-" Tagbar
-Plug 'majutsushi/tagbar'
-
 " Automatically switch indent config
 Plug 'tpope/vim-sleuth'
+
+" Giiiiit
+Plug 'tpope/vim-fugitive', { 'on': 'Git' }
+
+" Git diff in gutter
+Plug 'airblade/vim-gitgutter'
+
+" Language specific config
+" Rust
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+" Ruby
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
 call plug#end()
+
 " General settings
 source ~/.vim/local-settings.vim
 behave xterm
@@ -38,13 +48,14 @@ set relativenumber
 set number
 set laststatus=2
 set ignorecase
-set whichwrap=b,s,h,l,<,>,[,]   " Alle links/rechts-Tasten sollen Zeilengrenzen berschreiten knnen.
+set whichwrap=b,s,h,l,<,>,[,]
 set hlsearch
+set foldmethod=indent
+set foldlevel=99
 
 set encoding=utf-8
 set termencoding=utf-8
 set fileencodings=ucs-bom,ascii,utf-8,latin1
-set fenc=utf-8
 
 filetype on
 filetype plugin on
@@ -59,6 +70,12 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
+
+" split navigation
+nmap <C-h> :winc h<CR>
+nmap <C-j> :winc j<CR>
+nmap <C-k> :winc k<CR>
+nmap <C-l> :winc l<CR>
 
 " gruvbox
 colorscheme gruvbox
@@ -94,13 +111,5 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 " open netrw on Ctrl + N
 map <C-n> :Vex<CR>
 
-" Tagbar
-map <C-t> :TagbarToggle<CR>
-
 " git gutter
 autocmd BufWritePost * GitGutter
-
-" Pear tree
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1

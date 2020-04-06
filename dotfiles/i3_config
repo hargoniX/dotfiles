@@ -47,10 +47,10 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left; exec "~/.local/bin/tmux_mode.sh"
-bindsym $mod+j focus down; exec "~/.local/bin/tmux_mode.sh"
-bindsym $mod+k focus up; exec "~/.local/bin/tmux_mode.sh"
-bindsym $mod+l focus right; exec "~/.local/bin/tmux_mode.sh"
+bindsym $mod+h focus left;
+bindsym $mod+j focus down;
+bindsym $mod+k focus up;
+bindsym $mod+l focus right;
 
 # move focused window
 bindsym $mod+Shift+h move left
