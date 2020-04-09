@@ -1,3 +1,4 @@
+let mapleader = " "
 call plug#begin('~/.vim/plugged')
 " Surround
 Plug 'tpope/vim-surround'
@@ -14,21 +15,28 @@ Plug 'tpope/vim-fugitive', { 'on': 'Git' }
 " Git diff in gutter
 Plug 'airblade/vim-gitgutter'
 
+" Fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
+" Language server
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
 " Language specific config
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
 
 " Ruby
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
+
 call plug#end()
 
 " General settings
 source ~/.vim/local-settings.vim
 behave xterm
 syntax enable
-
 set nocompatible
 set autoindent
 set smarttab
@@ -61,16 +69,6 @@ filetype on
 filetype plugin on
 filetype indent plugin on
 
-" disable arrow keys
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-
 " split navigation
 nmap <C-h> :winc h<CR>
 nmap <C-j> :winc j<CR>
@@ -91,8 +89,8 @@ set colorcolumn=80
 set cursorline
 
 " show whitespaces / tabs
-set list
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+\%#\@<!$/
 " Change cursor shape in different modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -113,3 +111,48 @@ map <C-n> :Vex<CR>
 
 " git gutter
 autocmd BufWritePost * GitGutter
+
+" rust LS
+if executable('rust-analyzer')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'whitelist': ['rust'],
+        \})
+elseif executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rls']},
+        \ 'whitelist': ['rust'],
+        \})
+endif
+
+" ruby LS
+if executable('solargraph')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'whitelist': ['ruby'],
+        \})
+endif
+
+let g:lsp_highlight_references_enabled = 1
+" Use ALE for diagnostics
+let g:lsp_diagnostics_enabled = 0
+
+function! s:on_lsp_buffer_enabled() abort
+     setlocal omnifunc=lsp#complete
+     setlocal signcolumn=yes
+     nmap <buffer> gd <plug>(lsp-definition)
+     nmap <buffer> <leader>r <plug>(lsp-rename)
+     vmap <buffer> <leader>f <plug>(lsp-document-range-format)
+     nmap <buffer> <leader>i <plug>(lsp-hover)
+     nmap <buffer> <leader>s <plug>(lsp-references)
+     nmap <buffer> <leader>t <plug>(lsp-type-definition)
+endfunction
+
+augroup lsp_install
+     au!
+     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
