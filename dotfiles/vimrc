@@ -10,13 +10,16 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-sleuth'
 
 " Giiiiit
-Plug 'tpope/vim-fugitive', { 'on': 'Git' }
-
-" Git diff in gutter
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
 
 " Fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
+
+" Tmux navigation!
+Plug 'christoomey/vim-tmux-navigator'
+
 " Language server
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -69,12 +72,6 @@ filetype on
 filetype plugin on
 filetype indent plugin on
 
-" split navigation
-nmap <C-h> :winc h<CR>
-nmap <C-j> :winc j<CR>
-nmap <C-k> :winc k<CR>
-nmap <C-l> :winc l<CR>
-
 " gruvbox
 colorscheme gruvbox
 set background=dark
@@ -107,9 +104,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 
 " open netrw on Ctrl + N
-map <C-n> :Vex<CR>
+nmap <C-n> :Vex<CR>
 
-" git gutter
+" Git mappings
 autocmd BufWritePost * GitGutter
 
 " rust LS
@@ -144,6 +141,7 @@ function! s:on_lsp_buffer_enabled() abort
      setlocal omnifunc=lsp#complete
      setlocal signcolumn=yes
      nmap <buffer> gd <plug>(lsp-definition)
+     nmap <buffer> gi <plug>(lsp-implementation)
      nmap <buffer> <leader>r <plug>(lsp-rename)
      vmap <buffer> <leader>f <plug>(lsp-document-range-format)
      nmap <buffer> <leader>i <plug>(lsp-hover)
