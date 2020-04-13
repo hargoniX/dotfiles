@@ -143,6 +143,9 @@ mode "tmux" {
     {%@@ elif profile == "laptop" @@%}
     bindsym $mod+Shift+d mode "lock"
     {%@@ endif @@%}
+    bindsym XF86AudioMute exec amixer -q set Master toggle
+    bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
+    bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 }
 
 bindsym $mod+t mode tmux
