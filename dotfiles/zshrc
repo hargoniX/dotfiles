@@ -32,6 +32,18 @@ export https_proxy=http://tst-proxy.genua.de:8888
 alias grep=grep
 {%@@ endif @@%}
 
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 # common-aliases changes this to grep --color, this doesnt work under obsd
 alias grep=grep
 
