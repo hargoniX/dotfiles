@@ -1,5 +1,4 @@
 let mapleader = "\<Space>"
-let g:which_key_map = {}
 call plug#begin('~/.vim/plugged')
 " Surround
 Plug 'tpope/vim-surround'
@@ -20,9 +19,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 " Tmux navigation!
 Plug 'christoomey/vim-tmux-navigator'
-
-" Help me find all my keybings till they are in muscle memory
-Plug 'liuchengxu/vim-which-key'
 
 " Language server
 Plug 'prabirshrestha/async.vim'
@@ -111,22 +107,12 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 " open netrw
 nmap <leader>nv :Vex<CR>
 nmap <leader>nh :Hex<CR>
-let g:which_key_map.n = {
-            \ 'name': 'netrw',
-            \ 'v': 'vertical',
-            \ 'h': 'horizontal',
-            \}
 
 " Git mappings
 autocmd BufWritePost * GitGutter
 command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
 nmap <leader>gl :Flog<CR>
 nmap <leader>gb :Gblame<CR>
-let g:which_key_map.g = {
-            \ 'name': 'git',
-            \ 'l': 'log',
-            \ 'b': 'blame',
-            \}
 
 " Language server config
 " rust LS
@@ -167,23 +153,8 @@ function! s:on_lsp_buffer_enabled() abort
      nmap <buffer> <leader>ss <plug>(lsp-references)
      nmap <buffer> <leader>st <plug>(lsp-type-definition)
 endfunction
-" s as in language Server protocol
-let g:which_key_map.s = {
-            \ 'name': 'languageServer',
-            \ 'r': 'rename',
-            \ 'f': 'format',
-            \ 'h': 'hover',
-            \ 's': 'show',
-            \ 't': 'type-definition',
-            \ 'i': 'implementation',
-            \}
 
 augroup lsp_install
      au!
      autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-
-
-" This should always be at the end
-call which_key#register('<Space>', "g:which_key_map")
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
