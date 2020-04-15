@@ -67,11 +67,13 @@ profiles:
     include:
     - zsh
     - vim
+    - tmux
   # dev server bash setup
   dev-bash:
     include:
     - bash
     - vim
+    - tmux
   # Actual packages supposed to be consumed through meta packages
   zsh:
     dotfiles:
