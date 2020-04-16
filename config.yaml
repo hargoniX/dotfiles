@@ -44,6 +44,9 @@ dotfiles:
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
+  d_tmux_themes:
+    src: tmux-themes
+    dst: ~/.tmux/themes
 profiles:
   laptop:
     include:
@@ -97,3 +100,4 @@ profiles:
     dotfiles:
     - f_tmux.conf
     - f_tmux_mode
+    - d_tmux_themes
