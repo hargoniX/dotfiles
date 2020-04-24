@@ -1,38 +1,16 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
-" Surround
-Plug 'tpope/vim-surround'
-
 " Colorscheme
-" Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 
 " Automatically switch indent config
 Plug 'tpope/vim-sleuth'
 
 " Giiiiit
-Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
-
-" Fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
 
 " Tmux navigation!
 Plug 'christoomey/vim-tmux-navigator'
-
-" Language server
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-
-" Language specific config
-" Rust
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
-" Ruby
-Plug 'tpope/vim-endwise', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
 call plug#end()
 
@@ -112,51 +90,3 @@ nmap <leader>nh :Hex<CR>
 
 " Git mappings
 autocmd BufWritePost * GitGutter
-command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
-nmap <leader>gl :Flog<CR>
-nmap <leader>gb :Gblame<CR>
-
-" Language server config
-" rust LS
-if executable('rust-analyzer')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rust-analyzer',
-        \ 'cmd': {server_info->['rust-analyzer']},
-        \ 'whitelist': ['rust'],
-        \})
-elseif executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rls']},
-        \ 'whitelist': ['rust'],
-        \})
-endif
-
-" ruby LS
-if executable('solargraph')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'whitelist': ['ruby'],
-        \})
-endif
-
-let g:lsp_highlight_references_enabled = 1
-let g:lsp_diagnostics_enabled = 0
-
-function! s:on_lsp_buffer_enabled() abort
-     setlocal omnifunc=lsp#complete
-     setlocal signcolumn=yes
-     nmap <buffer> gd <plug>(lsp-definition)
-     nmap <buffer> <leader>si <plug>(lsp-implementation)
-     nmap <buffer> <leader>sr <plug>(lsp-rename)
-     nmap <buffer> <leader>sf <plug>(lsp-document-format)
-     nmap <buffer> <leader>sh <plug>(lsp-hover)
-     nmap <buffer> <leader>ss <plug>(lsp-references)
-     nmap <buffer> <leader>st <plug>(lsp-type-definition)
-endfunction
-
-augroup lsp_install
-     au!
-     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
