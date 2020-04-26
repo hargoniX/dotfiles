@@ -47,6 +47,9 @@ dotfiles:
   d_tmux_themes:
     src: tmux-themes
     dst: ~/.tmux/themes
+  f_emacs_init:
+    src: init.el
+    dst: ~/.emacs.d/init.el
 profiles:
   laptop:
     include:
