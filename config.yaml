@@ -59,6 +59,7 @@ profiles:
     - x11
     - i3
     - tmux
+    - emacs
   # 2 monitor setup at work
   workstation:
     include:
@@ -68,6 +69,7 @@ profiles:
     - x11
     - i3
     - tmux
+    - emacs
   # dev server zsh setup
   dev-zsh:
     include:
@@ -106,3 +108,6 @@ profiles:
     - f_tmux.conf
     - f_tmux_mode
     - d_tmux_themes
+  emacs:
+    dotfiles:
+    - f_emacs_init
