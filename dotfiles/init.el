@@ -100,6 +100,7 @@
   (setq lsp-rust-server 'rust-analyzer)
   (setq lsp-log-io t)
   (setq lsp-prefer-capf t)
+  (setq lsp-eldoc-hook '(lsp-hover)) ;; disable semantic highlighting
   :init
   (add-hook 'rust-mode-hook 'lsp)
   (add-hook 'ruby-mode-hook 'lsp)
