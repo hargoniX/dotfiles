@@ -75,12 +75,14 @@ profiles:
     include:
     - zsh
     - vim
+    - emacs
     - tmux
   # dev server bash setup
   dev-bash:
     include:
     - bash
     - vim
+    - emacs
     - tmux
   # Actual packages supposed to be consumed through meta packages
   zsh:

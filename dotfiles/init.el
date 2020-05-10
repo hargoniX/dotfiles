@@ -11,6 +11,7 @@
 (setq inhibit-startup-screen t) ;; Leave me alone with your tutorials
 (setq whitespace-style '(face trailing tabs))
 (add-hook 'prog-mode-hook 'whitespace-mode) ;; Show trailing whitespaces in prog-mode
+(setq tramp-default-method "ssh") ;; speed up tramp mode
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -101,6 +102,7 @@
   (setq lsp-log-io t)
   (setq lsp-prefer-capf t)
   (setq lsp-eldoc-hook '(lsp-hover)) ;; disable semantic highlighting
+  (setq lsp-diagnostic-package nil)
   :init
   (add-hook 'rust-mode-hook 'lsp)
   (add-hook 'ruby-mode-hook 'lsp)
@@ -116,6 +118,25 @@
     "ls" 'lsp-ivy-workspace-symbol) ;; LSP symbol
   )
 
+(use-package org :ensure t
+  ;; M-LEFT M-RIGHT deindent indent node
+  ;; M-UP M-DOWN move node up down
+  ;; Tab fold/unfold
+  ;; M-S-RET Insert new TODO
+  :general
+  (vim-leader-def 'normal 'global
+    "ohj" 'org-forward-heading-same-level ;; org header j"
+    "ohk" 'org-backward-heading-same-level ;; org header k
+    "or" 'org-meta-return ;; org return, insert new  entry
+    "otr" 'org-todo ;; org todo rotate
+    "opk" 'org-priority-up ;; org prio k
+    "opj" 'org-priority-down ;; org prip j
+    "oci" 'org-clock-in
+    "oco" 'org-clock-out)
+  :init
+  (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "FEEDBACK" "|" "DONE" "DELEGATED")))
+  (setq org-log-done 'time)
+  )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
