@@ -12,6 +12,7 @@
 (setq whitespace-style '(face trailing tabs))
 (add-hook 'prog-mode-hook 'whitespace-mode) ;; Show trailing whitespaces in prog-mode
 (setq tramp-default-method "ssh") ;; speed up tramp mode
+(global-display-line-numbers-mode) ;; line nnumbers, might not work with emacs < 26 though
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -39,11 +40,6 @@
   (setq evil-toggle-key "C-~") ;; so C-z works for background
   :config
   (evil-mode))
-
-(use-package linum-relative :ensure t
-  :diminish linum-relative-mode
-  :init
-  (add-hook 'find-file-hook 'linum-relative-mode)) ;; only have line numbers for files
 
 (use-package fill-column-indicator :ensure t
   :diminish fci-mode
@@ -102,7 +98,7 @@
   (setq lsp-log-io t)
   (setq lsp-prefer-capf t)
   (setq lsp-eldoc-hook '(lsp-hover)) ;; disable semantic highlighting
-  (setq lsp-diagnostic-package nil)
+  (setq lsp-diagnostic-package :flycheck)
   :init
   (add-hook 'rust-mode-hook 'lsp)
   (add-hook 'ruby-mode-hook 'lsp)
@@ -136,6 +132,21 @@
   :init
   (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "FEEDBACK" "|" "DONE" "DELEGATED")))
   (setq org-log-done 'time)
+  )
+
+(use-package git-gutter :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'git-gutter-mode) ;; Git gutter in prog mode
+ )
+
+(use-package flycheck :ensure t
+  :init
+  (add-hook 'lsp-mode-hook 'flycheck-mode)
+  )
+
+(use-package dtrt-indent :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'dtrt-indent-mode)
   )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
