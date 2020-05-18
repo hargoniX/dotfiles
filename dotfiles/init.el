@@ -99,6 +99,13 @@
   (setq lsp-prefer-capf t)
   (setq lsp-eldoc-hook '(lsp-hover)) ;; disable semantic highlighting
   (setq lsp-diagnostic-package :flycheck)
+  (lsp-register-client
+    (make-lsp-client
+      :new-connection (lsp-tramp-connection "~/.local/bin/solargraph stdio")
+      :major-modes '(ruby-mode enh-ruby-mode)
+      :remote? t
+      :priority -1
+      :server-id 'remote-ruby-ls))
   :init
   (add-hook 'rust-mode-hook 'lsp)
   (add-hook 'ruby-mode-hook 'lsp)
