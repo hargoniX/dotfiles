@@ -9,15 +9,8 @@ plugins=(
   common-aliases
   compleat
   history
-  ssh-agent
   vi-mode
 )
-
-{%@@ if profile == "workstation" @@%}
-zstyle :omz:plugins:ssh-agent identities id_rsa openstack gitlab github
-{%@@ elif profile == "laptop" @@%}
-zstyle :omz:plugins:ssh-agent indentities id_rsa
-{%@@ endif @@%}
 
 source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
@@ -25,12 +18,6 @@ alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
 export KEYTIMEOUT=1 # for vi mode switch
-
-{%@@if "dev" in profile @@%}
-export http_proxy=http://tst-proxy.genua.de:8888
-export https_proxy=http://tst-proxy.genua.de:8888
-alias grep=grep
-{%@@ endif @@%}
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -46,6 +33,19 @@ bindkey '^Z' fancy-ctrl-z
 
 # common-aliases changes this to grep --color, this doesnt work under obsd
 alias grep=grep
+
+if [ -f ~/.ssh/agent.env ] ; then
+    . ~/.ssh/agent.env > /dev/null
+    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+        echo "Stale agent file found. Spawning a new agent. "
+        eval `ssh-agent | tee ~/.ssh/agent.env`
+        ssh-add
+    fi
+else
+    echo "Starting ssh-agent"
+    eval `ssh-agent | tee ~/.ssh/agent.env`
+    ssh-add
+fi
 
 touch ~/.github_token
 source ~/.github_token
