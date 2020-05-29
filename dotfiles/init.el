@@ -135,7 +135,8 @@
     "opk" 'org-priority-up ;; org prio k
     "opj" 'org-priority-down ;; org prip j
     "oci" 'org-clock-in
-    "oco" 'org-clock-out)
+    "oco" 'org-clock-out
+    "oy"  'org-cycle) ;; Org-cYcle
   :init
   (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "FEEDBACK" "|" "DONE" "DELEGATED")))
   (setq org-log-done 'time)
