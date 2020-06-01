@@ -12,6 +12,9 @@ Plug 'airblade/vim-gitgutter'
 " Tmux navigation!
 Plug 'christoomey/vim-tmux-navigator'
 
+" Vim integration
+Plug 'jreybert/vimagit'
+
 call plug#end()
 
 " General settings
@@ -54,7 +57,6 @@ filetype indent plugin on
 " colorscheme
 " colorscheme gruvbox
 colorscheme nord
-set background=dark
 
 " transparency
 hi Normal guibg=NONE ctermbg=NONE
@@ -87,6 +89,10 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 " open netrw
 nmap <leader>nv :Vex<CR>
 nmap <leader>nh :Hex<CR>
+
+" Make the cursor follow the split
+set splitbelow
+set splitright
 
 " Git mappings
 autocmd BufWritePost * GitGutter

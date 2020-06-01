@@ -2,7 +2,7 @@ actions:
   post:
     st_installation: sh ~/dotfiles/st_install.sh
 config:
-  backup: true
+  backup: false
   create: true
   dotpath: dotfiles
 dotfiles:
@@ -50,6 +50,10 @@ dotfiles:
   f_emacs_init:
     src: init.el
     dst: ~/.emacs.d/init.el
+  f_init_vim:
+    src: init.vim
+    dst: ~/.config/nvim/init.vim
+
 profiles:
   laptop:
     include:
@@ -96,6 +100,7 @@ profiles:
   vim:
     dotfiles:
     - f_vimrc
+    - f_init_vim
     - d_vim
   x11:
     dotfiles:
