@@ -15,10 +15,19 @@ Plug 'christoomey/vim-tmux-navigator'
 " Automatically add end in ruby
 Plug 'tpope/vim-endwise'
 
+" Fzf
+if executable("fzf")
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+endif
+
+if executable("tig")
+    Plug 'iberianpig/tig-explorer.vim'
+endif
+
 call plug#end()
 
 " General settings
-source ~/.vim/local-settings.vim
 behave xterm
 syntax enable
 set nocompatible
@@ -87,13 +96,21 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 " automatically open netrw when opening a directory
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 
-" open netrw
-nmap <leader>nv :Vex<CR>
-nmap <leader>nh :Hex<CR>
-
 " Make the cursor follow the split
 set splitbelow
 set splitright
 
 " Git mappings
 autocmd BufWritePost * GitGutter
+
+" Just like ivy
+nmap <C-x><C-f> :Files<CR>
+
+" git grep
+nmap <leader>gg :TigGrep<CR>
+" git blame
+nmap <leader>gb :TigBlame<CR>
+" git status
+nmap <leader>gs :TigStatus<CR>
+" git log
+nmap <leader>gl :Tig<CR>
