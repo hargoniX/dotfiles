@@ -48,6 +48,14 @@ else
     ssh-add
 fi
 
+autoload -Uz compinit
+
+# speed up compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+
 touch ~/.github_token
 source ~/.github_token
 
