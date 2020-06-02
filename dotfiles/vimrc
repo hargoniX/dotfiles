@@ -45,6 +45,7 @@ set hlsearch
 set foldmethod=indent
 set foldlevel=99
 set autoread
+set smartindent
 
 set encoding=utf-8
 set termencoding=utf-8
