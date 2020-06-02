@@ -212,6 +212,8 @@ set $monitor_2 "HDMI-2"
 workspace $ws10 output $monitor_2
 workspace $ws9 output $monitor_2
 
+exec --no-startup-id setxkbmap -layout us -option caps:escape
+
 # Move windows between monitors
 {%@@ elif profile == "laptop" @@%}
 mode "lock" {

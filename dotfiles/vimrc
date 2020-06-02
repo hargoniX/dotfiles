@@ -12,8 +12,8 @@ Plug 'airblade/vim-gitgutter'
 " Tmux navigation!
 Plug 'christoomey/vim-tmux-navigator'
 
-" Vim integration
-Plug 'jreybert/vimagit'
+" Automatically add end in ruby
+Plug 'tpope/vim-endwise'
 
 call plug#end()
 
