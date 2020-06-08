@@ -25,6 +25,18 @@ if executable("tig")
     Plug 'iberianpig/tig-explorer.vim'
 endif
 
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'Shougo/echodoc.vim'
+
 call plug#end()
 
 " General settings
@@ -114,3 +126,36 @@ nmap <leader>gb :TigBlame<CR>
 nmap <leader>gs :TigStatus<CR>
 " git log
 nmap <leader>gl :Tig<CR>
+
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['ra_lsp_server'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ }
+
+function EnableLspSettings()
+  let g:LanguageClient_autoStart = 0
+  nmap <leader>ss :LanguageClientStart<CR>
+  nmap gd :call LanguageClient#textDocument_definition()<CR>
+  nmap <leader>r :call LanguageClient#textDocument_rename()<CR>
+  nmap <leader>lr :call LanguageClient#textDocument_references()<CR>
+  nmap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+  " symbol grep
+  nmap <leader>sg :call LanguageClient_textDocument_documentSymbol()<CR>
+  call deoplete#enable()
+  call echodoc#enable()
+  let g:echodoc_enable_at_startup = 1
+  set cmdheight=2
+  set signcolumn=yes
+  " So it doesn't request autocomplete all the time
+  call deoplete#custom#option( {'auto_complete_delay': 150 })
+
+  " Tab completion for deoplete
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+endfunction()
+
+augroup LSP
+  autocmd!
+  autocmd FileType rust,ruby,html call EnableLspSettings()
+augroup END
+
