@@ -16,7 +16,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
-export PATH=$HOME/.ls/lsp_init:$HOME/.local/bin:$PATH
+export PATH=$PATH:$HOME/.ls/lsp_init:$HOME/.local/bin
 export KEYTIMEOUT=1 # for vi mode switch
 
 # Make ctrl-z fg if it's used form within a shell
@@ -55,6 +55,12 @@ for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
 compinit -C
+
+if [[ -x $(which fzf) ]]
+then
+  source ~/.vim/plugged/fzf/shell/completion.zsh
+  source ~/.vim/plugged/fzf/shell/key-bindings.zsh
+fi
 
 touch ~/.github_token
 source ~/.github_token
