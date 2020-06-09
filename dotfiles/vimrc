@@ -15,6 +15,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Automatically add end in ruby
 Plug 'tpope/vim-endwise'
 
+" Automatically add and delete pairs
+Plug 'jiangmiao/auto-pairs'
+
 " Fzf
 if executable("fzf")
     Plug 'junegunn/fzf'
@@ -28,6 +31,8 @@ endif
 if has('python3')
   Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
   Plug 'Shougo/echodoc.vim'
+  Plug 'Shougo/neosnippet.vim'
+  Plug 'Shougo/neosnippet-snippets'
 
   if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -145,14 +150,22 @@ function EnableLspSettings()
   nmap <leader>sg :call LanguageClient_textDocument_documentSymbol()<CR>
   call deoplete#enable()
   call echodoc#enable()
-  let g:echodoc_enable_at_startup = 1
-  set cmdheight=2
+  set noshowmode
   set signcolumn=yes
   " So it doesn't request autocomplete all the time
   call deoplete#custom#option( {'auto_complete_delay': 150 })
 
+  " C-k to expand
+  " C-n and C-p to select
+  " C-k to jump to the next field
+
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
   " Tab completion for deoplete
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
 endfunction()
 
 augroup LSP
