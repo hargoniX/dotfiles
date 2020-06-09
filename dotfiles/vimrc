@@ -135,7 +135,7 @@ nmap <leader>gl :Tig<CR>
 
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['ra_lsp_server'],
+    \ 'rust': ['rust-analyzer'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ }
 
