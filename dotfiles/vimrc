@@ -25,17 +25,18 @@ if executable("tig")
     Plug 'iberianpig/tig-explorer.vim'
 endif
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+if has('python3')
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+  Plug 'Shougo/echodoc.vim'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
 endif
-
-Plug 'Shougo/echodoc.vim'
 
 call plug#end()
 
