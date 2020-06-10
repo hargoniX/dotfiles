@@ -3,4 +3,6 @@ export SHELL="/bin/zsh"
 {%@@ if profile == "workstation" @@%}
 isda
 {%@@ endif @@%}
+setxkbmap -option caps:escape
+setxkbmap us
 exec i3
