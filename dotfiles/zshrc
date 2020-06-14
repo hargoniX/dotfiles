@@ -4,19 +4,27 @@ DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(
-  git
-  common-aliases
-  compleat
-  history
-  vi-mode
-)
-
 source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
-export PATH=$PATH:$HOME/.ls/lsp_init:$HOME/.local/bin
+alias h=history
+alias l='ls -lFh'     #size,show type,human readable
+alias la='ls -lAFh'   #long list,show almost all,show type,human readable
+alias ll='ls -l'      #long list
+alias -g G='| grep'
+alias -g L="| less"
+alias fd='find . -type d -name'
+alias ff='find . -type f -name'
+alias rm='rm -i' # Ask before removal
+alias cp='cp -i' # Ask before removal
+alias mv='mv -i' # Ask before removal
+# Make zsh know about hosts already accessed by SSH
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat{/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+export PATH=$PATH:$HOME/.local/bin
+
+# vi mode
+bindkey -v
 export KEYTIMEOUT=1 # for vi mode switch
 
 # Make ctrl-z fg if it's used form within a shell
@@ -32,9 +40,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# common-aliases changes this to grep --color, this doesnt work under obsd
-unalias grep
-
+# common zsh agent
 if [ -f ~/.ssh/agent.env ] ; then
     . ~/.ssh/agent.env > /dev/null
     if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
@@ -56,6 +62,7 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
+# Load fzf if it's available
 if [[ -x $(which fzf) ]]
 then
   source ~/.vim/plugged/fzf/shell/completion.zsh
