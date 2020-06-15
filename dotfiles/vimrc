@@ -29,7 +29,9 @@ if executable("tig")
 endif
 
 if has('python3')
-  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+  if executable('cargo')
+    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+  endif
   Plug 'Shougo/echodoc.vim'
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
