@@ -1,12 +1,4 @@
-export ZSH="/home/$USER/.oh-my-zsh"
-ZSH_THEME="hbv-pygmalion"
-DISABLE_AUTO_UPDATE="true"
-COMPLETION_WAITING_DOTS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
-alias zshconfig="vim ~/.zshrc"
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 alias h=history
 alias l='ls -lFh'     #size,show type,human readable
@@ -22,10 +14,32 @@ alias mv='mv -i' # Ask before removal
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat{/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 export PATH=$PATH:$HOME/.local/bin
+# Fzf tab up shift+ tab down
+export FZF_DEFAULT_OPTS='--bind=tab:up --bind=btab:down'
+
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data inside tmux
+export HISTFILE="$HOME/.zsh_history"
+
+# completion
+unsetopt menu_complete   # do not autoselect the first completion entry
+unsetopt flowcontrol
+setopt auto_menu         # show completion menu on successive tab press
+setopt complete_in_word
+setopt always_to_end
+zstyle ':completion:*' menu select
+
+# Directory navigation
+setopt autocd autopushd
 
 # vi mode
 bindkey -v
-export KEYTIMEOUT=1 # for vi mode switch
+export KEYTIMEOUT=1 # for vi mode switch inside tmux
 
 # Make ctrl-z fg if it's used form within a shell
 fancy-ctrl-z () {
@@ -62,8 +76,16 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
+autoload -Uz vcs_info
+autoload -U colors && colors
+precmd_vcs_info() { vcs_info  }
+precmd_functions+=( precmd_vcs_info  )
+setopt prompt_subst
+export PROMPT="%{$fg_bold[yellow]%}%M%{$fg_bold[white]%}:%{$fg_bold[blue]%}%~%{$fg_bold[white]%}|%{$fg_bold[green]%}\$vcs_info_msg_0_%{$fg_bold[white]%}>%{$reset_color%} "
+zstyle ':vcs_info:git:*' formats '%b'
+
 # Load fzf if it's available
-if [[ -x $(which fzf) ]]
+if [[ -x $(which fzf 2> /dev/null) ]]
 then
   source ~/.vim/plugged/fzf/shell/completion.zsh
   source ~/.vim/plugged/fzf/shell/key-bindings.zsh
