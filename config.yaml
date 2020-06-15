@@ -26,18 +26,12 @@ dotfiles:
     dst: ~/.config/i3/config
     actions:
     - st_installation
-  d_oh-my-zsh:
-    src: oh-my-zsh
-    dst: ~/.oh-my-zsh
   f_i3status_config:
     src: i3status_config
     dst: ~/.config/i3status/config
   d_vim:
     src: vim
     dst: ~/.vim
-  f_zsh_pygmalion:
-    src: zsh/hbv-pygmalion.zsh-theme
-    dst: ~/.oh-my-zsh/themes/hbv-pygmalion.zsh-theme
   f_tmux_mode:
     src: scripts/tmux_mode.sh
     dst: ~/.local/bin/tmux_mode.sh
@@ -92,8 +86,6 @@ profiles:
   zsh:
     dotfiles:
     - f_zshrc
-    - d_oh-my-zsh
-    - f_zsh_pygmalion
   bash:
     dotfiles:
     - f_bashrc
