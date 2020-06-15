@@ -89,6 +89,8 @@ if [[ -x $(which fzf 2> /dev/null) ]]
 then
   source ~/.vim/plugged/fzf/shell/completion.zsh
   source ~/.vim/plugged/fzf/shell/key-bindings.zsh
+else
+  bindkey '^R' history-incremental-search-backward
 fi
 
 touch ~/.github_token
