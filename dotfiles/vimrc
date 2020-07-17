@@ -139,6 +139,7 @@ nmap <leader>gl :Tig<CR>
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'ruby': ['solargraph', 'stdio'],
+    \ 'tex': ['texlab']
     \ }
 
 function EnableLspSettings()
@@ -173,6 +174,6 @@ endfunction()
 
 augroup LSP
   autocmd!
-  autocmd FileType rust,ruby,html call EnableLspSettings()
+  autocmd FileType rust,ruby,html,tex call EnableLspSettings()
 augroup END
 
