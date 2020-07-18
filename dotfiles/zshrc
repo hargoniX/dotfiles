@@ -46,7 +46,20 @@ setopt autocd autopushd
 
 # vi mode
 bindkey -v
+bindkey -v '^?' backward-delete-char # backspace deletion in vi-mode
+# allow ctrl-a and ctrl-e to move to beginning/end of line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
 export KEYTIMEOUT=1 # for vi mode switch inside tmux
+
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/<<<}/(main|viins)/}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
 
 # Make ctrl-z fg if it's used form within a shell
 fancy-ctrl-z () {
@@ -92,7 +105,7 @@ export PROMPT="%{$fg_bold[yellow]%}%M%{$fg_bold[white]%}:%{$fg_bold[blue]%}%~%{$
 zstyle ':vcs_info:git:*' formats '%b'
 
 # Load fzf if it's available
-if [[ -x $(which fzf 2> /dev/null) ]]
+if [[ $(which fzf) ]]
 then
   source ~/.vim/plugged/fzf/shell/completion.zsh
   source ~/.vim/plugged/fzf/shell/key-bindings.zsh
