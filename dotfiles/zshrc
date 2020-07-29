@@ -113,6 +113,12 @@ else
   bindkey '^R' history-incremental-search-backward
 fi
 
+if [[ -d  ~/.rvm ]]
+then
+  export PATH="$PATH:$HOME/.rvm/bin"
+  [[ -s "$HOME/.rvm/scripts/rvm"  ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a
+fi
+
 touch ~/.github_token
 source ~/.github_token
 
