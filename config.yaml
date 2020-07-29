@@ -47,6 +47,9 @@ dotfiles:
   f_init_vim:
     src: init.vim
     dst: ~/.config/nvim/init.vim
+  f_zprofile:
+    src: zprofile
+    dst: ~/.zprofile
 
 profiles:
   laptop:
@@ -86,6 +89,7 @@ profiles:
   zsh:
     dotfiles:
     - f_zshrc
+    - f_zprofile
   bash:
     dotfiles:
     - f_bashrc
