@@ -12,7 +12,7 @@ alias rm='rm -i' # Ask before removal
 alias cp='cp -i' # Ask before removal
 alias mv='mv -i' # Ask before removal
 # If nvim is available use it
-if [ $(which nvim) ]; then
+if command -v nvim &> /dev/null; then
   alias vim="nvim"
 fi
 # Make zsh know about hosts already accessed by SSH
@@ -105,8 +105,7 @@ export PROMPT="%{$fg_bold[yellow]%}%M%{$fg_bold[white]%}:%{$fg_bold[blue]%}%~%{$
 zstyle ':vcs_info:git:*' formats '%b'
 
 # Load fzf if it's available
-if [[ $(which fzf) ]]
-then
+if command -v fzf &> /dev/null; then
   source ~/.vim/plugged/fzf/shell/completion.zsh
   source ~/.vim/plugged/fzf/shell/key-bindings.zsh
 else
