@@ -24,10 +24,6 @@ if executable("fzf")
     Plug 'junegunn/fzf.vim'
 endif
 
-if executable("tig")
-    Plug 'iberianpig/tig-explorer.vim'
-endif
-
 if has('python3')
   if executable('cargo')
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
@@ -125,16 +121,6 @@ autocmd BufWritePost * GitGutter
 
 " Just like ivy
 nmap <C-x><C-f> :Files<CR>
-
-" git grep
-nmap <leader>gg :TigGrep<CR>
-" git blame
-nmap <leader>gb :TigBlame<CR>
-" git status
-nmap <leader>gs :TigStatus<CR>
-" git log
-nmap <leader>gl :Tig<CR>
-
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
