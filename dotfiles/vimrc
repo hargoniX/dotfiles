@@ -121,6 +121,7 @@ autocmd BufWritePost * GitGutter
 
 " Just like ivy
 nmap <C-x><C-f> :Files<CR>
+nmap <C-x><C-t> :tabe<CR>:Files<CR>
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
