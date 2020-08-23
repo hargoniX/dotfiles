@@ -33,5 +33,5 @@ XTerm.vt100.scrollBar: false
 Xterm.vt100.scrollBar.widht:1
 
 XTerm.vt100.translations: #override \n\
-  Ctrl <Key> minus: smaller-vt-font() \n\
+  Ctrl <Key> underscore: smaller-vt-font() \n\
   Ctrl <Key> plus: larger-vt-font()
