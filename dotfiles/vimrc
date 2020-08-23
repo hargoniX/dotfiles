@@ -1,7 +1,7 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 " Colorscheme
-Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 
 " Automatically switch indent config
 Plug 'tpope/vim-sleuth'
@@ -81,8 +81,9 @@ filetype plugin on
 filetype indent plugin on
 
 " colorscheme
-" colorscheme gruvbox
-colorscheme nord
+colorscheme gruvbox
+set background=dark
+set termguicolors
 
 " transparency
 hi Normal guibg=NONE ctermbg=NONE
