@@ -189,6 +189,9 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3status
     colors {
+        background #282828
+        statusline #fbf1c7
+
         # equivalent to focused
         focused_workspace       #282828 #98971a #282828
         # equivalent to focused_inactive

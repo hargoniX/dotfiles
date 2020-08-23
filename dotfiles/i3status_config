@@ -8,7 +8,7 @@ general {
     color_bad = '#ba5e57'
 }
 
-{%@@ if profile == "laptop" @@%} 
+{%@@ if profile == "laptop" @@%}
 order += "wireless _first_"
 order += "battery all"
 {%@@ endif @@%}
@@ -16,19 +16,14 @@ order += "battery all"
 order += "tztime local"
 order += "volume master"
 
-cpu_temperature 0 {
-    format = "<span background='#bf616a'> %degrees °C </span>"
-    path = "/sys/class/thermal/thermal_zone0/temp"
-}
-
 wireless _first_ {
-    format_up = "<span background='#218f1b'> %essid</span>"
-    format_down = "<span background='#218f1b'> Disconnected </span>"
+    format_up = "%essid"
+    format_down = "Disconnected"
 }
 
 volume master {
-    format = "<span background='#781e0e'> %volume </span>"
-    format_muted = "<span background='#781e0e'> Muted </span>"
+    format = "%volume"
+    format_muted = "Muted"
     device = "default"
     mixer = "Master"
     mixer_idx = 0
@@ -36,17 +31,17 @@ volume master {
 
 battery all {
     last_full_capacity = true
-    format = "<span background='#fc6f03'> %status %percentage </span>"
-    format_down = "<span background='#fc6f03'> No Battery </span>"
-    status_chr = "<span background='#fc6f03'> Charging </span>"
-    status_bat = "<span background='#fc6f03'> Battery </span>"
-    status_unk = "<span background='#fc6f03'> Unknown </span>"
-    status_full = "<span background='#fc6f03'> Charged </span>"
+    format = "%status %percentage"
+    format_down = "No Battery"
+    status_chr = "Charging"
+    status_bat = "Battery"
+    status_unk = "Unknown"
+    status_full = "Charged"
     path = "/sys/class/power_supply/BAT%d/uevent"
     low_threshold = 10
 }
 
 tztime local {
-  format = "<span background='#404fcf'> %time </span>"
+  format = "%time"
   format_time = "%a %-d %b %H:%M"
 }
