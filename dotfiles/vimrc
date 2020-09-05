@@ -120,9 +120,12 @@ set splitright
 " Git mappings
 autocmd BufWritePost * GitGutter
 
-" Just like ivy
-nmap <C-x><C-f> :Files<CR>
-nmap <C-x><C-t> :tabe<CR>:Files<CR>
+" Fzf files
+nmap <leader>ff :Files<CR>
+" Fzf Tab Files
+nmap <leader>ft :tabe<CR>:Files<CR>
+" Fzf Ctags
+nmap <leader>fc :BTags<CR>
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
