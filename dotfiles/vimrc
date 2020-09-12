@@ -24,21 +24,17 @@ if executable("fzf")
     Plug 'junegunn/fzf.vim'
 endif
 
-if has('python3')
-  if executable('cargo')
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
-  endif
-  Plug 'Shougo/echodoc.vim'
+if has("nvim") && has("nvim-0.5.0")
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'steelsojka/completion-buffers'
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
 
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+  if (executable("clang") || executable("gcc")) && executable("git")
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/completion-treesitter'
   endif
+  Plug 'neovim/nvim-lspconfig'
 endif
 
 call plug#end()
@@ -127,44 +123,84 @@ nmap <leader>ft :tabe<CR>:Files<CR>
 " Fzf Ctags
 nmap <leader>fc :BTags<CR>
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'tex': ['texlab']
-    \ }
-
+" LSP helper function
 function EnableLspSettings()
-  let g:LanguageClient_autoStart = 0
-  nmap <leader>ss :LanguageClientStart<CR>
-  nmap gd :call LanguageClient#textDocument_definition()<CR>
-  nmap <leader>r :call LanguageClient#textDocument_rename()<CR>
-  nmap <leader>lr :call LanguageClient#textDocument_references()<CR>
-  nmap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-  " symbol grep
-  nmap <leader>sg :call LanguageClient_textDocument_documentSymbol()<CR>
-  call deoplete#enable()
-  call echodoc#enable()
-  let g:neosnippet#enable_complete_done = 1
-  set noshowmode
-  set signcolumn=yes
-  " So it doesn't request autocomplete all the time
-  call deoplete#custom#option( {'auto_complete_delay': 150 })
+  if executable("rust-analyzer")
+    lua <<EOF
+    require'nvim_lsp'.rust_analyzer.setup{}
+EOF
+  endif
 
-  " C-k to expand
-  " C-n and C-p to select
-  " C-k to jump to the next field
+  if executable("solargraph")
+    lua << EOF
+    require'nvim_lsp'.solargraph.setup{}
+EOF
+  endif
 
+  if executable("texlab")
+    lua << EOF
+    require'nvim_lsp'.texlab.setup{}
+EOF
+  endif
+
+  if executable("pyls")
+    lua << EOF
+    require'nvim_lsp'.pyls.setup{}
+EOF
+  endif
+endfunction()
+
+" enable nvim plugins
+if has("nvim") && has("nvim-0.5.0")
+  let g:completion_trigger_keyword_length = 1
+
+  " nvim completion ignore casing
+  let g:completion_matching_ignore_case = 1
+
+  " use Neosnippet in my completion menu
+  let g:completion_enable_snippet = 'Neosnippet'
+
+  " trigger autocomplete on backspace as well
+  let g:completion_trigger_on_delete = 1
+
+  " Use <Tab> and <S-Tab> to navigate through popup menu
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Set completeopt to have a better completion experience
+  set completeopt=menuone,noinsert,noselect
+
+  " Avoid showing message extra message when using completion
+  set shortmess+=c
+
+  " Jump to the next part of a snippet using C-k
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
-  " Tab completion for deoplete
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-endfunction()
+  " source completion
+  autocmd BufEnter * lua require'completion'.on_attach()
 
-augroup LSP
-  autocmd!
-  autocmd FileType rust,ruby,html,tex call EnableLspSettings()
-augroup END
+  let g:completion_chain_complete_list = {
+    \ 'default' : {
+    \   'default': [
+    \       {'complete_items': ['lsp', 'buffers', 'snippet', 'path']},
+    \       {'mode': '<c-p>'},
+    \       {'mode': '<c-n>'}],
+    \   }
+    \}
 
+  if (executable("clang") || executable("gcc")) && executable("git")
+    " config for nvim-treesitter
+    lua <<EOF
+    require'nvim-treesitter.configs'.setup {
+      ensure_installed = false,
+      highlight = {
+        enable = true,
+      },
+    }
+EOF
+    call add(g:completion_chain_complete_list.default.default[0].complete_items, "ts")
+  endif
+  call EnableLspSettings()
+endif
