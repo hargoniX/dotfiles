@@ -79,7 +79,9 @@ filetype indent plugin on
 " colorscheme
 colorscheme gruvbox
 set background=dark
-set termguicolors
+if has("nvim")
+  set termguicolors
+endif
 
 " transparency
 hi Normal guibg=NONE ctermbg=NONE
