@@ -150,6 +150,17 @@ EOF
     require'nvim_lsp'.pyls.setup{}
 EOF
   endif
+
+  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+  " Overwrite fzf buffer ctags
+  nnoremap <leader>fc vim.lsp.buf.document_symbol()<CR>
+  " go Workspace
+  nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+  " go references
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+
+  set pumheight=10
 endfunction()
 
 " enable nvim plugins
@@ -186,7 +197,7 @@ if has("nvim") && has("nvim-0.5.0")
   let g:completion_chain_complete_list = {
     \ 'default' : {
     \   'default': [
-    \       {'complete_items': ['lsp', 'buffers', 'snippet', 'path']},
+    \       {'complete_items': ['lsp', 'snippet', 'path']},
     \       {'mode': '<c-p>'},
     \       {'mode': '<c-n>'}],
     \   }
