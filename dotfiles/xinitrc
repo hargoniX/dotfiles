@@ -3,4 +3,5 @@ export TERM="xterm-256color"
 {%@@ if profile == "workstation" @@%}
 isda
 {%@@ endif @@%}
+sh ~/.local/hbv_scripts/keyboard.scm &
 exec i3
