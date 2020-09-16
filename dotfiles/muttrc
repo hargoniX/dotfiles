@@ -1,6 +1,6 @@
+source ~/.mutt/local_settings
 source ~/.mutt/imap
 source ~/.mutt/folders
-source ~/.mutt/local_settings
 
 unset mbox_type="Maildir"
 set nosave_name
