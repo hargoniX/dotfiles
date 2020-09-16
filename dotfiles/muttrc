@@ -1,0 +1,51 @@
+source ~/.mutt/imap
+source ~/.mutt/folders
+source ~/.mutt/local_settings
+
+unset mbox_type="Maildir"
+set nosave_name
+set hdr_format="%Z %3C %{%b %d} %-19.19L (%5c) %s"
+set index_format="%4C %Z %[!%d.%m.%y] %-17.17F (%?M?C%3M&%4c?) %s"
+set date_format="%a, %-d %B %Y %H:%M:%S %Z"
+set edit_headers
+set fast_reply
+set move=no
+unset metoo
+unset confirmappend
+set mime_forward=ask-yes
+set mark_old
+set delete=ask-yes
+set edit_hdrs
+set editor="vim '+/^$'"
+set hdrs
+set header
+set include=yes
+set indent_str = "> "
+set markers
+set print_cmd ="lpr -Pps"
+
+set visual=vim
+
+# sorting
+set sort_aux = last-date-received
+set sort=reverse-threads
+
+set     collapse_unread
+set     editor="vim +8 '+set tw=70'"
+unset   sig_dashes
+set     mask=.
+set     allow_8bit
+set     charset="utf-8"
+unset   pipe_decode
+
+set     timeout=0
+set     net_inc=5
+
+# mailcap
+set     mailcap_path=~/.mutt/mailcap
+auto_view               text/html
+alternative_order       text/plain text/html
+
+ignore          *
+unignore        From: Reply-To: To: Cc: Date: Subject: X-Mailer: User-agent: X-OS:
+hdr_order       From: To: Cc: Date: Subject:

@@ -1,0 +1,6 @@
+my_hdr From: Name <mail@server.com>
+set realname="Henrik Boeving"
+set folder="imap://host"
+set record=+"Sent ELmeents"
+set header_cache=/bla/cache
+set imap_user=imap_user_name

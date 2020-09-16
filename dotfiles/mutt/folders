@@ -1,0 +1,4 @@
+set spoolfile="+INBOX"
+set postponed=+drafts
+folder-hook . set trash="=Trash"
+folder-hook trash$ unset trash
