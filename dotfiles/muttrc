@@ -49,3 +49,11 @@ alternative_order       text/plain text/html
 ignore          *
 unignore        From: Reply-To: To: Cc: Date: Subject: X-Mailer: User-agent: X-OS:
 hdr_order       From: To: Cc: Date: Subject:
+
+# Pager View Options
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers

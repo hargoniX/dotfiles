@@ -50,6 +50,12 @@ dotfiles:
   f_zprofile:
     src: zprofile
     dst: ~/.zprofile
+  f_muttrc:
+    src: muttrc
+    dst: ~/.muttrc
+  d_mutt:
+    src: mutt
+    dst: ~/.mutt
 
 profiles:
   laptop:
@@ -60,7 +66,7 @@ profiles:
     - x11
     - i3
     - tmux
-    - emacs
+    - mutt
   # 2 monitor setup at work
   workstation:
     include:
@@ -70,7 +76,7 @@ profiles:
     - x11
     - i3
     - tmux
-    - emacs
+    - mutt
   # dev server zsh setup
   dev-zsh:
     include:
@@ -114,3 +120,7 @@ profiles:
   emacs:
     dotfiles:
     - f_emacs_init
+  mutt:
+    dotfiles:
+    - f_muttrc
+    - d_mutt
