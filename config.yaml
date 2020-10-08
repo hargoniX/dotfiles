@@ -56,6 +56,12 @@ dotfiles:
   d_mutt:
     src: mutt
     dst: ~/.mutt
+  f_latexmkrc:
+    src: latexmkrc
+    dst: ~/.latexmkrc
+  f_zathurarc:
+    src: zathurarc
+    dst: ~/.config/zathura/zathurarc
 
 profiles:
   laptop:
@@ -67,6 +73,7 @@ profiles:
     - i3
     - tmux
     - mutt
+    - latex
   # 2 monitor setup at work
   workstation:
     include:
@@ -124,3 +131,7 @@ profiles:
     dotfiles:
     - f_muttrc
     - d_mutt
+  latex:
+    dotfiles:
+    - f_zathurarc
+    - f_latexmkrc
