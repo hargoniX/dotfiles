@@ -81,11 +81,17 @@ if [ -f ~/.ssh/agent.env ] ; then
         echo "Stale agent file found. Spawning a new agent. "
         eval `ssh-agent | tee ~/.ssh/agent.env`
         ssh-add
+        {%@@ if profile == "laptop" @@%}
+        ssh-add ~/.ssh/genua_rsa
+        {%@@ endif @@%}
     fi
 else
     echo "Starting ssh-agent"
     eval `ssh-agent | tee ~/.ssh/agent.env`
     ssh-add
+    {%@@ if profile == "laptop" @@%}
+    ssh-add ~/.ssh/genua_rsa
+    {%@@ endif @@%}
 fi
 
 autoload -Uz compinit
