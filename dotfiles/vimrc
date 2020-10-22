@@ -177,6 +177,12 @@ EOF
 EOF
   endif
 
+  if isdirectory($HOME. "/.cache/nvim/nvim_lsp/jdtls")
+    lua << EOF
+      require'nvim_lsp'.jdtls.setup{}
+EOF
+  endif
+
   nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
   " Overwrite fzf buffer ctags
   nnoremap <leader>fc <cmd>lua vim.lsp.buf.document_symbol()<CR>
