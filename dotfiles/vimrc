@@ -191,6 +191,12 @@ EOF
   " go references
   nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+  " change name
+  nnoremap <leader>nn <cmd>lua vim.lsp.buf.rename()<CR>
+  " code action
+  nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+  " incoming calls
+  nnoremap <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
 
   set pumheight=10
 endfunction()
