@@ -127,6 +127,7 @@ nmap <leader>fc :BTags<CR>
 
 " LSP helper function
 function EnableLspSettings()
+  call add(g:completion_chain_complete_list.default.default[0].complete_items, "lsp")
   if executable("rust-analyzer")
     lua <<EOF
     require'nvim_lsp'.rust_analyzer.setup{}
@@ -235,7 +236,7 @@ if has("nvim") && has("nvim-0.5.0")
   let g:completion_chain_complete_list = {
     \ 'default' : {
     \   'default': [
-    \       {'complete_items': ['lsp', 'snippet', 'path']},
+    \       {'complete_items': ['snippet', 'path']},
     \       {'mode': '<c-p>'},
     \       {'mode': '<c-n>'}],
     \   }
@@ -249,6 +250,9 @@ if has("nvim") && has("nvim-0.5.0")
       highlight = {
         enable = true,
       },
+      indent = {
+        enable = true,
+      }
     }
 EOF
     call add(g:completion_chain_complete_list.default.default[0].complete_items, "ts")

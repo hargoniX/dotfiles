@@ -134,12 +134,10 @@ bindsym Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do
 
 mode "lock" {
 {{@@ GLOBAL_BINDS() @@}}
+    bindsym l exec "i3lock --nofork --image ~/dotfiles/dokkeabi.jpg --tiling -e --indicator --force-clock --ringcolor=fdfdfdff --keyhlcolor=000000ff --bshlcolor=000000ff --veriftext='' --wrongtext=' ' --timecolor=ffffffff --datecolor=ffffffff --timestr='%H:%M:%S' --datestr='' --insidevercolor=00000000 --ringvercolor=ca9e43ff --insidewrongcolor=00000000 --ringwrongcolor=74100eff --indpos='x+960: y+980' --radius=30 --timepos='x+960: y+1050'"
 {%@@ if profile == "laptop" @@%}
-    bindsym l exec "xlock -mode blank -endCmd 'i3-msg mode default'"
     bindsym h exec "xlock -mode blank -startCmd 'systemctl hibernate' -endCmd 'i3-msg mode default'"
     bindsym s exec "xlock -mode blank -startCmd 'systemctl suspend' -endCmd 'i3-msg mode default'"
-{%@@ elif profile == "workstation" @@%}
-    bindsym l exec "xlock -mode blank -startCmd /share/bin/isweg -endCmd /share/bin/isda"
 {%@@ endif @@%}
 }
 
