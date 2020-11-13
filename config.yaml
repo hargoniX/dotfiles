@@ -44,9 +44,6 @@ dotfiles:
   f_emacs_init:
     src: init.el
     dst: ~/.emacs.d/init.el
-  f_init_vim:
-    src: init.vim
-    dst: ~/.config/nvim/init.vim
   f_zprofile:
     src: zprofile
     dst: ~/.zprofile
@@ -62,6 +59,9 @@ dotfiles:
   f_zathurarc:
     src: zathurarc
     dst: ~/.config/zathura/zathurarc
+  d_nvim:
+    src: nvim
+    dst: ~/.config/nvim
 
 profiles:
   laptop:
@@ -109,7 +109,7 @@ profiles:
   vim:
     dotfiles:
     - f_vimrc
-    - f_init_vim
+    - d_nvim
     - d_vim
   x11:
     dotfiles:

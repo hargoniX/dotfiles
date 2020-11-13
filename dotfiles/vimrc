@@ -83,6 +83,9 @@ if has("nvim")
   set termguicolors
 endif
 
+" Set 256 colors for my terminal
+set t_Co=256
+
 " transparency
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -125,137 +128,13 @@ nmap <leader>ft :tabe<CR>:Files<CR>
 " Fzf Ctags
 nmap <leader>fc :BTags<CR>
 
-" LSP helper function
-function EnableLspSettings()
-  call add(g:completion_chain_complete_list.default.default[0].complete_items, "lsp")
-  if executable("rust-analyzer")
-    lua <<EOF
-    require'nvim_lsp'.rust_analyzer.setup{}
-EOF
-  endif
-
-  if executable("solargraph")
-    lua << EOF
-    require'nvim_lsp'.solargraph.setup{}
-EOF
-  endif
-
-  if executable("texlab")
-    lua << EOF
-    require'nvim_lsp'.texlab.setup{
-      settings = {
-        latex = {
-          build = {
-            onSave = true;
-          };
-          forwardSearch = {
-            executable = "zathura";
-            args = {"--synctex-forward", "%l:1:%f", "%p"};
-          }
-        }
-      };
-      commands = {
-        ZathuraShow = {
-            function()
-              vim.lsp.buf_request(0, "textDocument/forwardSearch", vim.lsp.util.make_position_params(),
-                function(err, _, _, _)
-                  if err then error(tostring(err)) end
-                end
-              )
-            end;
-            description = "Show the current position in zathura";
-        }
-      }
-    }
-EOF
-    " go zathura
-    nnoremap <silent>gz <cmd>ZathuraShow<CR>
-  endif
-
-  if executable("pyls")
-    lua << EOF
-    require'nvim_lsp'.pyls.setup{}
-EOF
-  endif
-
-  if isdirectory($HOME. "/.cache/nvim/nvim_lsp/jdtls")
-    lua << EOF
-      require'nvim_lsp'.jdtls.setup{}
-EOF
-  endif
-
-  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-  " Overwrite fzf buffer ctags
-  nnoremap <leader>fc <cmd>lua vim.lsp.buf.document_symbol()<CR>
-  " go Workspace
-  nnoremap <silent> gW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-  " go references
-  nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-  " change name
-  nnoremap <leader>nn <cmd>lua vim.lsp.buf.rename()<CR>
-  " code action
-  nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-  " incoming calls
-  nnoremap <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
-
-  set pumheight=10
-endfunction()
-
 " enable nvim plugins
 if has("nvim") && has("nvim-0.5.0")
-  let g:completion_trigger_keyword_length = 1
-
-  " nvim completion ignore casing
-  let g:completion_matching_ignore_case = 1
-
-  " use Neosnippet in my completion menu
-  let g:completion_enable_snippet = 'Neosnippet'
-
-  " trigger autocomplete on backspace as well
-  let g:completion_trigger_on_delete = 1
-
-  " Use <Tab> and <S-Tab> to navigate through popup menu
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-  " Set completeopt to have a better completion experience
-  set completeopt=menuone,noinsert,noselect
-
-  " Avoid showing message extra message when using completion
-  set shortmess+=c
-
-  " Jump to the next part of a snippet using C-k
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-  " source completion
-  autocmd BufEnter * lua require'completion'.on_attach()
-
-  let g:completion_chain_complete_list = {
-    \ 'default' : {
-    \   'default': [
-    \       {'complete_items': ['snippet', 'path']},
-    \       {'mode': '<c-p>'},
-    \       {'mode': '<c-n>'}],
-    \   }
-    \}
+  lua require'hboeving.completion'
 
   if (executable("clang") || executable("gcc")) && executable("git")
-    " config for nvim-treesitter
-    lua <<EOF
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = false,
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      }
-    }
-EOF
-    call add(g:completion_chain_complete_list.default.default[0].complete_items, "ts")
+    lua require'hboeving.treesitter'
   endif
-  call EnableLspSettings()
+
+  lua require'hboeving.lsp'
 endif
