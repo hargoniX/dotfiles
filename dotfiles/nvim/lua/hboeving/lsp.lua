@@ -65,3 +65,14 @@ vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<C
 vim.api.nvim_set_keymap("n", "<leader>ic", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", { noremap = true })
 -- s(how) r(eferences), shows references
 vim.api.nvim_set_keymap("n", "<leader>sr", "<cmd>lua vim.lsp.buf.references()<CR>", { noremap = true})
+-- s(how) d(iagnostics)
+vim.api.nvim_set_keymap("n", "<leader>sd", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", { noremap = true})
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Underline my errors
+        underline = true,
+        -- Don't do diagnostics while I am typing.
+        update_in_insert = false
+    }
+)

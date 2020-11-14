@@ -34,8 +34,8 @@ vim.api.nvim_set_var("g:completion_matching_smart_case", 1)
 
 vim.api.nvim_set_var("completion_chain_complete_list", {
     default = {
-        default= {
-            {complete_items= {'snippet', 'path'}},
+        default = {
+            {complete_items= {'snippet'}},
             {mode= '<c-p>'},
             {mode= '<c-n>'}},
         }
