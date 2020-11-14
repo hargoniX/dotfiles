@@ -25,6 +25,9 @@ if executable("fzf")
 endif
 
 if has("nvim") && has("nvim-0.5.0")
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'tjdevries/express_line.nvim'
+
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
   Plug 'Shougo/neosnippet.vim'
@@ -130,6 +133,7 @@ nmap <leader>fc :BTags<CR>
 
 " enable nvim plugins
 if has("nvim") && has("nvim-0.5.0")
+  lua require'hboeving.status'
   lua require'hboeving.completion'
 
   if (executable("clang") || executable("gcc")) && executable("git")
