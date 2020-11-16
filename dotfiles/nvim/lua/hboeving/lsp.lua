@@ -38,6 +38,7 @@ if vim.api.nvim_eval("executable('texlab')") then
         }
       }
     }
+    vim.api.nvim_set_keymap("n", "gz", "<cmd>ZathuraShow<CR>", { noremap = true, silent = true })
 end
 
 if vim.api.nvim_eval("executable('pyls')") then
