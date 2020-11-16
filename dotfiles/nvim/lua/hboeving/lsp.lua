@@ -5,15 +5,15 @@ vim.api.nvim_set_var("completion_chain_complete_list", completion_chain_complete
 
 -- Setup all the servers
 if vim.api.nvim_eval("executable('rust-analyzer')") then
-    require'nvim_lsp'.rust_analyzer.setup{}
+    require'lspconfig'.rust_analyzer.setup{}
 end
 
 if vim.api.nvim_eval("executable('solargraph')") then
-    require'nvim_lsp'.solargraph.setup{}
+    require'lspconfig'.solargraph.setup{}
 end
 
 if vim.api.nvim_eval("executable('texlab')") then
-    require'nvim_lsp'.texlab.setup{
+    require'lspconfig'.texlab.setup{
       settings = {
         latex = {
           build = {
@@ -42,11 +42,11 @@ if vim.api.nvim_eval("executable('texlab')") then
 end
 
 if vim.api.nvim_eval("executable('pyls')") then
-    require'nvim_lsp'.pyls.setup{}
+    require'lspconfig'.pyls.setup{}
 end
 
-if vim.api.nvim_eval("isdirectory($HOME. '/.cache/nvim/nvim_lsp/jdtls')") then
-    require'nvim_lsp'.jdtls.setup{}
+if vim.api.nvim_eval("isdirectory($HOME. '/.cache/nvim/lspconfig/jdtls')") then
+    require'lspconfig'.jdtls.setup{}
 end
 
 -- g(o) d(efinition)
