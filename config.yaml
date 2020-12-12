@@ -74,6 +74,7 @@ profiles:
     - tmux
     - mutt
     - latex
+    - emacs
   # 2 monitor setup at work
   workstation:
     include:

@@ -12,7 +12,6 @@
 (setq whitespace-style '(face trailing tabs))
 (add-hook 'prog-mode-hook 'whitespace-mode) ;; Show trailing whitespaces in prog-mode
 (setq tramp-default-method "ssh") ;; speed up tramp mode
-(global-display-line-numbers-mode) ;; line nnumbers, might not work with emacs < 26 though
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -32,6 +31,7 @@
 
 (use-package general :ensure t
   :init
+  ;; Space as leader key
   (general-create-definer vim-leader-def :prefix "SPC"))
 
 
@@ -40,14 +40,6 @@
   (setq evil-toggle-key "C-~") ;; so C-z works for background
   :config
   (evil-mode))
-
-(use-package fill-column-indicator :ensure t
-  :diminish fci-mode
-  :config
-  (setq fci-rule-width 1)
-  (setq fci-rule-color "red")
-  :init
-  (add-hook 'prog-mode-hook 'fci-mode))
 
 (use-package magit :ensure t
   :general
@@ -59,67 +51,6 @@
     "ga" 'magit-branch) ;; git ast (as b is taken)
   :config
   (use-package evil-magit :ensure t))
-
-(use-package smartparens :ensure t ;; auto parens
-  :diminish smartparens-mode
-  :config
-  (require 'smartparens-config)
-  (setq sp-highlight-pair-overlay nil) ;; to hide this fucking highlighting
-  :init
-  (add-hook 'prog-mode-hook 'smartparens-mode))
-
-(use-package rust-mode :ensure t ;; rust highlighting, indentation and integration
-  :init
-  (add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil))))
-
-(use-package ivy :ensure t
-  :diminish ivy-mode
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  :init
-  (ivy-mode 1))
-
-(use-package counsel :ensure t
-  :diminish counsel-mode
-  :general
-  (vim-leader-def 'normal 'global
-    "gg" 'counsel-git-grep) ;; GitGrep
-  :init
-  (counsel-mode 1))
-
-(use-package lsp-mode :ensure t
-  :general
-  (vim-leader-def 'normal 'global
-    "lr" 'lsp-rename) ;; LSP Rename
-  :config
-  (setq lsp-keymap-prefix "C-l")
-  (setq lsp-rust-server 'rust-analyzer)
-  (setq lsp-log-io t)
-  (setq lsp-prefer-capf t)
-  (setq lsp-eldoc-hook '(lsp-hover)) ;; disable semantic highlighting
-  (setq lsp-diagnostic-package :flycheck)
-  (lsp-register-client
-    (make-lsp-client
-      :new-connection (lsp-tramp-connection "~/.local/bin/solargraph stdio")
-      :major-modes '(ruby-mode enh-ruby-mode)
-      :remote? t
-      :priority -1
-      :server-id 'remote-ruby-ls))
-  :init
-  (add-hook 'rust-mode-hook 'lsp)
-  (add-hook 'ruby-mode-hook 'lsp)
-  (add-hook 'python-mode-hook 'lsp))
-
-(use-package company :ensure t
-  :init
-  (add-hook 'lsp-mode-hook 'company-mode))
-
-(use-package lsp-ivy :ensure t
-  :general
-  (vim-leader-def 'normal 'global
-    "ls" 'lsp-ivy-workspace-symbol) ;; LSP symbol
-  )
 
 (use-package org :ensure t
   ;; M-LEFT M-RIGHT deindent indent node
@@ -142,20 +73,16 @@
   (setq org-log-done 'time)
   )
 
-(use-package git-gutter :ensure t
+(use-package gruvbox-theme :ensure t
   :init
-  (add-hook 'prog-mode-hook 'git-gutter-mode) ;; Git gutter in prog mode
- )
-
-(use-package flycheck :ensure t
-  :init
-  (add-hook 'lsp-mode-hook 'flycheck-mode)
+  (load-theme 'gruvbox-dark-medium t)
   )
 
-(use-package dtrt-indent :ensure t
-  :init
-  (add-hook 'prog-mode-hook 'dtrt-indent-mode)
-  )
+(use-package tmux-pane :ensure t
+  :config
+  (tmux-pane-mode))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,4 +96,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smartparens evil-magit magit fill-column-indicator linum-relative evil general use-package))))
+    (smartparens evil-magit magit evil general use-package))))

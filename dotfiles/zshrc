@@ -11,6 +11,12 @@ alias ff='find . -type f -name'
 alias rm='rm -i' # Ask before removal
 alias cp='cp -i' # Ask before removal
 alias mv='mv -i' # Ask before removal
+
+# java stuff
+alias mvn_full_run='rm -rf target/site && mvn compile verify jacoco:prepare-agent test jacoco:report javadoc:javadoc'
+alias mvn_cov_report='xdg-open target/site/jacoco/index.html'
+alias todo='emacs -nw ~/todo.org'
+
 # If nvim is available use it
 export PATH=$PATH:$HOME/.local/bin:$HOME/.local/scripts:$HOME/neovim-nightly/bin
 if command -v nvim &> /dev/null; then
