@@ -85,6 +85,7 @@ profiles:
     - i3
     - tmux
     - mutt
+    - emacs
   # dev server zsh setup
   dev-zsh:
     include:
