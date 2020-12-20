@@ -112,8 +112,12 @@ autoload -Uz vcs_info
 autoload -U colors && colors
 precmd_vcs_info() { vcs_info  }
 precmd_functions+=( precmd_vcs_info  )
+
 setopt prompt_subst
-export PROMPT="%{$fg_bold[green]%}%M%{$fg_bold[white]%}:%{$fg_bold[yellow]%}%~%{$fg_bold[white]%}|%{$fg_bold[cyan]%}\$vcs_info_msg_0_%{$fg_bold[white]%}>%{$reset_color%} "
+LN=$'\n'
+ICON="%(?.%{$fg[magenta]%}.%{$fg[red]%})λ"
+export PROMPT="%{$fg_bold[green]%}%M%{$fg_bold[white]%}:%{$fg_bold[yellow]%}%~%{$fg_bold[white]%}|%{$fg_bold[cyan]%}\$vcs_info_msg_0_${LN}${ICON} %{$reset_color%}"
+
 zstyle ':vcs_info:git:*' formats '%b'
 
 # Load fzf if it's available
