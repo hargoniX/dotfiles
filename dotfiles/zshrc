@@ -18,7 +18,7 @@ alias mvn_cov_report='xdg-open target/site/jacoco/index.html'
 alias todo='emacs -nw ~/todo.org'
 
 # If nvim is available use it
-export PATH=$PATH:$HOME/.local/bin:$HOME/.local/scripts:$HOME/neovim-nightly/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/.local/scripts  #:$HOME/neovim-nightly/bin
 if command -v nvim &> /dev/null; then
   alias vim="nvim"
 fi
