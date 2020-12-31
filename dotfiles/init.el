@@ -64,7 +64,7 @@
   :init
   (add-hook 'prog-mode-hook 'fci-mode))
 
-(use-package smartparens :ensure t ;; auto parens
+(use-package smartparens ;; auto parens
   :diminish smartparens-mode
   :config
   (require 'smartparens-config)
@@ -181,7 +181,7 @@
   (vim-leader-def 'normal 'global
     "gd" 'lsp-find-definition))
 
-(use-package company :ensure t
+(use-package company
   :hook
   (lsp-mode . company-mode)
   (prog-mode . company-mode)
