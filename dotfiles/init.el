@@ -46,9 +46,12 @@
 
 ;; General things
 
-(use-package gruvbox-theme ; my color scheme
+;; Themes and icons
+(use-package doom-themes
   :init
-  (load-theme 'gruvbox-dark-medium t))
+  (load-theme 'doom-gruvbox t))
+
+(use-package all-the-icons)
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
