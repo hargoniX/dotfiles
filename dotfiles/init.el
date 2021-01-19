@@ -5,6 +5,7 @@
 (toggle-scroll-bar -1) ;; Or this
 (setq inhibit-startup-screen t) ;; Leave me alone with your tutorials
 (setq tramp-default-method "ssh") ;; speed up tramp mode
+(set-face-attribute 'default nil :height 130) ;; Set font size
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -222,10 +223,16 @@
 
 (use-package yasnippet-snippets)
 
-;; language specific
-
 ;; rust
-(use-package rust-mode)
+(use-package rust-mode
+  :hook
+  (rust-mode . prettify-symbols-mode)
+  (rust-mode . (lambda ()
+		 (push '("->" . ?→) prettify-symbols-alist)
+		 (push '("=>" . ?⇒) prettify-symbols-alist)
+		 (push '("!=" . ?≠) prettify-symbols-alist)
+		 (push '("<=" . ?≤) prettify-symbols-alist)
+                 (push '(">=" . ?≥) prettify-symbols-alist))))
 
 ;; LaTeX
 (use-package auctex
@@ -236,4 +243,12 @@
   (setq preview-scale-function 1.5))
 
 ;; Java
-(use-package lsp-java)
+(use-package lsp-java
+  :config
+  (setq lsp-java-format-on-type-enabled nil))
+
+(add-hook 'java-mode-hook 'prettify-symbols-mode)
+(add-hook 'java-mode-hook (lambda ()
+		 (push '("!=" . ?≠) prettify-symbols-alist)
+		 (push '("<=" . ?≤) prettify-symbols-alist)
+                 (push '(">=" . ?≥) prettify-symbols-alist)))
