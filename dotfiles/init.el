@@ -56,7 +56,8 @@
   :init
   (load-theme 'doom-gruvbox t))
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :ensure t)
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
@@ -107,7 +108,9 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-integration t)
   :config
-  (evil-mode))
+  (evil-mode)
+  :bind
+  ("/" . swiper))
 
 (use-package ivy
   :ensure t
@@ -209,6 +212,11 @@
   :general
   (vim-leader-def 'normal 'global
     "gd" 'lsp-find-definition))
+
+(use-package lsp-ivy
+  :ensure t
+  :after lsp-mode
+  :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
 (use-package company
   :ensure t
