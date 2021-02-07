@@ -108,9 +108,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-integration t)
   :config
-  (evil-mode)
-  :bind
-  ("/" . swiper))
+  (evil-mode))
 
 (use-package ivy
   :ensure t
@@ -213,6 +211,14 @@
   (vim-leader-def 'normal 'global
     "gd" 'lsp-find-definition))
 
+(use-package lsp-ui
+  :ensure t
+  :config
+  (setq lsp-ui-peek-enable nil)
+  (setq lsp-ui-sideline-show-code-actions nil)
+  (setq lsp-modeline-code-actions-enable nil)
+  (setq lsp-ui-doc-enable nil))
+
 (use-package lsp-ivy
   :ensure t
   :after lsp-mode
@@ -225,6 +231,7 @@
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
+  (sage-shell-mode . company-mode)
   :custom
   (company-minimum-prefix-length 2)
   (company-idle-delay 0.4)
@@ -239,7 +246,15 @@
   :hook (company-mode . company-box-mode))
 
 (use-package projectile
-  :ensure t)
+  :ensure t
+  :config
+  (setq projectile-completion-system 'ivy)
+  (projectile-mode +1))
+
+(use-package counsel-projectile
+  :ensure t
+  :init
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map))
 
 (defun company-mode/backend-with-yas (backend)
   (if (and (listp backend) (member 'company-yasnippet backend))
@@ -259,6 +274,9 @@
 
 (use-package yasnippet-snippets
   :quelpa ((yasnippet-snippets :fetcher github :repo "hargoniX/yasnippet-snippets") :upgrade t))
+
+(use-package flycheck
+  :ensure t)
 
 ;; rust
 (use-package rust-mode
@@ -304,3 +322,21 @@
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
+
+;; Sage math
+(use-package sage-shell-mode
+  :ensure t)
+
+(defun company-mode/backend-with-sage (backend)
+  (if (and (listp backend) (member 'company-sage backend))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-sage))))
+
+(defun company-mode/add-sage ()
+  (setq company-backends (mapcar #'company-mode/backend-with-sage company-backends)))
+
+(use-package company-sage
+  :quelpa ((company-sage :fetcher github :repo "sagemath/company-sage") :upgrade t)
+  :hook
+  (company-mode . company-mode/add-sage))
