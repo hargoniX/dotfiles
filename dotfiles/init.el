@@ -188,10 +188,6 @@
     "gc" 'magit-checkout ;; git checkout
     "ga" 'magit-branch)) ;; git ast (as b is taken)
 
-(use-package evil-magit
-  :ensure t
-  :after magit)
-
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
