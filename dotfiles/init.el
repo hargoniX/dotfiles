@@ -107,6 +107,7 @@
   (setq evil-want-C-d-scroll t)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode))
 
@@ -209,6 +210,7 @@
   :hook
   (rust-mode . lsp)
   (java-mode . lsp)
+  (python-mode . lsp)
   :general
   (vim-leader-def 'normal 'global
     "gd" 'lsp-find-definition))
