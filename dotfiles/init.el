@@ -170,6 +170,7 @@
     "oy"  'org-cycle) ;; Org-cYcle
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+  (setq org-latex-listings 't)
   :init
   (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "FEEDBACK" "|" "DONE" "DELEGATED")))
   (setq org-log-done 'time))
@@ -291,6 +292,8 @@
 		 (push '("->" . ?→) prettify-symbols-alist)
 		 (push '("=>" . ?⇒) prettify-symbols-alist)
 		 (push '("!=" . ?≠) prettify-symbols-alist)
+		 (push '("<<=" . "<<=") prettify-symbols-alist)
+		 (push '(">>=" . ">>=") prettify-symbols-alist)
 		 (push '("<=" . ?≤) prettify-symbols-alist)
                  (push '(">=" . ?≥) prettify-symbols-alist))))
 
@@ -344,3 +347,8 @@
   :quelpa ((company-sage :fetcher github :repo "sagemath/company-sage") :upgrade t)
   :hook
   (company-mode . company-mode/add-sage))
+
+(use-package ein
+  :ensure t
+  :config
+  (setq ein:output-area-inlined-images t))
