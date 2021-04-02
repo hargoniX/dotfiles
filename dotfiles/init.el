@@ -329,26 +329,3 @@
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
-
-;; Sage math
-(use-package sage-shell-mode
-  :ensure t)
-
-(defun company-mode/backend-with-sage (backend)
-  (if (and (listp backend) (member 'company-sage backend))
-      backend
-    (append (if (consp backend) backend (list backend))
-            '(:with company-sage))))
-
-(defun company-mode/add-sage ()
-  (setq company-backends (mapcar #'company-mode/backend-with-sage company-backends)))
-
-(use-package company-sage
-  :quelpa ((company-sage :fetcher github :repo "sagemath/company-sage") :upgrade t)
-  :hook
-  (company-mode . company-mode/add-sage))
-
-(use-package ein
-  :ensure t
-  :config
-  (setq ein:output-area-inlined-images t))
