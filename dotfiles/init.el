@@ -236,7 +236,6 @@
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
-  (sage-shell-mode . company-mode)
   :custom
   (company-minimum-prefix-length 2)
   (company-idle-delay 0.4)
