@@ -277,7 +277,7 @@
   (company-mode . company-mode/add-yasnippet))
 
 (use-package yasnippet-snippets
-  :quelpa ((yasnippet-snippets :fetcher github :repo "hargoniX/yasnippet-snippets") :upgrade t))
+  :quelpa ((yasnippet-snippets :fetcher github :repo "hargoniX/yasnippet-snippets")))
 
 (use-package flycheck
   :ensure t)
