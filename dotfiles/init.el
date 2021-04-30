@@ -305,6 +305,41 @@
   (setq TeX-parse-self t)
   (setq preview-scale-function 1.5))
 
+;; Math, input methods
+(use-package math-symbol-lists
+  :ensure t
+  :config
+  (quail-define-package "hbv-math" "UTF-8" "Ω" t)
+  (quail-define-rules ; add whatever extra rules you want to define here...
+   ; Equality
+   ("<="        ?≤)
+   (">="        ?≥)
+   ("~="        ?≠)
+   ; Logic
+   ("~"         ?¬)
+   ("->"        ?→)
+   ("=>"        ?⇒)
+   ("<->"       ?↔)
+   ("<=>"       ?⇔)
+   ("/\\"       ?∧)
+   ("\\/"       ?∨)
+   ; Predicate Logic
+   ("ALL"       ?∀)
+   ("EX"        ?∃)
+   ; sets of numbers
+   ("\\nats"    ?ℕ)
+   ("\\ints"    ?ℤ)
+   ("\\rats"    ?ℚ)
+   ("\\reals"   ?ℝ)
+   ("\\complex" ?ℂ)
+   ("\\primes"  ?ℙ)
+   ) 
+  (mapc (lambda (x)
+          (if (cddr x)
+              (quail-defrule (cadr x) (car (cddr x)))))
+        (append math-symbol-list-basic math-symbol-list-extended))
+  )
+
 ;; Java
 (use-package lsp-java
   :ensure t
