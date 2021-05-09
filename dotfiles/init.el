@@ -153,27 +153,36 @@
 
 (use-package org
   :ensure t
-  ;; M-LEFT M-RIGHT deindent indent node
-  ;; M-UP M-DOWN move node up down
+  ;; C-c C-t org rotate
   ;; Tab fold/unfold
   ;; M-S-RET Insert new TODO
+  ;; https://orgmode.org/guide/index.html#Top
+  ;; TODO 6.1
   :general
   (vim-leader-def 'normal 'global
-    "ohj" 'org-forward-heading-same-level ;; org header j"
-    "ohk" 'org-backward-heading-same-level ;; org header k
-    "or" 'org-meta-return ;; org return, insert new  entry
-    "otr" 'org-todo ;; org todo rotate
-    "opk" 'org-priority-up ;; org prio k
-    "opj" 'org-priority-down ;; org prip j
     "oci" 'org-clock-in
     "oco" 'org-clock-out
-    "oy"  'org-cycle) ;; Org-cYcle
+    "oa"  'org-agenda
+    "oca" 'org-capture) 
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (setq org-latex-listings 't)
+  (setq org-agenda-files (quote ("~/org")))
+  (setq org-directory "~/org")
+  (setq org-default-notes-file "~/org/notes.org")
   :init
-  (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "FEEDBACK" "|" "DONE" "DELEGATED")))
-  (setq org-log-done 'time))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
+                (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)"))))
+  (setq org-log-done 'time)
+  (setq org-capture-templates
+        (quote (("t" "todo" entry (file "~/org/notes.org")
+                 "* TODO %?\n")
+                ("n" "note" entry (file "~/org/notes.org")
+                 "* %? :NOTE:\n")
+                ("p" "protocol" entry (file "~/org/notes.org")
+                 "* Protocol of %? :PROTOCOL:\n%U\n")
+                ))))
 
 (use-package org-bullets
   :ensure t
