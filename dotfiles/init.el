@@ -372,3 +372,7 @@
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
+
+;; Lean
+(use-package lean-mode
+  :ensure t)
