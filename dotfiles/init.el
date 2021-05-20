@@ -117,6 +117,12 @@
   :config
   (evil-collection-init))
 
+(use-package evil-matchit
+  :after evil
+  :ensure t
+  :config
+  (global-evil-matchit-mode 1))
+
 (use-package ivy
   :ensure t
   :diminish
@@ -191,6 +197,10 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+(use-package org-fragtog
+  :ensure t
+  :after org
+  :hook (org-mode . org-fragtog-mode))
 
 
 ;; Development stuff
