@@ -57,7 +57,8 @@
   (load-theme 'doom-gruvbox t))
 
 (use-package all-the-icons
-  :ensure t)
+  :ensure t
+  :defer 2)
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
@@ -69,6 +70,7 @@
 ;; 80 charcater limit line in prog mode
 (use-package fill-column-indicator
   :ensure t
+  :defer 1
   :diminish fci-mode
   :config
   (setq fci-rule-width 1)
@@ -237,6 +239,7 @@
 
 (use-package lsp-ui
   :ensure t
+  :defer 2
   :config
   (setq lsp-ui-peek-enable nil)
   (setq lsp-ui-sideline-show-code-actions nil)
@@ -245,6 +248,7 @@
 
 (use-package lsp-ivy
   :ensure t
+  :defer 2
   :after lsp-mode
   :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
