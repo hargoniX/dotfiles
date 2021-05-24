@@ -81,7 +81,9 @@ filetype indent plugin on
 
 " colorscheme
 colorscheme gruvbox
-set background=dark
+let g:gruvbox_contrast_light="soft"
+
+set background=light
 if has("nvim")
   set termguicolors
 endif
