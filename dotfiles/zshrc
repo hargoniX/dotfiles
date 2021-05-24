@@ -25,7 +25,7 @@ fi
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat{/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 # Fzf tab up shift+ tab down
-export FZF_DEFAULT_OPTS='--bind=tab:up --bind=btab:down'
+export FZF_DEFAULT_OPTS='--bind=tab:up --bind=btab:down --color=fg:#282828,bg:#f2e5bc,hl:#458588 --color=fg+:#282828,bg+:#f2e5bc,hl+:#458588 --color=info:#282828,prompt:#282828,pointer:#282828 --color=marker:#282828,spinner:#282828,header:#282828'
 
 ## History command configuration
 setopt extended_history       # record timestamp of command in HISTFILE
