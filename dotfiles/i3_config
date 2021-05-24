@@ -39,7 +39,7 @@ bindsym $mod+l mode "lock"
 {{@@ GLOBAL_BINDS() @@}}
 # STARTUP
 exec --no-startup-id picom -b
-exec --no-startup-id feh --bg-scale ~/dotfiles/lee.png
+exec --no-startup-id feh --bg-scale ~/dotfiles/wallpaper.png
 
 {%@@ if profile == "workstation" @@%}
 # autostart my communication apps for work
@@ -67,7 +67,7 @@ bindsym Return exec ~/.local/bin/st
 bindsym q kill
 
 # run d(menu)
-bindsym d exec dmenu_run -sb '#98971A' -nb '#282828' -sf '#282828' -nf '#fbf1c7'
+bindsym d exec dmenu_run -sb '#98971A' -nb '#f2e5bc' -sf '#282828' -nf '#282828'
 
 # change focus
 bindsym h focus left
