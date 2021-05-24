@@ -53,8 +53,10 @@
 ;; Themes and icons
 (use-package doom-themes
   :ensure t
-  :init
-  (load-theme 'doom-gruvbox t))
+  :config
+  (setq doom-gruvbox-light-variant "soft")
+  (load-theme 'doom-gruvbox-light t)
+  (doom-themes-org-config))
 
 (use-package all-the-icons
   :ensure t
