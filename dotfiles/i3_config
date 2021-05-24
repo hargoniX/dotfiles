@@ -1,9 +1,9 @@
 # GLOBAL SETTINGS
 # gruvbox style window titles
 # class                 border  backgr. text    indicator child_border
-client.focused          #282828 #98971A #282828 #282828 #282828
-client.focused_inactive #282828 #d79921 #282828 #282828 #282828
-client.unfocused        #282828 #282828 #fbf1c7 #fbf1c7 #282828
+client.focused          #f2e5bc #98971A #282828 #f2e5bc #f2e5bc
+client.focused_inactive #f2e5bc #d79921 #282828 #f2e5bc #f2e5bc
+client.unfocused        #f2e5bc #f2e5bc #282828 #fbf1c7 #f2e5bc
 client.urgent           #cc241d #fb4934 #282828 #cc241d #fb4934
 
 font pango: FuraCode NF 8
@@ -146,15 +146,15 @@ mode "lock" {
 bar {
     status_command i3status
     colors {
-        background #282828
-        statusline #fbf1c7
+        background #f2e5bc
+        statusline #282828
 
         # equivalent to focused
-        focused_workspace       #282828 #98971a #282828
+        focused_workspace       #f2e5bc #98971a #282828
         # equivalent to focused_inactive
-        active_workspace        #282828 #d79921 #282828
+        active_workspace        #f2e5bc #d79921 #282828
         # equivalent to unfocused
-        inactive_workspace      #282828 #282828 #fbf1c7
+        inactive_workspace      #f2e5bc #f2e5bc #282828
         # equivalent to urgent
         urgent_workspace        #cc241d #fb4934 #282828
         # equivalent to urgent
