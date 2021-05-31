@@ -68,6 +68,7 @@ bindsym q kill
 
 # run d(menu)
 bindsym d exec dmenu_run -sb '#98971A' -nb '#f2e5bc' -sf '#282828' -nf '#282828'
+bindsym g exec emacsclient -c
 
 # change focus
 bindsym h focus left

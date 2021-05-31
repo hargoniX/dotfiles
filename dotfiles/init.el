@@ -2,7 +2,7 @@
 (setq auto-save-default nil) ;; Not this one either
 (menu-bar-mode -1) ;; The menu bar looks ugly in terminal
 (tool-bar-mode -1) ;; Nobody needs this
-(toggle-scroll-bar -1) ;; Or this
+(scroll-bar-mode -1)
 (setq inhibit-startup-screen t) ;; Leave me alone with your tutorials
 (setq tramp-default-method "ssh") ;; speed up tramp mode
 (set-face-attribute 'default nil :height 125) ;; Set font size
@@ -49,6 +49,13 @@
   :ensure t)
 
 ;; General things
+
+(use-package exec-path-from-shell
+  :ensure t)
+
+;; Use ssh agent from env
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 ;; Themes and icons
 (use-package doom-themes
@@ -161,6 +168,12 @@
 
 ;; Org mode stuff
 
+; Erase all reminders and rebuilt reminders for today from the agenda
+(defun bh/org-agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
 (use-package org
   :ensure t
   ;; C-c C-t org rotate
@@ -180,6 +193,11 @@
   (setq org-agenda-files (quote ("~/org")))
   (setq org-directory "~/org")
   (setq org-default-notes-file "~/org/notes.org")
+  (setq org-log-repeat nil)
+  ; Rebuild the reminders everytime the agenda is displayed
+  (add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append)
+  ; Activate appointments so we get notifications
+  (appt-activate t)
   :init
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
@@ -410,3 +428,5 @@
 ;; Lean
 (use-package lean-mode
   :ensure t)
+
+(bh/org-agenda-to-appt)
