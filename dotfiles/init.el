@@ -56,6 +56,7 @@
 ;; Use ssh agent from env
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+(exec-path-from-shell-copy-env "PATH")
 
 ;; Themes and icons
 (use-package doom-themes
@@ -376,29 +377,10 @@
    ("\\reals"   ?ℝ)
    ("\\complex" ?ℂ)
    ("\\primes"  ?ℙ)
-   ; number powers
-   ("^0" ?⁰) ("^1" ?¹) ("^2" ?²) ("^3" ?³) ("^4" ?⁴) ("^5" ?⁵)
-   ("^6" ?⁶) ("^7" ?⁷) ("^8" ?⁸) ("^9" ?⁹)
-   ; plus and minus
-   ("^-" ?⁻)
-   ("^+" ?⁺)
-   ; letter powers
-   ("^a" ?ᵃ) ("^b" ?ᵇ) ("^c" ?ᶜ) ("^d" ?ᵈ) ("^e" ?ᵉ) ("^f" ?ᶠ)
-   ("^g" ?ᵍ) ("^h" ?ʰ) ("^i" ?ⁱ) ("^j" ?ʲ) ("^k" ?ᵏ) ("^l" ?ˡ)
-   ("^m" ?ᵐ) ("^n" ?ⁿ) ("^o" ?ᵒ) ("^p" ?ᵖ) ("^r" ?ʳ) ("^s" ?ˢ)
-   ("^t" ?ᵗ) ("^u" ?ᵘ) ("^v" ?ᵛ) ("^w" ?ʷ) ("^x" ?ˣ) ("^y" ?ʸ)
-   ("^z" ?ᶻ)
-   ; number subscript
-   ("_0" ?₀) ("_1" ?₁) ("_2" ?₂) ("_3" ?₃) ("_4" ?₄) ("_5" ?₅)
-   ("_6" ?₆) ("_7" ?₇) ("_8" ?₈) ("_9" ?₉)
-   ; letter subscript
-   ("_a" ?ₐ) ("_e" ?ₑ) ("_h" ?ₕ) ("_i" ?ⱼ) ("_k" ?ₖ) ("_l" ?ₗ) ("_m" ?ₘ)
-   ("_n" ?ₙ) ("_o" ?ₒ) ("_p" ?ₚ) ("_s" ?ₛ) ("_t" ?ₜ) ("_x" ?ₓ)
-   )
   (mapc (lambda (x)
           (if (cddr x)
               (quail-defrule (cadr x) (car (cddr x)))))
-        (append math-symbol-list-basic math-symbol-list-extended))
+        (append math-symbol-list-basic math-symbol-list-extended math-symbol-list-superscripts math-symbol-list-subscripts))
   )
 
 ;; Java
