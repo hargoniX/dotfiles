@@ -376,12 +376,12 @@
    ("\\rats"    ?ℚ)
    ("\\reals"   ?ℝ)
    ("\\complex" ?ℂ)
-   ("\\primes"  ?ℙ)
-  (mapc (lambda (x)
+   ("\\primes"  ?ℙ))
+   (mapc (lambda (x)
           (if (cddr x)
               (quail-defrule (cadr x) (car (cddr x)))))
         (append math-symbol-list-basic math-symbol-list-extended math-symbol-list-superscripts math-symbol-list-subscripts))
-  )
+)
 
 ;; Java
 (use-package lsp-java
