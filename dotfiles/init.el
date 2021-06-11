@@ -411,4 +411,18 @@
 (use-package lean-mode
   :ensure t)
 
+;; mod+i in normal mode in my i3 is bound to run this
+(use-package emacs-everywhere
+  :ensure t
+  :hook
+  (emacs-everywhere-mode . (lambda () (set-input-method "hbv-math")))
+  :config
+  (setq emacs-everywhere-markdown-apps nil)
+  (setq emacs-everywhere-markdown-windows nil))
+
+(use-package rainbow-mode
+  :ensure t
+  :hook
+  (prog-mode . rainbow-mode))
+
 (bh/org-agenda-to-appt)
