@@ -11,7 +11,7 @@ alias ff='find . -type f -name'
 alias rm='rm -i' # Ask before removal
 alias cp='cp -i' # Ask before removal
 alias mv='mv -i' # Ask before removal
-alias emacsnw="emacsclient -c -nw -a 'emacs -nw'"
+alias emacsnw="TERM=st-direct emacsclient -c -nw -a 'emacs -nw'"
 
 # java stuff
 alias mvn_full_run='rm -rf target/site && mvn compile verify jacoco:prepare-agent test jacoco:report javadoc:javadoc'

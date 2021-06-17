@@ -199,6 +199,12 @@
   (add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append)
   ; Activate appointments so we get notifications
   (appt-activate t)
+  (setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
   :init
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
@@ -424,5 +430,14 @@
   :ensure t
   :hook
   (prog-mode . rainbow-mode))
+
+(use-package graphviz-dot-mode
+  :ensure t
+  :config
+  (setq graphviz-dot-indent-width 4))
+
+(use-package company-graphviz-dot
+  :ensure t
+  :after graphviz-dot-mode)
 
 (bh/org-agenda-to-appt)
