@@ -436,8 +436,16 @@
   :config
   (setq graphviz-dot-indent-width 4))
 
-(use-package company-graphviz-dot
-  :ensure t
-  :after graphviz-dot-mode)
+(if (executable-find "hunspell")
+    (use-package ispell
+      :config
+      (setq ispell-dictionary "de_DE,en_GB,en_US")
+      (ispell-set-spellchecker-params)
+      (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
+      :hook
+      (org-mode . flyspell-mode)
+      (markdown-mode . flyspell-mode)
+      (text-mode . flyspell-mode)
+      (prog-mode . flyspell-prog-mode)))
 
 (bh/org-agenda-to-appt)
