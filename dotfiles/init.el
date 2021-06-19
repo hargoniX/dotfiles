@@ -356,8 +356,6 @@
 (use-package auctex
   :ensure t
   :defer t
-  :hook
-  (LaTeX-mode . (lambda () (electric-indent-local-mode -1)))
   :init
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
