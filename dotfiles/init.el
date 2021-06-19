@@ -75,6 +75,8 @@
   :ensure t
   :hook
   (prog-mode . dtrt-indent-mode)
+  (text-mode . dtrt-indent-mode)
+  (org-mode . dtrt-indent-mode)
   (markdown-mode . dtrt-indent-mode))
 
 ;; 80 charcater limit line in prog mode
@@ -89,15 +91,16 @@
   (prog-mode . fci-mode)
   (markdown-mode . fci-mode))
 
-(use-package smartparens ;; auto parens
-  :ensure t
-  :diminish smartparens-mode
+;; auto parenthesis matching
+(use-package electri-pair
   :config
-  (require 'smartparens-config)
-  (setq sp-highlight-pair-overlay nil) ;; to hide this fucking highlighting
+  (setq electric-pair-open-newline-between-pairs nil)
   :hook
-  (prog-mode . smartparens-mode)
-  (markdown-mode . smartparens-mode))
+  (prog-mode . electric-pair-mode)
+  (text-mode . electric-pair-mode)
+  (org-mode . electric-pair-mode)
+  (markdown-mode . electric-pair-mode))
+
 
 (use-package general
   :ensure t
