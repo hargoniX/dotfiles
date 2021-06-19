@@ -27,6 +27,7 @@
 
 (setq-default show-trailing-whitespace t)
 
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org"       . "http://orgmode.org/elpa/")
@@ -191,6 +192,8 @@
     "oco" 'org-clock-out
     "oa"  'org-agenda
     "oca" 'org-capture) 
+  :hook
+  (org-mode . (lambda () (electric-indent-local-mode -1)))
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (setq org-latex-listings 't)
@@ -353,6 +356,8 @@
 (use-package auctex
   :ensure t
   :defer t
+  :hook
+  (LaTeX-mode . (lambda () (electric-indent-local-mode -1)))
   :init
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
