@@ -92,7 +92,7 @@
   (markdown-mode . fci-mode))
 
 ;; auto parenthesis matching
-(use-package electri-pair
+(use-package electric-pair
   :config
   (setq electric-pair-open-newline-between-pairs nil)
   :hook
