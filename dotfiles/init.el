@@ -454,4 +454,8 @@
       (text-mode . flyspell-mode)
       (prog-mode . flyspell-prog-mode)))
 
+(when (file-exists-p "~/.emacs.d/local.el")
+    (message "Loading ~/.emacs.d/local.el")
+    (load-file "~/.emacs.d/local.el"))
+
 (bh/org-agenda-to-appt)
