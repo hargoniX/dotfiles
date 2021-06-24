@@ -118,6 +118,11 @@
 
 (use-package evil
   :ensure t
+  :bind
+  (:map evil-motion-state-map
+        ("C-y" . nil))
+  (:map evil-insert-state-map
+        ("C-y" . nil))
   :init
   (setq evil-toggle-key "C-~") ;; so C-z works for background
   (setq evil-want-C-d-scroll t)
@@ -328,6 +333,8 @@
 (use-package yasnippet
   :ensure t
   :init
+  :bind (:map yas-minor-mode-map
+              ("C-y" . yas-expand))
   :hook
   (company-mode . yas-minor-mode)
   (company-mode . company-mode/add-yasnippet))
