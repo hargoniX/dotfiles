@@ -28,31 +28,30 @@
 (setq-default show-trailing-whitespace t)
 
 
-(require 'package)
+;; straight.el bootstrap
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; inhibit package.el load
 (setq package-enable-at-startup nil)
-(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-                         ("melpa"     . "https://melpa.org/packages/")
-                         ("elpa"       . "http://elpa.gnu.org/packages/")
-                         ))
-(package-initialize)
 
 ;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package) ; unless it is already installed
-  (package-refresh-contents) ; updage packages archive
-  (package-install 'use-package)) ; and install the most recent version of use-package
-
-(eval-when-compile
-  (require 'use-package))
-
-(use-package quelpa
-  :ensure t)
-(use-package quelpa-use-package
-  :ensure t)
+(straight-use-package 'use-package)
 
 ;; General things
 
 (use-package exec-path-from-shell
-  :ensure t)
+  :straight t)
 
 ;; Use ssh agent from env
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
@@ -61,19 +60,19 @@
 
 ;; Themes and icons
 (use-package doom-themes
-  :ensure t
+  :straight t
   :config
   (setq doom-gruvbox-light-variant "soft")
   (load-theme 'doom-gruvbox-light t)
   (doom-themes-org-config))
 
 (use-package all-the-icons
-  :ensure t
+  :straight t
   :defer 2)
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
-  :ensure t
+  :straight t
   :hook
   (prog-mode . dtrt-indent-mode)
   (text-mode . dtrt-indent-mode)
@@ -82,7 +81,7 @@
 
 ;; 80 charcater limit line in prog mode
 (use-package fill-column-indicator
-  :ensure t
+  :straight t
   :defer 1
   :diminish fci-mode
   :config
@@ -104,20 +103,20 @@
 
 
 (use-package general
-  :ensure t
+  :straight t
   :init
   ;; Space as leader key
   (general-create-definer vim-leader-def :prefix "SPC"))
 
 (use-package which-key
-  :ensure t
+  :straight t
   :init (which-key-mode)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 1))
 
 (use-package evil
-  :ensure t
+  :straight t
   :bind
   (:map evil-motion-state-map
         ("C-y" . nil))
@@ -134,18 +133,18 @@
 
 (use-package evil-collection
   :after evil
-  :ensure t
+  :straight t
   :config
   (evil-collection-init))
 
 (use-package evil-matchit
   :after evil
-  :ensure t
+  :straight t
   :config
   (global-evil-matchit-mode 1))
 
 (use-package ivy
-  :ensure t
+  :straight t
   :diminish
   :bind (("C-s" . swiper) ; TODO: possibly map this to / at some point?
          :map ivy-minibuffer-map
@@ -164,12 +163,12 @@
   (ivy-mode 1))
 
 (use-package doom-modeline
-  :ensure t
+  :straight t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
 (use-package counsel
-  :ensure t
+  :straight t
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
          ("C-x C-f" . counsel-find-file)
@@ -185,7 +184,7 @@
   (org-agenda-to-appt))
 
 (use-package org
-  :ensure t
+  :straight t
   ;; C-c C-t org rotate
   ;; Tab fold/unfold
   ;; M-S-RET Insert new TODO
@@ -214,8 +213,16 @@
       org-latex-packages-alist '(("" "minted"))
       org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"bibtex %b"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (haskell . t)
+     (ruby . t)
+     (emacs-lisp . t)))
   :init
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
@@ -231,22 +238,27 @@
                 ))))
 
 (use-package org-bullets
-  :ensure t
+  :straight t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-fragtog
-  :ensure t
+  :straight t
   :after org
   :hook (org-mode . org-fragtog-mode))
 
+(use-package org-ref
+  :straight t
+  :after org
+  :init
+  (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 ;; Development stuff
 
 (use-package magit
-  :ensure t
+  :straight t
   :general
   (vim-leader-def 'normal 'global
     "gb" 'magit-blame ;; git blame
@@ -256,7 +268,7 @@
     "ga" 'magit-branch)) ;; git ast (as b is taken)
 
 (use-package lsp-mode
-  :ensure t
+  :straight t
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-l")
@@ -276,7 +288,7 @@
     "gd" 'lsp-find-definition))
 
 (use-package lsp-ui
-  :ensure t
+  :straight t
   :defer 2
   :config
   (setq lsp-ui-peek-enable nil)
@@ -285,21 +297,21 @@
   (setq lsp-ui-doc-enable nil))
 
 (use-package lsp-ivy
-  :ensure t
+  :straight t
   :defer 2
   :after lsp-mode
   :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
 (use-package company
-  :ensure t
+  :straight t
   :hook
   (lsp-mode . company-mode)
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
-  :custom
-  (company-minimum-prefix-length 2)
-  (company-idle-delay 0.4)
+  :config
+  (setq company-minimum-prefix-length 2)
+  (setq company-idle-delay 0.4)
   :bind (:map company-active-map
 	      ("C-j" . company-select-next-or-abort) ;; down
 	      ("C-k" . company-select-previous-or-abort) ;; up
@@ -307,17 +319,17 @@
 	      ))
 
 (use-package company-box
-  :ensure t
+  :straight t
   :hook (company-mode . company-box-mode))
 
 (use-package projectile
-  :ensure t
+  :straight t
   :config
   (setq projectile-completion-system 'ivy)
   (projectile-mode +1))
 
 (use-package counsel-projectile
-  :ensure t
+  :straight t
   :init
   (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map))
 
@@ -331,7 +343,7 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 (use-package yasnippet
-  :ensure t
+  :straight t
   :init
   :bind (:map yas-minor-mode-map
               ("C-y" . yas-expand))
@@ -340,14 +352,16 @@
   (company-mode . company-mode/add-yasnippet))
 
 (use-package yasnippet-snippets
-  :quelpa ((yasnippet-snippets :fetcher github :repo "hargoniX/yasnippet-snippets")))
+  :straight (yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"
+                                :fork (:host github
+                                       :repo "hargonix/yasnippet-snippets")))
 
 (use-package flycheck
-  :ensure t)
+  :straight t)
 
 ;; rust
 (use-package rust-mode
-  :ensure t
+  :straight t
   :hook
   (rust-mode . prettify-symbols-mode)
   (rust-mode . (lambda ()
@@ -361,7 +375,7 @@
 
 ;; LaTeX
 (use-package auctex
-  :ensure t
+  :straight t
   :defer t
   :init
   (setq TeX-auto-save t)
@@ -370,7 +384,7 @@
 
 ;; Math, input methods
 (use-package math-symbol-lists
-  :ensure t
+  :straight t
   :config
   (quail-define-package "hbv-math" "UTF-8" "Ω" t)
   (quail-define-rules ; add whatever extra rules you want to define here...
@@ -404,7 +418,7 @@
 
 ;; Java
 (use-package lsp-java
-  :ensure t
+  :straight t
   :config
   (setq lsp-java-format-on-type-enabled nil))
 
@@ -416,23 +430,23 @@
 
 ;; Haskell
 (use-package haskell-mode
-  :ensure t
+  :straight t
   :hook
   (haskell-mode . interactive-haskell-mode))
 
 (use-package lsp-haskell
-  :ensure t
+  :straight t
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
 
 ;; Lean
 (use-package lean-mode
-  :ensure t)
+  :straight t)
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
-  :ensure t
+  :straight t
   :hook
   (emacs-everywhere-mode . (lambda () (set-input-method "hbv-math")))
   :config
@@ -440,17 +454,18 @@
   (setq emacs-everywhere-markdown-windows nil))
 
 (use-package rainbow-mode
-  :ensure t
+  :straight t
   :hook
   (prog-mode . rainbow-mode))
 
 (use-package graphviz-dot-mode
-  :ensure t
+  :straight t
   :config
   (setq graphviz-dot-indent-width 4))
 
 (if (executable-find "hunspell")
     (use-package ispell
+      :straight t
       :config
       (setq ispell-dictionary "de_DE,en_GB,en_US")
       (ispell-set-spellchecker-params)
