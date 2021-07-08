@@ -236,7 +236,8 @@
                  "* %? :NOTE:\n")
                 ("p" "protocol" entry (file "~/org/notes.org")
                  "* Protocol of %? :PROTOCOL:\n%U\n")
-                ))))
+                )))
+  (setq org-edit-src-content-indentation 0))
 
 (use-package org-bullets
   :straight t
