@@ -222,6 +222,7 @@
    '((python . t)
      (haskell . t)
      (ruby . t)
+     (dot . t)
      (emacs-lisp . t)))
   :init
   (setq org-todo-keywords
