@@ -462,6 +462,8 @@
 
 (use-package graphviz-dot-mode
   :straight t
+  :hook
+  (graphviz-dot-mode . (lambda () (set-input-method "hbv-math")))
   :config
   (setq graphviz-dot-indent-width 4))
 
