@@ -1,3 +1,53 @@
+;; Initial optimization blob, mostly taken from doom emacs
+(let ((file-name-handler-alist nil))
+
+;; Set the gc threshold high initially so the init.el can just be
+;; loaded in one move
+(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
+      gc-cons-percentage 0.6)
+
+;; Lower the gc threshold again afterwards
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq gc-cons-threshold (* 256 1024 1024) ; 256 MB
+          gc-cons-percentage 0.1)))
+
+;; This is important for e.g. lsp mode
+(setq read-process-output-max (* 3 1024 1024)) ;; 3mb
+
+;; A second, case-insensitive pass over `auto-mode-alist' is time wasted, and
+;; indicates misconfiguration (don't rely on case insensitivity for file names).
+(setq auto-mode-case-fold nil)
+
+;; Disable bidirectional text scanning for a modest performance boost. I've set
+;; this to `nil' in the past, but the `bidi-display-reordering's docs say that
+;; is an undefined state and suggest this to be just as good:
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+
+
+;; Disabling the BPA makes redisplay faster, but might produce incorrect display
+;; reordering of bidirectional text with embedded parentheses and other bracket
+;; characters whose 'paired-bracket' Unicode property is non-nil.
+(setq bidi-inhibit-bpa t)  ; Emacs 27 only
+
+;; More performant rapid scrolling over unfontified regions. May cause brief
+;; spells of inaccurate syntax highlighting right after scrolling, which should
+;; quickly self-correct.
+(setq fast-but-imprecise-scrolling t)
+
+;; Reduce rendering/line scan work for Emacs by not rendering cursors or regions
+;; in non-focused windows.
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+;; Emacs "updates" its ui more often than it needs to, so slow it down slightly
+(setq idle-update-delay 1.0)  ; default is 0.5
+
+;; Introduced in Emacs HEAD (b2f8c9f), this inhibits fontification while
+;; receiving input, which should help a little with scrolling performance.
+(setq redisplay-skip-fontification-on-input t)
+
 (setq make-backup-files nil) ;; We dont need these
 (setq auto-save-default nil) ;; Not this one either
 (menu-bar-mode -1) ;; The menu bar looks ugly in terminal
@@ -274,13 +324,12 @@
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-l")
-  (setq gc-cons-threshold 100000000) ;; 100 mb
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :config
   (lsp-enable-which-key-integration t)
   (setq lsp-rust-server 'rust-analyzer)
   (setq lsp-auto-guess-root t)
   (setq lsp-idle-delay 1.)
+  (setq lsp-enable-file-watchers nil)
   :hook
   (rust-mode . lsp)
   (java-mode . lsp)
@@ -288,15 +337,6 @@
   :general
   (vim-leader-def 'normal 'global
     "gd" 'lsp-find-definition))
-
-(use-package lsp-ui
-  :straight t
-  :defer 2
-  :config
-  (setq lsp-ui-peek-enable nil)
-  (setq lsp-ui-sideline-show-code-actions nil)
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-ui-doc-enable nil))
 
 (use-package lsp-ivy
   :straight t
@@ -312,7 +352,7 @@
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
   :config
-  (setq company-minimum-prefix-length 2)
+  (setq company-minimum-prefix-length 3)
   (setq company-idle-delay 0.4)
   :bind (:map company-active-map
 	      ("C-j" . company-select-next-or-abort) ;; down
@@ -477,8 +517,7 @@
       :hook
       (org-mode . flyspell-mode)
       (markdown-mode . flyspell-mode)
-      (text-mode . flyspell-mode)
-      (prog-mode . flyspell-prog-mode)))
+      (text-mode . flyspell-mode)))
 
 (when (file-exists-p "~/.emacs.d/local.el")
     (message "Loading ~/.emacs.d/local.el")
@@ -486,3 +525,5 @@
 
 
 (bh/org-agenda-to-appt)
+
+) ;; global let binding
