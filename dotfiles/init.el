@@ -10,7 +10,7 @@
 (add-hook 'emacs-startup-hook
   (lambda ()
     (setq gc-cons-threshold (* 256 1024 1024) ; 256 MB
-          gc-cons-percentage 0.1)))
+          )))
 
 ;; This is important for e.g. lsp mode
 (setq read-process-output-max (* 3 1024 1024)) ;; 3mb
@@ -99,13 +99,19 @@
 (straight-use-package 'use-package)
 
 ;; General things
+(defvar hbv-ssh-env-initialized nil)
+(defun hbv/initialize-ssh-env () (unless hbv-ssh-env-initialized
+                                 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+                                 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+                                 (setq hbv-ssh-env-initialized t)))
 
 (use-package exec-path-from-shell
-  :straight t)
+  :straight t
+  :hook
+  (tramp--startup . hbv/initialize-ssh-env)
+  (magit-mode . hbv/initialize-ssh-env))
 
-;; Use ssh agent from env
-(exec-path-from-shell-copy-env "SSH_AGENT_PID")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+;; Use PATH from env
 (exec-path-from-shell-copy-env "PATH")
 
 ;; Themes and icons
@@ -182,14 +188,14 @@
   (evil-mode))
 
 (use-package evil-collection
-  :after evil
   :straight t
+  :after evil
   :config
   (evil-collection-init))
 
 (use-package evil-matchit
-  :after evil
   :straight t
+  :after evil
   :config
   (global-evil-matchit-mode 1))
 
@@ -245,7 +251,7 @@
     "oci" 'org-clock-in
     "oco" 'org-clock-out
     "oa"  'org-agenda
-    "oca" 'org-capture) 
+    "oca" 'org-capture)
   :hook
   (org-mode . (lambda () (electric-indent-local-mode -1)))
   :config
@@ -257,6 +263,8 @@
   (setq org-log-repeat nil)
   ; Rebuild the reminders everytime the agenda is displayed
   (add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append)
+  (setq appt-message-warning-time 16)
+  (setq appt-display-interval 5)
   ; Activate appointments so we get notifications
   (appt-activate t)
   (setq org-latex-listings 'minted
@@ -340,7 +348,6 @@
 
 (use-package lsp-ivy
   :straight t
-  :defer 2
   :after lsp-mode
   :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
@@ -362,18 +369,17 @@
 
 (use-package company-box
   :straight t
-  :hook (company-mode . company-box-mode))
+  :hook (company-mode . company-box-mode)
+  :config
+  (setq company-box-doc-delay 2.0)
+  (setq company-box-max-candidates 10))
 
 (use-package projectile
   :straight t
+  :after lsp
   :config
   (setq projectile-completion-system 'ivy)
   (projectile-mode +1))
-
-(use-package counsel-projectile
-  :straight t
-  :init
-  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map))
 
 (defun company-mode/backend-with-yas (backend)
   (if (and (listp backend) (member 'company-yasnippet backend))
@@ -396,10 +402,12 @@
 (use-package yasnippet-snippets
   :straight (yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"
                                 :fork (:host github
-                                       :repo "hargonix/yasnippet-snippets")))
+                                             :repo "hargonix/yasnippet-snippets"))
+  :after yasnippet)
 
 (use-package flycheck
-  :straight t)
+  :straight t
+  :after lsp)
 
 ;; rust
 (use-package rust-mode
@@ -461,6 +469,7 @@
 ;; Java
 (use-package lsp-java
   :straight t
+  :after lsp
   :config
   (setq lsp-java-format-on-type-enabled nil))
 
@@ -478,13 +487,15 @@
 
 (use-package lsp-haskell
   :straight t
+  :after lsp
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
 
 ;; Lean
 (use-package lean-mode
-  :straight t)
+  :straight t
+  :mode ("\\.lean\\'" . lean-mode))
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
@@ -507,23 +518,23 @@
   :config
   (setq graphviz-dot-indent-width 4))
 
-(if (executable-find "hunspell")
-    (use-package ispell
-      :straight t
-      :config
-      (setq ispell-dictionary "de_DE,en_GB,en_US")
-      (ispell-set-spellchecker-params)
-      (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
-      :hook
-      (org-mode . flyspell-mode)
-      (markdown-mode . flyspell-mode)
-      (text-mode . flyspell-mode)))
+(use-package ispell
+  :straight t
+  :if (executable-find "hunspell")
+  :config
+  (setq ispell-dictionary "de_DE,en_GB,en_US")
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
+  :hook
+  (org-mode . flyspell-mode)
+  (markdown-mode . flyspell-mode)
+  (text-mode . flyspell-mode))
 
 (when (file-exists-p "~/.emacs.d/local.el")
     (message "Loading ~/.emacs.d/local.el")
     (load-file "~/.emacs.d/local.el"))
 
 
-(bh/org-agenda-to-appt)
+(run-with-idle-timer 2 nil #'bh/org-agenda-to-appt)
 
 ) ;; global let binding
