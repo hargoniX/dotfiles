@@ -77,8 +77,8 @@
 
 (setq-default show-trailing-whitespace t)
 
-
 ;; straight.el bootstrap
+(setq straight-check-for-modifications 'live)
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -102,8 +102,9 @@
 (use-package exec-path-from-shell
   :straight t
   :config
+  ;; don't evaluate my entire zshrc
+  (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-copy-envs '("PATH" "SSH_AGENT_PID" "SSH_AUTH_SOCK")))
-;; Use PATH from env
 
 ;; Themes and icons
 (use-package doom-themes

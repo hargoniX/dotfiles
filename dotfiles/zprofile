@@ -1,1 +1,7 @@
 . ~/.profile
+
+export PATH=$HOME/.local/bin:$HOME/.local/scripts:$PATH
+
+if [ -f ~/.ssh/agent.env ] ; then
+    . ~/.ssh/agent.env > /dev/null
+fi
