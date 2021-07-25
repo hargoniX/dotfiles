@@ -1,16 +1,11 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; Initial optimization blob, mostly taken from doom emacs
 (let ((file-name-handler-alist nil))
 
 ;; Set the gc threshold high initially so the init.el can just be
 ;; loaded in one move
-(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
-      gc-cons-percentage 0.6)
-
-;; Lower the gc threshold again afterwards
-(add-hook 'emacs-startup-hook
-  (lambda ()
-    (setq gc-cons-threshold (* 256 1024 1024) ; 256 MB
-          )))
+(setq gc-cons-threshold most-positive-fixnum) ; 2^61 bytes
 
 ;; This is important for e.g. lsp mode
 (setq read-process-output-max (* 3 1024 1024)) ;; 3mb
@@ -522,10 +517,36 @@
   (markdown-mode . flyspell-mode)
   (text-mode . flyspell-mode))
 
+;; Custom garbage collection strategy until emacs has a garbage
+;; collector from this century
+
+(defconst hbv-gc-cons-threshold (* 32 1024 1024))
+
+(defun defer-garbage-collection ()
+  (setq gcmh-high-cons-threshold most-positive-fixnum)
+  (gcmh-set-high-threshold))
+
+(defun restore-garbage-collection ()
+  (setq gcmh-high-cons-threshold hbv-gc-cons-threshold)
+  (gcmh-set-high-threshold))
+
+(use-package gcmh
+  :straight t
+  :hook
+  (after-init . gcmh-mode)
+  (minibuffer-setup . defer-garbage-collection)
+  (minibuffer-exit . restore-garbage-collection)
+  (company-completion-started . (lambda (_) (defer-garbage-collection)))
+  (company-after-completion . (lambda (_) (restore-garbage-collection)))
+  :config
+  (setq gcmh-idle-delay 5)
+  (setq gcmh-high-cons-threshold hbv-gc-cons-threshold)
+  (setq gcmh-low-cons-threshold (* 1024 1024)) ;; 1 MB
+  )
+
 (when (file-exists-p "~/.emacs.d/local.el")
     (message "Loading ~/.emacs.d/local.el")
     (load-file "~/.emacs.d/local.el"))
-
 
 (run-with-idle-timer 2 nil #'bh/org-agenda-to-appt)
 
