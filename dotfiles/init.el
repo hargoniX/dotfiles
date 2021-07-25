@@ -355,6 +355,7 @@
 	      ))
 
 (use-package company-box
+  :disabled
   :straight t
   :hook (company-mode . company-box-mode)
   :config
@@ -520,7 +521,7 @@
 ;; Custom garbage collection strategy until emacs has a garbage
 ;; collector from this century
 
-(defconst hbv-gc-cons-threshold (* 32 1024 1024))
+(defconst hbv-gc-cons-threshold (* 32 1024 1024)) ;; 32 MB
 
 (defun defer-garbage-collection ()
   (setq gcmh-high-cons-threshold most-positive-fixnum)
@@ -549,5 +550,4 @@
     (load-file "~/.emacs.d/local.el"))
 
 (run-with-idle-timer 2 nil #'bh/org-agenda-to-appt)
-
 ) ;; global let binding
