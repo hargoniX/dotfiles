@@ -7,7 +7,7 @@
 ;; loaded in one move
 (setq gc-cons-threshold most-positive-fixnum) ; 2^61 bytes
 
-;; This is important for e.g. lsp mode
+;; This is important for e.g. eglot mode
 (setq read-process-output-max (* 3 1024 1024)) ;; 3mb
 
 ;; A second, case-insensitive pass over `auto-mode-alist' is time wasted, and
@@ -308,34 +308,15 @@
     "gc" 'magit-checkout ;; git checkout
     "ga" 'magit-branch)) ;; git ast (as b is taken)
 
-(use-package lsp-mode
+(use-package eglot
   :straight t
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-l")
   :config
-  (lsp-enable-which-key-integration t)
-  (setq lsp-rust-server 'rust-analyzer)
-  (setq lsp-auto-guess-root t)
-  (setq lsp-idle-delay 1.)
-  (setq lsp-enable-file-watchers nil)
-  :hook
-  (rust-mode . lsp)
-  (java-mode . lsp)
-  (python-mode . lsp)
-  :general
-  (vim-leader-def 'normal 'global
-    "gd" 'lsp-find-definition))
-
-(use-package lsp-ivy
-  :straight t
-  :after lsp-mode
-  :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
+  (add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer"))))
 
 (use-package company
   :straight t
   :hook
-  (lsp-mode . company-mode)
+  (eglot-mode . company-mode)
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
@@ -350,13 +331,6 @@
   :config
   (setq company-box-doc-delay 2.0)
   (setq company-box-max-candidates 10))
-
-(use-package projectile
-  :straight t
-  :after lsp
-  :config
-  (setq projectile-completion-system 'ivy)
-  (projectile-mode +1))
 
 (defun company-mode/backend-with-yas (backend)
   (if (and (listp backend) (member 'company-yasnippet backend))
@@ -381,10 +355,6 @@
                                 :fork (:host github
                                              :repo "hargonix/yasnippet-snippets"))
   :after yasnippet)
-
-(use-package flycheck
-  :straight t
-  :after lsp)
 
 ;; rust
 (use-package rust-mode
@@ -443,13 +413,6 @@
         (append math-symbol-list-basic math-symbol-list-extended math-symbol-list-superscripts math-symbol-list-subscripts))
 )
 
-;; Java
-(use-package lsp-java
-  :straight t
-  :after lsp
-  :config
-  (setq lsp-java-format-on-type-enabled nil))
-
 (add-hook 'java-mode-hook 'prettify-symbols-mode)
 (add-hook 'java-mode-hook (lambda ()
 		 (push '("!=" . ?≠) prettify-symbols-alist)
@@ -461,13 +424,6 @@
   :straight t
   :hook
   (haskell-mode . interactive-haskell-mode))
-
-(use-package lsp-haskell
-  :straight t
-  :after lsp
-  :hook
-  (haskell-mode . lsp)
-  (haskell-literate-mode . lsp))
 
 ;; Lean
 (use-package lean-mode
