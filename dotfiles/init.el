@@ -192,15 +192,9 @@
   :bind (("C-s" . swiper) ; TODO: possibly map this to / at some point?
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
          :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
          ("C-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
          ("C-d" . Ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
@@ -347,12 +341,7 @@
   (org-mode . company-mode)
   :config
   (setq company-minimum-prefix-length 3)
-  (setq company-idle-delay 0.4)
-  :bind (:map company-active-map
-	      ("C-j" . company-select-next-or-abort) ;; down
-	      ("C-k" . company-select-previous-or-abort) ;; up
-	      ("C-l" . company-complete-selection) ;; right, as in complete towards the right
-	      ))
+  (setq company-idle-delay 0.4))
 
 (use-package company-box
   :disabled
