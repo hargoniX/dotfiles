@@ -199,10 +199,18 @@
   :config
   (ivy-mode 1))
 
+
+;(defun hbv/enable-doom-modeline-icons (frame)
+;  (unless (eq (rassoc 'window-system frame) nil)
+;    (setq doom-modeline-icon doom-modeline-icon)))
+
 (use-package doom-modeline
   :straight t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :config
+  (setq doom-modeline-height 15)
+  ;(add-hook 'after-make-frame-functions #'hbv/enable-doom-modeline-icons)
+  )
 
 (use-package counsel
   :straight t

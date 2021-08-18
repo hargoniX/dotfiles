@@ -18,10 +18,6 @@ alias mvn_full_run='rm -rf target/site && mvn compile verify jacoco:prepare-agen
 alias mvn_cov_report='xdg-open target/site/jacoco/index.html'
 alias todo='emacs -nw ~/todo.org'
 
-if command -v nvim &> /dev/null; then
-  alias vim="nvim"
-fi
-
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat{/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 # Fzf tab up shift+ tab down
