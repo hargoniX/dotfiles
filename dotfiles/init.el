@@ -228,6 +228,11 @@
   (setq appt-time-msg-list nil)
   (org-agenda-to-appt))
 
+(defun hbv/beamer-bold (contents backend info)
+  (when (eq backend 'beamer)
+    (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+
+
 (use-package org
   :straight t
   ;; C-c C-t org rotate
@@ -271,7 +276,6 @@
      (ruby . t)
      (dot . t)
      (emacs-lisp . t)))
-  :init
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)"))))
@@ -282,9 +286,13 @@
                 ("n" "note" entry (file "~/org/notes.org")
                  "* %? :NOTE:\n")
                 ("p" "protocol" entry (file "~/org/notes.org")
-                 "* Protocol of %? :PROTOCOL:\n%U\n")
-                )))
-  (setq org-edit-src-content-indentation 0))
+                 "* Protocol of %? :PROTOCOL:\n%U\n"))))
+   (setq org-edit-src-content-indentation 0))
+
+(use-package ox
+  :after org
+  :config
+  (add-to-list 'org-export-filter-bold-functions 'hbv/beamer-bold))
 
 (use-package org-bullets
   :straight t
@@ -433,10 +441,12 @@
   :hook
   (haskell-mode . interactive-haskell-mode))
 
-;; Lean
-(use-package lean-mode
-  :straight t
-  :mode ("\\.lean\\'" . lean-mode))
+
+(use-package lean4-mode
+  :straight (lean4-mode :type git :host github :repo "hargoniX/lean4"
+             :files ("lean4-mode/lean4*.el"))
+  ;; to defer loading the package until required
+  :commands (lean4-mode))
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
