@@ -1,7 +1,7 @@
 . ~/.profile
 
 export PATH=$HOME/.local/bin:$HOME/.local/scripts:$PATH
-if [ -d "$HOME/.ghcup/bin"]; then
+if [ -d "$HOME/.ghcup/bin" ]; then
    export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
 export SSH_AUTH_SOCK=/tmp/hboeving-agent.sock
