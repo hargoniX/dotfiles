@@ -400,40 +400,62 @@
   :straight t
   :config
   (quail-define-package "hbv-math" "UTF-8" "Ω" t)
-  (quail-define-rules ; add whatever extra rules you want to define here...
-   ; Equality
-   ("<="        ?≤)
-   (">="        ?≥)
-   ("~="        ?≠)
+  (quail-define-rules
+   ; Equality and order
+   ("<=" ?≤) (">=" ?≥) ("\\prec" ?≺) ("\\preceq" ?≼) ("\\succ" ?≻)
+   ("\\succeq" ?≽)
+   ("/=" ?≠) ("\\neq" ?≠) ("\\=n" ?≠)("\\equiv" ?≡) ("\\nequiv" ?≢)
+   ("\\approx" ?≈) ("\\~~" ?≈) ("\\t=" ?≜) ("\\def=" ?≝)
+   ;; Set theory
+   ("\\sub" ?⊆) ("\\subset" ?⊂) ("\\subseteq" ?⊆) ("\\in" ?∈)
+   ("\\inn" ?∉) ("\\:" ?∈) ("\\cap" ?∩) ("\\inter" ?∩)
+   ("\\cup" ?∪) ("\\uni" ?∪) ("\\emptyset" ?∅) ("\\empty" ?∅)
+   ("\\times" ?×) ("\\x" ?×)
+   ;; Number stuff
+   ("\\div" ?∣) ("\\infty" ?∞) ("\\sqrt" ?√) ("\\Im" ?ℑ) ("\\Re" ?ℜ)
    ; Logic
-   ("~"         ?¬)
-   ("->"        ?→)
-   ("=>"        ?⇒)
-   ("<->"       ?↔)
-   ("<=>"       ?⇔)
-   ("/\\"       ?∧)
-   ("\\/"       ?∨)
+   ("\\/" ?∨) ("\\and" ?∧) ("/\\" ?∧) ("\\or" ?∨) ("~" ?¬) ("\neg" ?¬)
+   ("|-" ?⊢) ("|-n" ?⊬) ("\\bot" ?⊥) ("\\top" ?⊤) ("\\r" ?→) ("\\lr" ?↔)
+   ("\\qed" ?∎)
    ; Predicate Logic
-   ("ALL"       ?∀)
-   ("EX"        ?∃)
+   ("\\all" ?∀) ("\\ex" ?∃) ("\\exn" ?∄)
+   ;; functions
+   ("\\to" ?→) ("\\mapsto" ?↦) ("\\circ" ?∘) ("\\comp" ?∘) ("\\integral" ?∫)
+   ("\\fun" ?λ)
    ; sets of numbers
-   ("\\nats"    ?ℕ)
-   ("\\ints"    ?ℤ)
-   ("\\rats"    ?ℚ)
-   ("\\reals"   ?ℝ)
-   ("\\complex" ?ℂ)
-   ("\\primes"  ?ℙ))
+   ("\\nat" ?ℕ) ("\\N" ?ℕ) ("\\int" ?ℤ) ("\\Z" ?ℤ) ("\\rat" ?ℚ) ("\\Q" ?ℚ)
+   ("\\real" ?ℝ) ("\\R" ?ℝ) ("\\complex" ?ℂ) ("\\C" ?ℂ) ("\\prime" ?ℙ)
+   ("\\P" ?ℙ)
+   ; Complexity
+   ("\\bigo" ?𝒪)
+   ; greek
+   ("\\Ga" ?α) ("\\GA" ?Α) ("\\a" ?α)
+   ("\\Gb" ?β) ("\\GB" ?Β) ("\\b" ?β)
+   ("\\Gg" ?γ) ("\\GG" ?Γ) ("\\g" ?γ) ("\\Gamma" ?Γ)
+   ("\\Gd" ?δ) ("\\GD" ?Δ) ("\\del" ?δ) ("\\Del" ?Δ)
+   ("\\Ge" ?ε) ("\\GE" ?Ε) ("\\eps" ?ε)
+   ("\\Gz" ?ζ) ("\\GZ" ?Ζ)
+   ("\\Gh" ?η) ("\\Gh" ?Η) ("\\mu" ?μ)
+   ("\\Gth" ?θ) ("\\GTH" ?Θ) ("\\the" ?θ) ("\\The" ?Θ)
+   ("\\Gi" ?ι) ("\\GI" ?Ι) ("\\iota" ?ι)
+   ("\\Gk" ?κ) ("\\GK" ?Κ)
+   ("\\Gl" ?λ) ("\\GL" ?Λ) ("\\lam" ?λ)
+   ("\\Gm" ?μ) ("\\GM" Μ) ("\\mu" ?μ)
+   ("\\Gx" ?ξ) ("\\GX" ?Ξ) ("\\xi" ?ξ) ("\\Xi" ?Ξ)
+   ("\\Gp" ?π) ("\\GP" ?Π) ("\\pi" ?π) ("\\Pi" ?Π)
+   ("\\Gr" ?ρ) ("\\GR" ?Ρ) ("\\rho" ?ρ)
+   ("\\Gs" ?σ) ("\\GS" ?Σ) ("\\sig" ?σ) ("\\Sig" ?Σ)
+   ("\\Gt" ?τ) ("\\GT" ?Τ) ("\\tau" ?τ)
+   ("\\Gph" ?ϕ) ("\\GPH" ?Φ) ("\\phi" ?ϕ) ("\\Phi" ?Φ)
+   ("\\Gc" ?χ) ("\\GC" ?Χ) ("\\chi" ?χ)
+   ("\\Gp" ?ψ) ("\\GP" ?Ψ) ("\\psi" ?ψ)
+   ("\\Go" ?ω) ("\\GO" ?Ω) ("\\omega" ?ω) ("\\Omega" ?Ω)
+   )
    (mapc (lambda (x)
           (if (cddr x)
               (quail-defrule (cadr x) (car (cddr x)))))
-        (append math-symbol-list-basic math-symbol-list-extended math-symbol-list-superscripts math-symbol-list-subscripts))
+        (append math-symbol-list-superscripts math-symbol-list-subscripts))
 )
-
-(add-hook 'java-mode-hook 'prettify-symbols-mode)
-(add-hook 'java-mode-hook (lambda ()
-		 (push '("!=" . ?≠) prettify-symbols-alist)
-		 (push '("<=" . ?≤) prettify-symbols-alist)
-                 (push '(">=" . ?≥) prettify-symbols-alist)))
 
 ;; Haskell
 (use-package haskell-mode
