@@ -465,7 +465,7 @@
 
 
 (use-package lean4-mode
-  :straight (lean4-mode :type git :host github :repo "hargoniX/lean4"
+  :straight (lean4-mode :type git :host github :repo "leanprover/lean4"
              :files ("lean4-mode/lean4*.el"))
   ;; to defer loading the package until required
   :commands (lean4-mode))
