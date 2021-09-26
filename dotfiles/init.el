@@ -50,7 +50,7 @@
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t) ;; Leave me alone with your tutorials
 (setq tramp-default-method "ssh") ;; speed up tramp mode
-(set-face-attribute 'default nil :height 120) ;; Set font size
+(add-to-list 'default-frame-alist '(font . "JuliaMono"))
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
