@@ -289,6 +289,14 @@
                  "* Protocol of %? :PROTOCOL:\n%U\n"))))
    (setq org-edit-src-content-indentation 0))
 
+(defun hbv/org-sync ()
+  (interactive)
+  (copy-file "~/org/notes.org" "~/webdav/notes.org" t)
+  (copy-file "~/org/personal.org" "~/webdav/personal.org" t)
+  (copy-file "~/org/uni.org" "~/webdav/uni.org" t)
+  (copy-file "~/org/weekly.org" "~/webdav/weekly.org" t)
+  (copy-file "~/webdav/mobile-notes.org" "~/org/mobile-notes.org" t))
+
 (use-package ox
   :after org
   :config
