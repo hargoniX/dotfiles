@@ -478,6 +478,11 @@
   ;; to defer loading the package until required
   :commands (lean4-mode))
 
+(use-package octave-mode
+  :mode ("\\.m\\'" . octave-mode)
+  :hook
+  (octave-mode . company-mode))
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
