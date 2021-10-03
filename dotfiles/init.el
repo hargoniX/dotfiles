@@ -287,7 +287,10 @@
                  "* %? :NOTE:\n")
                 ("p" "protocol" entry (file "~/org/notes.org")
                  "* Protocol of %? :PROTOCOL:\n%U\n"))))
-   (setq org-edit-src-content-indentation 0))
+  (setq org-edit-src-content-indentation 0)
+  (setq org-latex-inputenc-alist '(("utf8" . "utf8x")))
+  (setq org-latex-default-packages-alist (cons '("mathletters" "ucs" nil) org-latex-default-packages-alist))
+  )
 
 (defun hbv/org-sync ()
   (interactive)
