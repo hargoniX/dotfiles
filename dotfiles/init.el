@@ -338,7 +338,8 @@
 (use-package eglot
   :straight t
   :config
-  (add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer"))))
+  (add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer")))
+  :commands (eglot))
 
 (use-package company
   :straight t
