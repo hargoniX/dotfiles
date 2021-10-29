@@ -527,6 +527,13 @@
   (markdown-mode . flyspell-mode)
   (text-mode . flyspell-mode))
 
+(use-package vterm
+  :straight t
+  :commands (vterm vterm-other-window)
+  :hook
+  (vterm-mode . (lambda () (setq show-trailing-whitespace nil)))
+  (vterm-mode . (lambda () (evil-local-mode -1))))
+
 ;; Custom garbage collection strategy until emacs has a garbage
 ;; collector from this century
 
