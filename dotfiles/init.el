@@ -275,7 +275,9 @@
      (haskell . t)
      (ruby . t)
      (dot . t)
-     (emacs-lisp . t)))
+     (emacs-lisp . t)
+     (octave .)
+     (R . t)))
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)"))))
