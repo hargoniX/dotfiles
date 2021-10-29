@@ -489,6 +489,11 @@
   :hook
   (octave-mode . company-mode))
 
+(use-package ess
+  :straight t
+  :mode ("\\.R\\'" . ess-r-mode)
+  :mode ("\\.r\\'" . ess-r-mode))
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
