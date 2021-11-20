@@ -222,12 +222,6 @@
 
 ;; Org mode stuff
 
-; Erase all reminders and rebuilt reminders for today from the agenda
-(defun bh/org-agenda-to-appt ()
-  (interactive)
-  (setq appt-time-msg-list nil)
-  (org-agenda-to-appt))
-
 (defun hbv/beamer-bold (contents backend info)
   (when (eq backend 'beamer)
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
@@ -255,12 +249,6 @@
   (setq org-directory "~/org")
   (setq org-default-notes-file "~/org/notes.org")
   (setq org-log-repeat nil)
-  ; Rebuild the reminders everytime the agenda is displayed
-  (add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append)
-  (setq appt-message-warning-time 16)
-  (setq appt-display-interval 5)
-  ; Activate appointments so we get notifications
-  (appt-activate t)
   (setq org-latex-listings 'minted
       org-latex-packages-alist '(("" "minted"))
       org-latex-pdf-process
@@ -324,6 +312,22 @@
   :after org
   :init
   (setq org-ref-completion-library 'org-ref-ivy-cite))
+
+(use-package org-super-agenda
+  :straight t
+  :after org
+  :config
+  (setq org-super-agenda-groups '((:auto-group t)))
+  (org-super-agenda-mode))
+
+(use-package origami
+  :straight t
+  :after (org-super-agenda)
+  :bind
+  (:map org-super-agenda-header-map
+        ("o" . origami-toggle-node))
+  :hook
+  (org-agenda-mode . origami-mode))
 
 ;; Development stuff
 
@@ -565,5 +569,4 @@
     (message "Loading ~/.emacs.d/local.el")
     (load-file "~/.emacs.d/local.el"))
 
-(run-with-idle-timer 2 nil #'bh/org-agenda-to-appt)
 ) ;; global let binding
