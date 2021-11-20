@@ -317,7 +317,18 @@
   :straight t
   :after org
   :config
-  (setq org-super-agenda-groups '((:auto-group t)))
+  (setq org-super-agenda-groups
+	'((:name "Timed"
+		 :time-grid t)
+	  (:name "Today"
+		 :scheduled today)
+	  (:name "Due Today"
+		 :deadline today)
+	  (:name "Due soon"
+		 :deadline future)
+	  (:name "Waiting"
+		 :todo "WAITING")
+	  ))
   (org-super-agenda-mode))
 
 (use-package origami
