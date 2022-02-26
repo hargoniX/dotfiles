@@ -115,7 +115,10 @@
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
-  :straight t
+  :straight (dtrt-indent :type git :host github :repo "jscheid/dtrt-indent"
+                         :fork (:host github                          |
+                                      :repo "hargonix/dtrt-indent"    |
+                                      :branch "vhdl"))                |
   :hook
   (prog-mode . dtrt-indent-mode)
   (text-mode . dtrt-indent-mode)
@@ -507,6 +510,10 @@
   :straight t
   :mode ("\\.R\\'" . ess-r-mode)
   :mode ("\\.r\\'" . ess-r-mode))
+
+(use-package vhdl-mode
+  :hook
+  (vhdl-mode . vhdl-stutter-mode))
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
