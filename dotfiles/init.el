@@ -115,7 +115,7 @@
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
-  :straight (dtrt-indent :type git :host github :repo "jscheid/dtrt-indent")                |
+  :straight (dtrt-indent :type git :host github :repo "jscheid/dtrt-indent")
   :hook
   (prog-mode . dtrt-indent-mode)
   (text-mode . dtrt-indent-mode)
