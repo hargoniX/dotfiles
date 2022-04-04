@@ -340,6 +340,28 @@
   :hook
   (org-agenda-mode . origami-mode))
 
+(use-package org-roam
+  :straight t
+  :after org-mode
+  :custom
+  (org-roam-directory (file-truename "~/org/brain"))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode))
+
+(use-package org-attach-screenshot
+  :straight t
+  :after org-mode
+  :config
+  (setq org-attach-screenshot-relative-links t)
+  (setq org-attach-screenshot-dirfunction
+	(lambda ()
+		  (progn (cl-assert (buffer-file-name))
+			 (concat (file-name-sans-extension (buffer-file-name))
+				 "-att")))
+  ))
+
 ;; Development stuff
 
 (use-package magit
@@ -511,6 +533,15 @@
 (use-package vhdl-mode
   :hook
   (vhdl-mode . vhdl-stutter-mode))
+
+(use-package tuareg
+  :straight t)
+
+(use-package merlin
+  :straight t
+  :after tuareg
+  :hook
+  (tuareg-mode . merlin-mode))
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
