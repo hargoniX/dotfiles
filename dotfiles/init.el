@@ -543,6 +543,10 @@
   :hook
   (tuareg-mode . merlin-mode))
 
+(use-package nix-mode
+  :straight t
+  :mode "\\.nix\\'")
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
