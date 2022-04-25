@@ -520,6 +520,9 @@
   ;; to defer loading the package until required
   :commands (lean4-mode))
 
+(use-package proof-general
+  :straight t)
+
 (use-package octave-mode
   :mode ("\\.m\\'" . octave-mode)
   :hook
@@ -533,6 +536,21 @@
 (use-package vhdl-mode
   :hook
   (vhdl-mode . vhdl-stutter-mode))
+
+(use-package bsv-mode
+  :straight (bsv-mode :type git :host github :repo "B-Lang-org/bsc"
+		      :files ("util/emacs/bsv-mode/bsv-mode*.el"))
+  ;; to defer loading the package until required
+  :mode ("\\.bsv\\'" . bsv-mode)
+  :commands (bsv-mode))
+
+(use-package bluespec-mode
+  :straight (bluespec-mode :type git :host github :repo "B-Lang-org/bsc"
+		      :files ("util/emacs/bsc-mode-2/bluespec-*.el"))
+
+  ;; to defer loading the package until required
+  :mode ("\\.bs\\'" . bluespec-mode)
+  :commands (bluespec-mode))
 
 (use-package tuareg
   :straight t)
