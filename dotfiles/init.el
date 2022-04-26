@@ -521,7 +521,15 @@
   :commands (lean4-mode))
 
 (use-package proof-general
-  :straight t)
+  :straight t
+  :config
+  (setq proof-splash-seen t)
+  (setq proof-electric-terminator-enable t))
+
+(use-package company-coq
+  :straight t
+  :hook
+  (coq-mode . company-coq-mode))
 
 (use-package octave-mode
   :mode ("\\.m\\'" . octave-mode)
