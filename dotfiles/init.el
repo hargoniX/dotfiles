@@ -7,7 +7,7 @@
 ;; loaded in one move
 (setq gc-cons-threshold most-positive-fixnum) ; 2^61 bytes
 
-;; This is important for e.g. eglot mode
+;; This is important for e.g. lsp mode
 (setq read-process-output-max (* 3 1024 1024)) ;; 3mb
 
 ;; A second, case-insensitive pass over `auto-mode-alist' is time wasted, and
@@ -265,7 +265,9 @@
      (dot . t)
      (emacs-lisp . t)
      (octave .)
-     (R . t)))
+     (R . t)
+     (plantuml . t)))
+  (setq org-plantuml-exec-mode 'plantuml)
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)"))))
@@ -374,16 +376,41 @@
     "gc" 'magit-checkout ;; git checkout
     "ga" 'magit-branch)) ;; git ast (as b is taken)
 
-(use-package eglot
+(use-package lsp-mode
   :straight t
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-l")
   :config
-  (add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer")))
-  :commands (eglot))
+  (lsp-enable-which-key-integration t)
+  (setq lsp-rust-server 'rust-analyzer)
+  (setq lsp-auto-guess-root t)
+  (setq lsp-idle-delay 1.)
+  (setq lsp-enable-file-watchers nil)
+  :general
+  (vim-leader-def 'normal 'global
+    "gd" 'lsp-find-definition))
+
+(use-package lsp-ivy
+  :straight t
+  :after lsp-mode
+  :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
+
+(use-package projectile
+  :straight t
+  :after lsp
+  :config
+  (setq projectile-completion-system 'ivy)
+  (projectile-mode +1))
+
+(use-package flycheck
+  :straight t
+  :after lsp)
 
 (use-package company
   :straight t
   :hook
-  (eglot-mode . company-mode)
+  (lsp-mode . company-mode)
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)
@@ -514,6 +541,12 @@
   :hook
   (haskell-mode . interactive-haskell-mode))
 
+(use-package lsp-haskell
+  :straight t
+  :after lsp
+  :hook
+  (haskell-mode . lsp)
+  (haskell-literate-mode . lsp))
 
 (use-package lean4-mode
   :straight (lean4-mode :type git :host github :repo "leanprover/lean4-mode")
