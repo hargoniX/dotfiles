@@ -342,19 +342,9 @@
   :hook
   (org-agenda-mode . origami-mode))
 
-(use-package org-roam
-  :straight t
-  :after org-mode
-  :custom
-  (org-roam-directory (file-truename "~/org/brain"))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode))
-
 (use-package org-attach-screenshot
   :straight t
-  :after org-mode
+  :after org
   :config
   (setq org-attach-screenshot-relative-links t)
   (setq org-attach-screenshot-dirfunction
@@ -363,6 +353,14 @@
 			 (concat (file-name-sans-extension (buffer-file-name))
 				 "-att")))
   ))
+
+(use-package org-alert
+  :straight t
+  :after org
+  :config
+  (setq alert-default-style 'libnotify)
+  (org-alert-enable)
+  (org-alert-check))
 
 ;; Development stuff
 
