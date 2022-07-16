@@ -70,7 +70,8 @@
 (add-hook 'evil-insert-state-entry-hook #'noct:absolute)
 (add-hook 'evil-insert-state-exit-hook #'noct:relative)
 
-(setq-default show-trailing-whitespace t)
+(setq show-trailing-whitespace t)
+(setq vc-follow-symlinks t)
 
 ;; straight.el bootstrap
 (setq straight-check-for-modifications 'live)
@@ -835,6 +836,7 @@ Or interactively enable it in a buffer."
   :straight t
   :if (executable-find "hunspell")
   :config
+  (setq ispell-program-name "hunspell")
   (setq ispell-dictionary "de_DE,en_GB,en_US")
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
