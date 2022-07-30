@@ -811,6 +811,19 @@ Or interactively enable it in a buffer."
   :straight t
   :mode "\\.nix\\'")
 
+(use-package dhall-mode
+  :straight t
+  :if (executable-find "dhall")
+  :config
+  (setq
+    ;; uncomment the next line to disable automatic format
+    ;; dhall-format-at-save nil
+
+    ;; header-line is obsoleted by lsp-mode
+   dhall-use-header-line nil)
+  :hook
+  (dhall-mode . lsp))
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
@@ -878,6 +891,8 @@ Or interactively enable it in a buffer."
   (setq gcmh-high-cons-threshold hbv-gc-cons-threshold)
   (setq gcmh-low-cons-threshold (* 1024 1024)) ;; 1 MB
   )
+
+
 
 (when (file-exists-p "~/.emacs.d/local.el")
     (message "Loading ~/.emacs.d/local.el")
