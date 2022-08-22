@@ -824,6 +824,11 @@ Or interactively enable it in a buffer."
   :hook
   (dhall-mode . lsp))
 
+(use-package elm-mode
+  :straight t
+  :hook
+  (elm-mode . lsp))
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
