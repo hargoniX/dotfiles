@@ -658,6 +658,7 @@ Or interactively enable it in a buffer."
 ;; rust
 (use-package rust-mode
   :straight t
+  :if (executable-find "rustup")
   :hook
   (rust-mode . prettify-symbols-mode)
   (rust-mode . (lambda ()
@@ -672,6 +673,7 @@ Or interactively enable it in a buffer."
 ;; LaTeX
 (use-package auctex
   :straight t
+  :if (executable-find "pdflatex")
   :defer t
   :init
   (setq TeX-auto-save t)
@@ -743,11 +745,13 @@ Or interactively enable it in a buffer."
 ;; Haskell
 (use-package haskell-mode
   :straight t
+  :if (executable-find "ghc")
   :hook
   (haskell-mode . interactive-haskell-mode))
 
 (use-package lsp-haskell
   :straight t
+  :if (executable-find "ghc")
   :after lsp
   :hook
   (haskell-mode . lsp)
@@ -759,17 +763,20 @@ Or interactively enable it in a buffer."
 	     :host github
 	     :repo "leanprover/lean4-mode"
 	     :files ("*.el" "data"))
+  :if (executable-find "elan")
   ;; to defer loading the package until required
   :commands (lean4-mode))
 
 (use-package proof-general
   :straight t
+  :if (executable-find "coq")
   :config
   (setq proof-splash-seen t)
   (setq proof-electric-terminator-enable t))
 
 (use-package company-coq
   :straight t
+  :if (executable-find "coq")
   :hook
   (coq-mode . company-coq-mode))
 
@@ -778,41 +785,24 @@ Or interactively enable it in a buffer."
   :hook
   (octave-mode . company-mode))
 
-(use-package ess
-  :straight t
-  :mode ("\\.R\\'" . ess-r-mode)
-  :mode ("\\.r\\'" . ess-r-mode))
-
 (use-package vhdl-mode
   :hook
   (vhdl-mode . vhdl-stutter-mode))
 
-(use-package bsv-mode
-  :straight (bsv-mode :type git :host github :repo "B-Lang-org/bsc"
-		      :files ("util/emacs/bsv-mode/bsv-mode*.el"))
-  ;; to defer loading the package until required
-  :mode ("\\.bsv\\'" . bsv-mode)
-  :commands (bsv-mode))
-
-(use-package bluespec-mode
-  :straight (bluespec-mode :type git :host github :repo "B-Lang-org/bsc"
-		      :files ("util/emacs/bsc-mode-2/bluespec-*.el"))
-
-  ;; to defer loading the package until required
-  :mode ("\\.bs\\'" . bluespec-mode)
-  :commands (bluespec-mode))
-
 (use-package tuareg
-  :straight t)
+  :straight t
+  :if (executable-find "ocaml"))
 
 (use-package merlin
   :straight t
+  :if (executable-find "ocaml")
   :after tuareg
   :hook
   (tuareg-mode . merlin-mode))
 
 (use-package nix-mode
   :straight t
+  :if (executable-find "nix-shell")
   :mode "\\.nix\\'")
 
 (use-package dhall-mode
@@ -827,11 +817,6 @@ Or interactively enable it in a buffer."
    dhall-use-header-line nil)
   :hook
   (dhall-mode . lsp))
-
-(use-package elm-mode
-  :straight t
-  :hook
-  (elm-mode . lsp))
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
@@ -849,6 +834,7 @@ Or interactively enable it in a buffer."
 
 (use-package graphviz-dot-mode
   :straight t
+  :if (executable-find "dot")
   :hook
   (graphviz-dot-mode . (lambda () (set-input-method "hbv-math")))
   :config
