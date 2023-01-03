@@ -769,14 +769,14 @@ Or interactively enable it in a buffer."
 
 (use-package proof-general
   :straight t
-  :if (executable-find "coq")
+  :if (executable-find "coqtop")
   :config
   (setq proof-splash-seen t)
   (setq proof-electric-terminator-enable t))
 
 (use-package company-coq
   :straight t
-  :if (executable-find "coq")
+  :if (executable-find "coqtop")
   :hook
   (coq-mode . company-coq-mode))
 
