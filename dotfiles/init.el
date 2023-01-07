@@ -110,10 +110,6 @@
   (load-theme 'doom-gruvbox-light t)
   (doom-themes-org-config))
 
-(use-package all-the-icons
-  :straight t
-  :defer 2)
-
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
   :straight (dtrt-indent :type git :host github :repo "jscheid/dtrt-indent")
@@ -199,19 +195,6 @@
          ("C-d" . Ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
-
-
-;(defun hbv/enable-doom-modeline-icons (frame)
-;  (unless (eq (rassoc 'window-system frame) nil)
-;    (setq doom-modeline-icon doom-modeline-icon)))
-
-(use-package doom-modeline
-  :straight t
-  :init (doom-modeline-mode 1)
-  :config
-  (setq doom-modeline-height 15)
-  ;(add-hook 'after-make-frame-functions #'hbv/enable-doom-modeline-icons)
-  )
 
 (use-package counsel
   :straight t
@@ -680,68 +663,6 @@ Or interactively enable it in a buffer."
   (setq TeX-parse-self t)
   (setq preview-scale-function 1.5))
 
-;; Math, input methods
-(use-package math-symbol-lists
-  :straight t
-  :config
-  (quail-define-package "hbv-math" "UTF-8" "Ω" t)
-  (quail-define-rules
-   ; Equality and order
-   ("<=" ?≤) (">=" ?≥) ("\\prec" ?≺) ("\\preceq" ?≼) ("\\succ" ?≻)
-   ("\\succeq" ?≽)
-   ("/=" ?≠) ("\\neq" ?≠) ("\\=n" ?≠)("\\equiv" ?≡) ("\\nequiv" ?≢)
-   ("\\approx" ?≈) ("\\~~" ?≈) ("\\t=" ?≜) ("\\def=" ?≝)
-   ;; Set theory
-   ("\\sub" ?⊆) ("\\subset" ?⊂) ("\\subseteq" ?⊆) ("\\in" ?∈)
-   ("\\inn" ?∉) ("\\:" ?∈) ("\\cap" ?∩) ("\\inter" ?∩)
-   ("\\cup" ?∪) ("\\uni" ?∪) ("\\emptyset" ?∅) ("\\empty" ?∅)
-   ("\\times" ?×) ("\\x" ?×)
-   ;; Number stuff
-   ("\\div" ?∣) ("\\infty" ?∞) ("\\sqrt" ?√) ("\\Im" ?ℑ) ("\\Re" ?ℜ)
-   ; Logic
-   ("\\/" ?∨) ("\\and" ?∧) ("/\\" ?∧) ("\\or" ?∨) ("\\~" ?¬) ("\\neg" ?¬)
-   ("|-" ?⊢) ("|-n" ?⊬) ("\\bot" ?⊥) ("\\top" ?⊤) ("\\r" ?→) ("\\lr" ?↔)
-   ("\\qed" ?∎)
-   ; Predicate Logic
-   ("\\all" ?∀) ("\\ex" ?∃) ("\\exn" ?∄)
-   ;; functions
-   ("\\to" ?→) ("\\mapsto" ?↦) ("\\circ" ?∘) ("\\comp" ?∘) ("\\integral" ?∫)
-   ("\\fun" ?λ)
-   ; sets of numbers
-   ("\\nat" ?ℕ) ("\\N" ?ℕ) ("\\int" ?ℤ) ("\\Z" ?ℤ) ("\\rat" ?ℚ) ("\\Q" ?ℚ)
-   ("\\real" ?ℝ) ("\\R" ?ℝ) ("\\complex" ?ℂ) ("\\C" ?ℂ) ("\\prime" ?ℙ)
-   ("\\P" ?ℙ)
-   ; Complexity
-   ("\\bigo" ?𝒪)
-   ; greek
-   ("\\Ga" ?α) ("\\GA" ?Α) ("\\a" ?α)
-   ("\\Gb" ?β) ("\\GB" ?Β) ("\\b" ?β)
-   ("\\Gg" ?γ) ("\\GG" ?Γ) ("\\g" ?γ) ("\\G" ?Γ)
-   ("\\Gd" ?δ) ("\\GD" ?Δ) ("\\del" ?δ) ("\\Del" ?Δ)
-   ("\\Ge" ?ε) ("\\GE" ?Ε) ("\\eps" ?ε)
-   ("\\Gz" ?ζ) ("\\GZ" ?Ζ)
-   ("\\Gh" ?η) ("\\GH" ?Η) ("\\eta" ?η)
-   ("\\Gth" ?θ) ("\\GTH" ?Θ) ("\\the" ?θ) ("\\The" ?Θ)
-   ("\\Gi" ?ι) ("\\GI" ?Ι) ("\\iota" ?ι)
-   ("\\Gk" ?κ) ("\\GK" ?Κ)
-   ("\\Gl" ?λ) ("\\GL" ?Λ) ("\\lam" ?λ)
-   ("\\Gm" ?μ) ("\\GM" Μ) ("\\mu" ?μ)
-   ("\\Gx" ?ξ) ("\\GX" ?Ξ) ("\\xi" ?ξ) ("\\Xi" ?Ξ)
-   ("\\Gp" ?π) ("\\GP" ?Π) ("\\pi" ?π) ("\\Pi" ?Π)
-   ("\\Gr" ?ρ) ("\\GR" ?Ρ) ("\\rho" ?ρ)
-   ("\\Gs" ?σ) ("\\GS" ?Σ) ("\\sig" ?σ) ("\\Sig" ?Σ)
-   ("\\Gt" ?τ) ("\\GT" ?Τ) ("\\tau" ?τ)
-   ("\\Gph" ?ϕ) ("\\GPH" ?Φ) ("\\phi" ?ϕ) ("\\Phi" ?Φ)
-   ("\\Gc" ?χ) ("\\GC" ?Χ) ("\\chi" ?χ)
-   ("\\Gp" ?ψ) ("\\GP" ?Ψ) ("\\psi" ?ψ)
-   ("\\Go" ?ω) ("\\GO" ?Ω) ("\\omega" ?ω) ("\\Omega" ?Ω)
-   )
-   (mapc (lambda (x)
-          (if (cddr x)
-              (quail-defrule (cadr x) (car (cddr x)))))
-        (append math-symbol-list-superscripts math-symbol-list-subscripts))
-)
-
 ;; Haskell
 (use-package haskell-mode
   :straight t
@@ -771,7 +692,7 @@ Or interactively enable it in a buffer."
   :straight t
   :if (executable-find "coqtop")
   :config
-  (setq proof-splash-seen t)
+  (setq proof-splash-seen nil)
   (setq proof-electric-terminator-enable t))
 
 (use-package company-coq
@@ -822,7 +743,7 @@ Or interactively enable it in a buffer."
 (use-package emacs-everywhere
   :straight t
   :hook
-  (emacs-everywhere-mode . (lambda () (set-input-method "hbv-math")))
+  (emacs-everywhere-mode . (lambda () (set-input-method "Lean")))
   :config
   (setq emacs-everywhere-markdown-apps nil)
   (setq emacs-everywhere-markdown-windows nil))
@@ -836,7 +757,7 @@ Or interactively enable it in a buffer."
   :straight t
   :if (executable-find "dot")
   :hook
-  (graphviz-dot-mode . (lambda () (set-input-method "hbv-math")))
+  (graphviz-dot-mode . (lambda () (set-input-method "Lean")))
   :config
   (setq graphviz-dot-indent-width 4))
 
