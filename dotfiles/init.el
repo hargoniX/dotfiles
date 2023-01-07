@@ -394,6 +394,14 @@
   :after lsp-mode
   :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
+(use-package lsp-ui
+  :straight t
+  :after lsp-mode
+  :config
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-sideline-enable nil))
+
 (use-package projectile
   :straight t
   :after lsp
@@ -686,7 +694,9 @@ Or interactively enable it in a buffer."
 	     :files ("*.el" "data"))
   :if (executable-find "elan")
   ;; to defer loading the package until required
-  :commands (lean4-mode))
+  :commands (lean4-mode)
+  :config
+  (setq lsp-ui-doc-show-with-cursor nil))
 
 (use-package proof-general
   :straight t
