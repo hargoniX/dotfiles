@@ -274,6 +274,7 @@
   (copy-file "~/org/personal.org" "~/webdav/personal.org" t)
   (copy-file "~/org/uni.org" "~/webdav/uni.org" t)
   (copy-file "~/org/weekly.org" "~/webdav/weekly.org" t)
+  (copy-file "~/org/goals.org" "~/webdav/goals.org" t)
   (copy-file "~/webdav/mobile-notes.org" "~/org/mobile-notes.org" t))
 
 (use-package ox
