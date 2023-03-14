@@ -750,6 +750,16 @@ Or interactively enable it in a buffer."
   :hook
   (dhall-mode . lsp))
 
+(use-package go-mode
+  :straight t
+  :if (executable-find "go")
+  :mode "\\.go\\'"
+  :config
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t)
+  :hook
+  (go-mode . lsp))
+
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
   :straight t
