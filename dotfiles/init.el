@@ -707,6 +707,7 @@ Or interactively enable it in a buffer."
 
 (use-package tuareg
   :straight t
+  :mode ("\\.ml\\'" . tuareg-mode)
   :if (executable-find "ocaml"))
 
 (use-package merlin
