@@ -86,13 +86,14 @@ if ! [ -S /tmp/hboeving-agent.sock ]; then
    {%@@ endif @@%}
 fi
 
-autoload -Uz compinit
 
+autoload -Uz compinit
 # speed up compinit
-for dump in ~/.zcompdump(N.mh+24); do
+if ~/.zcompdump(N.mh+24); then
+  compinit -C
+else
   compinit
-done
-compinit -C
+fi
 
 autoload -Uz vcs_info
 autoload -U colors && colors
