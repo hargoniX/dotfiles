@@ -32,9 +32,6 @@ dotfiles:
   d_vim:
     src: vim
     dst: ~/.vim
-  d_scripts:
-    src: scripts
-    dst: ~/.local/hbv_scripts
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
@@ -121,7 +118,6 @@ profiles:
     dotfiles:
     - f_i3_config
     - f_i3status_config
-    - d_scripts
   tmux:
     dotfiles:
     - f_tmux.conf
