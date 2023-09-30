@@ -89,7 +89,7 @@ fi
 
 autoload -Uz compinit
 # speed up compinit
-if ~/.zcompdump(N.mh+24); then
+if [ -f ~/.zcompdump(N.mh+24) ]; then
   compinit -C
 else
   compinit
