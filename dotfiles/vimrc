@@ -1,47 +1,4 @@
 let mapleader = "\<Space>"
-call plug#begin('~/.vim/plugged')
-" Colorscheme
-Plug 'morhetz/gruvbox'
-
-" Automatically switch indent config
-Plug 'tpope/vim-sleuth'
-
-" Giiiiit
-Plug 'airblade/vim-gitgutter'
-
-" Tmux navigation!
-Plug 'christoomey/vim-tmux-navigator'
-
-" Automatically add end in ruby
-Plug 'tpope/vim-endwise'
-
-" Automatically add and delete pairs
-Plug 'jiangmiao/auto-pairs'
-
-" Fzf
-if executable("fzf")
-    Plug 'junegunn/fzf'
-    Plug 'junegunn/fzf.vim'
-endif
-
-if has("nvim") && has("nvim-0.5.0")
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'tjdevries/express_line.nvim'
-
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'steelsojka/completion-buffers'
-  Plug 'Shougo/neosnippet.vim'
-  Plug 'Shougo/neosnippet-snippets'
-
-  if (executable("clang") || executable("gcc")) && executable("git")
-    Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'nvim-treesitter/completion-treesitter'
-  endif
-  Plug 'neovim/nvim-lspconfig'
-endif
-
-call plug#end()
-
 " General settings
 behave xterm
 syntax enable
@@ -79,15 +36,6 @@ filetype on
 filetype plugin on
 filetype indent plugin on
 
-" colorscheme
-colorscheme gruvbox
-let g:gruvbox_contrast_light="soft"
-
-set background=light
-if has("nvim")
-  set termguicolors
-endif
-
 " Set 256 colors for my terminal
 set t_Co=256
 
@@ -123,24 +71,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Ex | endif
 set splitbelow
 set splitright
 
-" Git mappings
-autocmd BufWritePost * GitGutter
-
-" Fzf files
-nmap <leader>ff :Files<CR>
-" Fzf Tab Files
-nmap <leader>ft :tabe<CR>:Files<CR>
-" Fzf Ctags
-nmap <leader>fc :BTags<CR>
-
 " enable nvim plugins
-if has("nvim") && has("nvim-0.5.0")
-  lua require'hboeving.status'
-  lua require'hboeving.completion'
-
-  if (executable("clang") || executable("gcc")) && executable("git")
-    lua require'hboeving.treesitter'
-  endif
-
-  lua require'hboeving.lsp'
+if has("nvim")
+  lua require'hboeving.init'
 endif
