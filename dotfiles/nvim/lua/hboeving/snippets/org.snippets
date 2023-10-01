@@ -1,0 +1,42 @@
+snippet algo
+    #+ATTR_LATEX: :options [${1:name}]
+    #+begin_algo
+    ${0:description}
+    #+end_algo
+snippet begin
+    #+ATTR_LATEX: :options [${1:arg}]
+    #+begin_${2:type}
+    ${0:description}
+    #+end_${2:type}
+snippet cases
+    \begin{cases}
+    ${0:content}
+    \end{cases}
+snippet def
+    #+ATTR_LATEX: :options [${1:name}]
+    #+begin_definition
+    ${0:description}
+    #+end_definition
+snippet eqn
+    \begin{equation}
+    ${0:content}
+    \end{equation}
+snippet frac
+    \frac{${1:up}}{${0:down}}
+snippet lbegin
+    \begin{${1:type}}
+    ${0:content}
+    \end{${1:type}}
+snippet qed
+    #+begin_proof
+    ${0:content}
+    #+end_proof
+snippet thm
+    #+ATTR_LATEX: :options [${1:name}]
+    #+begin_theorem
+    ${0:content}
+    #+end_theorem
+snippet src
+    #+begin_src ${1:lang}
+    ${0:content}
+    #+end_src
