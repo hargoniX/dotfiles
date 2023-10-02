@@ -76,17 +76,6 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-
-if ! [ -S /tmp/hboeving-agent.sock ]; then
-   echo "Starting ssh-agent"
-   ssh-agent -a /tmp/hboeving-agent.sock
-   ssh-add
-   {%@@ if profile == "laptop" @@%}
-   ssh-add ~/.ssh/genua_rsa
-   {%@@ endif @@%}
-fi
-
-
 autoload -Uz compinit
 # speed up compinit
 if [ -f ~/.zcompdump(N.mh+24) ]; then
