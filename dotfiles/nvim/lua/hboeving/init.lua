@@ -108,6 +108,7 @@ require("lazy").setup({
       { "nvim-treesitter/nvim-treesitter", lazy = true },
     },
     ft = "org",
+    keys = {"<leader>oa", "<leader>oc"},
     config = function()
       -- Load treesitter grammar for org
       require("orgmode").setup_ts_grammar()
