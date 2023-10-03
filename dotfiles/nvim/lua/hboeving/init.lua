@@ -110,9 +110,6 @@ require("lazy").setup({
     ft = "org",
     keys = {"<leader>oa", "<leader>oc"},
     config = function()
-      -- Load treesitter grammar for org
-      require("orgmode").setup_ts_grammar()
-
       -- Setup treesitter
       require("nvim-treesitter.configs").setup({
         highlight = {
@@ -122,11 +119,20 @@ require("lazy").setup({
         ensure_installed = { "org" },
       })
 
+      -- Load treesitter grammar for org
+      require("orgmode").setup_ts_grammar()
+
       -- Setup orgmode
       require("orgmode").setup({
         org_agenda_files = "~/org/*",
         org_default_notes_file = "~/org/notes.org",
+        org_todo_keywords = {"TODO(t)", "PROGRESS(p)", "|", "DONE(d)"},
+        org_log_done = nil,
+        org_highlight_latex_and_related = "entities",
       })
+
+      vim.cmd([[hi OrgAgendaScheduled guifg=Grey]])
+      vim.cmd([[hi OrgAgendaDeadline guifg=Grey]])
     end,
   },
   {
