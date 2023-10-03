@@ -204,7 +204,8 @@ require("lazy").setup({
       "petertriho/cmp-git",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip"
+      "saadparwaiz1/cmp_luasnip",
+      "petertriho/cmp-git",
     },
     config = function()
       local cmp = require"cmp"
@@ -264,6 +265,7 @@ require("lazy").setup({
         }),
       }
 
+      require("cmp_git").setup()
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
           { name = "git" },
