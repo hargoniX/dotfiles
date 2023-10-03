@@ -13,6 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.maplocalleader = " "
 
+local lsp_fts = { "python", "rust", "lean", "haskell" }
+local ts_fts = {"c", "cpp", "agda", "lua", "org"}
+
 require("lazy").setup({
   {
     "ellisonleao/gruvbox.nvim",
@@ -34,6 +37,7 @@ require("lazy").setup({
   {
     "linrongbin16/lsp-progress.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    ft = lsp_fts,
     config = function()
       require("lsp-progress").setup()
     end
@@ -54,7 +58,8 @@ require("lazy").setup({
               -- invoke `progress` here.
               require("lsp-progress").progress(),
           }
-        }
+        },
+        options = { theme = "gruvbox" },
       })
       -- listen lsp-progress event and refresh lualine
       vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
@@ -104,10 +109,10 @@ require("lazy").setup({
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    ft = {"c", "cpp", "agda", "lua"},
+    ft = ts_fts,
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "cpp", "agda", "lua" },
+        ensure_installed = ts_fts,
         auto_install = false,
         highlight = {
           enable = true,
@@ -151,7 +156,7 @@ require("lazy").setup({
   },
   {
     "neovim/nvim-lspconfig",
-    ft = { "python", "rust", "lean", "haskell" },
+    ft = lsp_fts,
     dependencies = {
       "hrsh7th/nvim-cmp",
     },
@@ -195,6 +200,13 @@ require("lazy").setup({
     end
   },
   {
+    "petertriho/cmp-git",
+    ft = "gitcommit",
+    config = function()
+      require("cmp_git").setup()
+    end
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -202,13 +214,11 @@ require("lazy").setup({
       "FelipeLema/cmp-async-path",
       "ray-x/cmp-treesitter",
       "petertriho/cmp-git",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip",
-      "petertriho/cmp-git",
+      "hrsh7th/cmp-buffer",
     },
     config = function()
-      local cmp = require"cmp"
+      local cmp = require("cmp")
       local luasnip = require("luasnip")
 
       local has_words_before = function()
@@ -225,14 +235,12 @@ require("lazy").setup({
         },
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "treesitter" },
           { name = "luasnip" },
           { name = "async_path" },
         }, {
           { name = "buffer" }
         }),
+
 
         mapping = cmp.mapping.preset.insert({
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -265,7 +273,26 @@ require("lazy").setup({
         }),
       }
 
-      require("cmp_git").setup()
+      for _, lsp_ft in ipairs(lsp_fts) do
+        cmp.setup.filetype(lsp_ft, {
+          sources = cmp.config.sources({
+            { name = "nvim_lsp" },
+          }, {
+            { name = "buffer" },
+          })
+        })
+      end
+
+      for _, ts_ft in ipairs(ts_fts) do
+        cmp.setup.filetype(ts_ft, {
+          sources = cmp.config.sources({
+            { name = "treesitter" },
+          }, {
+            { name = "buffer" },
+          })
+        })
+      end
+
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
           { name = "git" },
