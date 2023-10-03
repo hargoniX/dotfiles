@@ -1,4 +1,9 @@
-export EDITOR="vim"
+if type nvim > /dev/null; then
+  export EDITOR="nvim"
+  alias vim=nvim
+else
+  export EDITOR="vim"
+fi
 alias dotdrop=~/dotfiles/dotdrop.sh --cfg=~/dotfiles/config.yaml
 alias h=history
 alias l='ls -lFh'     #size,show type,human readable
