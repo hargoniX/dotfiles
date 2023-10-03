@@ -201,9 +201,11 @@ require("lazy").setup({
   },
   {
     "petertriho/cmp-git",
-    ft = "gitcommit",
+    ft = {"gitcommit", "NeogitCommitMessage"},
     config = function()
-      require("cmp_git").setup()
+      require("cmp_git").setup{
+        filetypes = { "gitcommit", "NeogitCommitMessage" },
+      }
     end
   },
   {
@@ -301,7 +303,30 @@ require("lazy").setup({
         })
       })
 
+      cmp.setup.filetype("NeogitCommitMessage", {
+        sources = cmp.config.sources({
+          { name = "git" },
+        }, {
+          { name = "buffer" },
+        })
+      })
+
     end,
+  },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
+    },
+    keys = {"<leader>gs"},
+    cmd = {"Neogit"},
+    config = function()
+      local neogit = require("neogit")
+      neogit.setup {}
+      vim.keymap.set("n", "<leader>gs", neogit.open)
+    end
   },
 })
 
