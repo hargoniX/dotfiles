@@ -103,9 +103,23 @@ require("lazy").setup({
     }
   },
   {
+    "nvim-treesitter/nvim-treesitter",
+    ft = {"c", "cpp", "agda", "lua"},
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "c", "cpp", "agda", "lua" },
+        auto_install = false,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { "org" },
+        },
+      })
+    end
+  },
+  {
     "nvim-orgmode/orgmode",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter", lazy = true },
+      "nvim-treesitter/nvim-treesitter",
     },
     ft = "org",
     keys = {"<leader>oa", "<leader>oc"},
