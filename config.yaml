@@ -59,6 +59,9 @@ dotfiles:
   d_nvim:
     src: nvim
     dst: ~/.config/nvim
+  d_alacritty:
+    src: alacritty
+    dst: ~/.config/alacritty
 
 profiles:
   laptop:
@@ -72,6 +75,7 @@ profiles:
     - mutt
     - latex
     - emacs
+    - alacritty
   # 2 monitor setup at work
   workstation:
     include:
@@ -133,3 +137,6 @@ profiles:
     dotfiles:
     - f_zathurarc
     - f_latexmkrc
+  alacritty:
+    dotfiles:
+    - d_alacritty
