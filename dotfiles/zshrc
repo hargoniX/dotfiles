@@ -16,12 +16,6 @@ alias ff='find . -type f -name'
 alias rm='rm -i' # Ask before removal
 alias cp='cp -i' # Ask before removal
 alias mv='mv -i' # Ask before removal
-alias emacsnw="TERM=st-direct emacsclient -c -nw -a 'emacs -nw'"
-
-# java stuff
-alias mvn_full_run='rm -rf target/site && mvn compile verify jacoco:prepare-agent test jacoco:report javadoc:javadoc'
-alias mvn_cov_report='xdg-open target/site/jacoco/index.html'
-alias todo='emacs -nw ~/todo.org'
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat{/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
@@ -103,34 +97,10 @@ zstyle ':vcs_info:git:*' formats '%b'
 
 # Load fzf if it's available
 if command -v fzf &> /dev/null; then
-  source ~/.vim/plugged/fzf/shell/completion.zsh
-  source ~/.vim/plugged/fzf/shell/key-bindings.zsh
+  source /usr/share/fzf/shell/key-bindings.zsh
 else
   bindkey '^R' history-incremental-search-backward
 fi
-
-# emacs vterm support
-vterm_printf(){
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-fi
-
-vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
-}
-setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
 touch ~/.github_token
 source ~/.github_token
