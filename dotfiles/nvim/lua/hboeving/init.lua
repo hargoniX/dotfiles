@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.maplocalleader = " "
+vim.api.nvim_set_option("clipboard","unnamedplus")
 
 local lsp_fts = { "python", "rust", "lean", "haskell", "typst" }
 local ts_fts = {"c", "cpp", "agda", "lua", "org"}
