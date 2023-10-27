@@ -270,12 +270,12 @@
 
 (defun hbv/org-sync ()
   (interactive)
-  (copy-file "~/org/notes.org" "~/webdav/notes.org" t)
-  (copy-file "~/org/personal.org" "~/webdav/personal.org" t)
-  (copy-file "~/org/uni.org" "~/webdav/uni.org" t)
-  (copy-file "~/org/weekly.org" "~/webdav/weekly.org" t)
-  (copy-file "~/org/goals.org" "~/webdav/goals.org" t)
-  (copy-file "~/webdav/mobile-notes.org" "~/org/mobile-notes.org" t))
+  ;; This used to be copy-file but it doesn't play well with nautilus webdav
+  (shell-command "cp ~/org/notes.org ~/webdav/notes.org")
+  (shell-command "cp ~/org/goals.org ~/webdav/goals.org")
+  (shell-command "cp ~/org/uni.org ~/webdav/uni.org")
+  (shell-command "cp ~/org/weekly.org ~/webdav/weekly.org")
+  (shell-command "cp ~/org/personal.org ~/webdav/personal.org"))
 
 (use-package ox
   :after org
