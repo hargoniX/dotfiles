@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
-local lsp_fts = { "python", "rust", "lean", "haskell", "typst" }
+local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua" }
 local ts_fts = {"c", "cpp", "agda", "lua", "org"}
 
 require("lazy").setup({
@@ -174,6 +174,25 @@ require("lazy").setup({
       	settings = {
 		      exportPdf = "onSave",
 	      }
+      }
+
+      require'lspconfig'.lua_ls.setup {
+        on_init = function(client)
+          client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+            Lua = {
+              runtime = { version = 'LuaJIT' }, -- most likely
+              -- Make the server aware of Neovim runtime files
+              workspace = {
+                checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME }
+              }
+            }
+          })
+          client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+          return true
+        end,
+        on_attach=on_attach,
+        capabilities=capabilities,
       }
 
       -- Use LspAttach autocommand to only map the following keys
