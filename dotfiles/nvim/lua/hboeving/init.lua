@@ -96,11 +96,12 @@ require("lazy").setup({
   {
     "Julian/lean.nvim",
     ft = "lean",
+    dev = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
     },
 
-    -- see details below for full configuration options
     opts = {
       lsp = {
         on_attach = on_attach,
@@ -354,6 +355,10 @@ require("lazy").setup({
     ft = "typst",
     lazy=false,
   },
+}, {
+  dev = {
+    path = "~/Desktop/nvim"
+  },
 })
 
 
@@ -369,12 +374,12 @@ for _, spell_ft in ipairs(spell_fts) do
   })
 end
 
-function copy_file(src, dst)
+local function copy_file(src, dst)
   os.execute("cp " .. src .. " " .. dst)
 end
 
 vim.api.nvim_create_user_command("OrgSync",
-  function(opts)
+  function(_)
     copy_file("~/org/notes.org", "~/webdav/notes.org")
     copy_file("~/org/personal.org", "~/webdav/personal.org")
     copy_file("~/org/uni.org", "~/webdav/uni.org")
