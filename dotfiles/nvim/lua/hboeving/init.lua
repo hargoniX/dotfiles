@@ -14,8 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
-local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua" }
-local ts_fts = {"c", "cpp", "agda", "lua", "org"}
+local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java" }
+local ts_fts = {"c", "cpp", "agda", "lua", "org", "java" }
 
 require("lazy").setup({
   {
@@ -177,7 +177,7 @@ require("lazy").setup({
 	      }
       }
 
-      require'lspconfig'.lua_ls.setup {
+      lspconfig.lua_ls.setup {
         on_init = function(client)
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
             Lua = {
@@ -223,6 +223,17 @@ require("lazy").setup({
           end, opts)
         end,
       })
+    end
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+    config = function()
+      local config = {
+          cmd = {'jdtls'},
+          root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+      }
+      require('jdtls').start_or_attach(config)
     end
   },
   {
