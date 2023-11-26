@@ -15,7 +15,7 @@ vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
 local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java" }
-local ts_fts = {"c", "cpp", "agda", "lua", "org", "java" }
+local ts_fts = {"c", "cpp", "agda", "lua", "org", "java", "haskell" }
 
 require("lazy").setup({
   {
@@ -48,25 +48,14 @@ require("lazy").setup({
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      "linrongbin16/lsp-progress.nvim",
     },
     config = function()
       require("lualine").setup({
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "filename" },
-          lualine_c = {
-              -- invoke `progress` here.
-              require("lsp-progress").progress(),
-          }
         },
         options = { theme = "gruvbox" },
-      })
-      -- listen lsp-progress event and refresh lualine
-      vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
-      vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
-        group = "lualine_augroup",
-        callback = require("lualine").refresh,
       })
     end
   },
