@@ -112,7 +112,7 @@
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
-  :straight (dtrt-indent :type git :host github :repo "jscheid/dtrt-indent")
+  :straight t
   :hook
   (prog-mode . dtrt-indent-mode)
   (text-mode . dtrt-indent-mode)
@@ -213,6 +213,7 @@
 
 (use-package org
   :straight t
+  :after general
   ;; C-c C-t org rotate
   ;; Tab fold/unfold
   ;; M-S-RET Insert new TODO
@@ -351,6 +352,7 @@
 
 (use-package magit
   :straight t
+  :after general
   :general
   (vim-leader-def 'normal 'global
     "gb" 'magit-blame ;; git blame
@@ -361,6 +363,7 @@
 
 (use-package lsp-mode
   :straight t
+  :after general
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-l")
