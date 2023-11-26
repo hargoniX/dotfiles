@@ -73,30 +73,13 @@
 (setq show-trailing-whitespace t)
 (setq vc-follow-symlinks t)
 
-;; straight.el bootstrap
-(setq straight-check-for-modifications 'live)
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; inhibit package.el load
-(setq package-enable-at-startup nil)
-
-;; Bootstrap `use-package'
-(straight-use-package 'use-package)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
 ;; General things
 (use-package exec-path-from-shell
-  :straight t
+  :ensure t
   :config
   ;; don't evaluate my entire zshrc
   (setq exec-path-from-shell-arguments '("-l"))
@@ -104,7 +87,7 @@
 
 ;; Themes and icons
 (use-package doom-themes
-  :straight t
+  :ensure t
   :config
   (setq doom-gruvbox-light-variant "soft")
   (load-theme 'doom-gruvbox-light t)
@@ -112,7 +95,7 @@
 
 ;; auto indent change like vim sleuth
 (use-package dtrt-indent
-  :straight t
+  :ensure t
   :hook
   (prog-mode . dtrt-indent-mode)
   (text-mode . dtrt-indent-mode)
@@ -121,7 +104,7 @@
 
 ;; 80 charcater limit line in prog mode
 (use-package fill-column-indicator
-  :straight t
+  :ensure t
   :defer 1
   :diminish fci-mode
   :config
@@ -141,22 +124,14 @@
   (org-mode . electric-pair-mode)
   (markdown-mode . electric-pair-mode))
 
-
 (use-package general
-  :straight t
+  :ensure t
   :init
   ;; Space as leader key
   (general-create-definer vim-leader-def :prefix "SPC"))
 
-(use-package which-key
-  :straight t
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 1))
-
 (use-package evil
-  :straight t
+  :ensure t
   :bind
   (:map evil-motion-state-map
         ("C-y" . nil))
@@ -172,19 +147,19 @@
   (evil-mode))
 
 (use-package evil-collection
-  :straight t
+  :ensure t
   :after evil
   :config
   (evil-collection-init))
 
 (use-package evil-matchit
-  :straight t
+  :ensure t
   :after evil
   :config
   (global-evil-matchit-mode 1))
 
 (use-package ivy
-  :straight t
+  :ensure t
   :diminish
   :bind (("C-s" . swiper) ; TODO: possibly map this to / at some point?
          :map ivy-minibuffer-map
@@ -197,7 +172,7 @@
   (ivy-mode 1))
 
 (use-package counsel
-  :straight t
+  :ensure t
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
          ("C-x C-f" . counsel-find-file)
@@ -212,8 +187,7 @@
 
 
 (use-package org
-  :straight t
-  :after general
+  :ensure t
   ;; C-c C-t org rotate
   ;; Tab fold/unfold
   ;; M-S-RET Insert new TODO
@@ -284,25 +258,25 @@
   (add-to-list 'org-export-filter-bold-functions 'hbv/beamer-bold))
 
 (use-package org-bullets
-  :straight t
+  :ensure t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-fragtog
-  :straight t
+  :ensure t
   :after org
   :hook (org-mode . org-fragtog-mode))
 
 (use-package org-ref
-  :straight t
+  :ensure t
   :after org
   :init
   (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package org-super-agenda
-  :straight t
+  :ensure t
   :after org
   :config
   (setq org-super-agenda-groups
@@ -320,7 +294,7 @@
   (org-super-agenda-mode))
 
 (use-package origami
-  :straight t
+  :ensure t
   :after (org-super-agenda)
   :bind
   (:map org-super-agenda-header-map
@@ -329,7 +303,7 @@
   (org-agenda-mode . origami-mode))
 
 (use-package org-attach-screenshot
-  :straight t
+  :ensure t
   :after org
   :config
   (setq org-attach-screenshot-relative-links t)
@@ -341,7 +315,7 @@
   ))
 
 (use-package org-alert
-  :straight t
+  :ensure t
   :after org
   :config
   (setq alert-default-style 'libnotify)
@@ -351,8 +325,7 @@
 ;; Development stuff
 
 (use-package magit
-  :straight t
-  :after general
+  :ensure t
   :general
   (vim-leader-def 'normal 'global
     "gb" 'magit-blame ;; git blame
@@ -362,13 +335,11 @@
     "ga" 'magit-branch)) ;; git ast (as b is taken)
 
 (use-package lsp-mode
-  :straight t
-  :after general
+  :ensure t
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-l")
   :config
-  (lsp-enable-which-key-integration t)
   (setq lsp-rust-server 'rust-analyzer)
   (setq lsp-auto-guess-root t)
   (setq lsp-idle-delay 1.)
@@ -378,12 +349,12 @@
     "gd" 'lsp-find-definition))
 
 (use-package lsp-ivy
-  :straight t
+  :ensure t
   :after lsp-mode
   :bind(:map lsp-mode-map ("C-l g a" . lsp-ivy-workspace-symbol)))
 
 (use-package lsp-ui
-  :straight t
+  :ensure t
   :after lsp-mode
   :config
   (setq lsp-ui-doc-enable t)
@@ -391,25 +362,25 @@
   (setq lsp-ui-sideline-enable nil))
 
 (use-package projectile
-  :straight t
+  :ensure t
   :after lsp
   :config
   (setq projectile-completion-system 'ivy)
   (projectile-mode +1))
 
 (use-package flycheck
-  :straight t
+  :ensure t
   )
 
 (use-package flycheck-posframe
-  :straight t
+  :ensure t
   :hook
   (flycheck-mode . flycheck-posframe-mode)
   :config
   (flycheck-posframe-configure-pretty-defaults))
 
 (use-package company
-  :straight t
+  :ensure t
   :hook
   (lsp-mode . company-mode)
   (prog-mode . company-mode)
@@ -421,7 +392,7 @@
 
 (use-package company-box
   :disabled
-  :straight t
+  :ensure t
   :hook (company-mode . company-box-mode)
   :config
   (setq company-box-doc-delay 2.0)
@@ -437,7 +408,7 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 (use-package yasnippet
-  :straight t
+  :ensure t
   :init
   :bind (:map yas-minor-mode-map
               ("C-y" . yas-expand))
@@ -445,11 +416,11 @@
   (company-mode . yas-minor-mode)
   (company-mode . company-mode/add-yasnippet))
 
-(use-package yasnippet-snippets
-  :straight (yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"
-                                :fork (:host github
-                                             :repo "hargonix/yasnippet-snippets"))
-  :after yasnippet)
+;;(use-package yasnippet-snippets
+;;  :ensure (yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"
+;;                                :fork (:host github
+;;                                             :repo "hargonix/yasnippet-snippets"))
+;;  :after yasnippet)
 
 ;; This function is from nicm@
 (defun openbsd-knf-space-indent (langelem)
@@ -636,7 +607,7 @@ Or interactively enable it in a buffer."
 
 ;; rust
 (use-package rust-mode
-  :straight t
+  :ensure t
   :if (executable-find "rustup")
   :hook
   (rust-mode . prettify-symbols-mode)
@@ -651,7 +622,7 @@ Or interactively enable it in a buffer."
 
 ;; LaTeX
 (use-package auctex
-  :straight t
+  :ensure t
   :if (executable-find "pdflatex")
   :defer t
   :init
@@ -661,40 +632,28 @@ Or interactively enable it in a buffer."
 
 ;; Haskell
 (use-package haskell-mode
-  :straight t
+  :ensure t
   :if (executable-find "ghc")
   :hook
   (haskell-mode . interactive-haskell-mode))
 
 (use-package lsp-haskell
-  :straight t
+  :ensure t
   :if (executable-find "ghc")
   :after lsp
   :hook
   (haskell-mode . lsp)
   (haskell-literate-mode . lsp))
 
-(use-package lean4-mode
-  :straight (lean4-mode
-	     :type git
-	     :host github
-	     :repo "leanprover/lean4-mode"
-	     :files ("*.el" "data"))
-  :if (executable-find "elan")
-  ;; to defer loading the package until required
-  :commands (lean4-mode)
-  :config
-  (setq lsp-ui-doc-show-with-cursor nil))
-
 (use-package proof-general
-  :straight t
+  :ensure t
   :if (executable-find "coqtop")
   :config
   (setq proof-splash-seen nil)
   (setq proof-electric-terminator-enable t))
 
 (use-package company-coq
-  :straight t
+  :ensure t
   :if (executable-find "coqtop")
   :hook
   (coq-mode . company-coq-mode))
@@ -709,24 +668,24 @@ Or interactively enable it in a buffer."
   (vhdl-mode . vhdl-stutter-mode))
 
 (use-package tuareg
-  :straight t
+  :ensure t
   :mode ("\\.ml\\'" . tuareg-mode)
   :if (executable-find "ocaml"))
 
 (use-package merlin
-  :straight t
+  :ensure t
   :if (executable-find "ocaml")
   :after tuareg
   :hook
   (tuareg-mode . merlin-mode))
 
 (use-package nix-mode
-  :straight t
+  :ensure t
   :if (executable-find "nix-shell")
   :mode "\\.nix\\'")
 
 (use-package dhall-mode
-  :straight t
+  :ensure t
   :if (executable-find "dhall")
   :config
   (setq
@@ -739,7 +698,7 @@ Or interactively enable it in a buffer."
   (dhall-mode . lsp))
 
 (use-package go-mode
-  :straight t
+  :ensure t
   :if (executable-find "go")
   :mode "\\.go\\'"
   :config
@@ -750,7 +709,7 @@ Or interactively enable it in a buffer."
 
 ;; mod+i in normal mode in my i3 is bound to run this
 (use-package emacs-everywhere
-  :straight t
+  :ensure t
   :hook
   (emacs-everywhere-mode . (lambda () (set-input-method "Lean")))
   :config
@@ -758,12 +717,12 @@ Or interactively enable it in a buffer."
   (setq emacs-everywhere-markdown-windows nil))
 
 (use-package rainbow-mode
-  :straight t
+  :ensure t
   :hook
   (prog-mode . rainbow-mode))
 
 (use-package graphviz-dot-mode
-  :straight t
+  :ensure t
   :if (executable-find "dot")
   :hook
   (graphviz-dot-mode . (lambda () (set-input-method "Lean")))
@@ -771,7 +730,7 @@ Or interactively enable it in a buffer."
   (setq graphviz-dot-indent-width 4))
 
 (use-package ispell
-  :straight t
+  :ensure t
   :if (executable-find "hunspell")
   :config
   (setq ispell-program-name "hunspell")
@@ -784,7 +743,7 @@ Or interactively enable it in a buffer."
   (text-mode . flyspell-mode))
 
 (use-package vterm
-  :straight t
+  :ensure t
   :commands (vterm vterm-other-window)
   :hook
   (vterm-mode . (lambda () (setq show-trailing-whitespace nil)))
@@ -804,7 +763,7 @@ Or interactively enable it in a buffer."
   (gcmh-set-high-threshold))
 
 (use-package gcmh
-  :straight t
+  :ensure t
   :hook
   (after-init . gcmh-mode)
   (minibuffer-setup . defer-garbage-collection)
