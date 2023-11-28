@@ -1,16 +1,12 @@
 snippet def
-    #definition(${1:name})[
-        ${0:description}
+    #definition("${1:name}")[
+      ${0:description}
     ]
 snippet qed
     #proof[
-        ${0:description}
+      ${0:description}
     ]
-snippet qed
-    #+begin_proof
-    ${0:content}
-    #+end_proof
 snippet thm
-    #theorem(${1:name})[
-        ${0:description}
+    #theorem("${1:name}")[
+      ${0:description}
     ]
