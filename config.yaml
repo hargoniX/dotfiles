@@ -62,9 +62,6 @@ dotfiles:
   d_alacritty:
     src: alacritty
     dst: ~/.config/alacritty
-  d_kitty:
-    src: kitty
-    dst: ~/.config/kitty
 
 profiles:
   laptop:
@@ -79,7 +76,6 @@ profiles:
     - latex
     - emacs
     - alacritty
-    - kitty
   # 2 monitor setup at work
   workstation:
     include:
@@ -144,6 +140,3 @@ profiles:
   alacritty:
     dotfiles:
     - d_alacritty
-  kitty:
-    dotfiles:
-    - d_kitty

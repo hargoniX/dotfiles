@@ -1,6 +1,3 @@
 . ~/.profile
 
 export PATH=$HOME/.local/bin:$HOME/.local/scripts:$PATH
-if [ -d "$HOME/.ghcup/bin" ]; then
-   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-fi

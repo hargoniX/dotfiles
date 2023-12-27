@@ -15,7 +15,7 @@ vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
 local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java" }
-local ts_fts = {"c", "cpp", "agda", "lua", "org", "java", "haskell" }
+local ts_fts = {"c", "cpp", "agda", "lua", "java", "haskell" }
 
 require("lazy").setup({
   {
@@ -107,43 +107,9 @@ require("lazy").setup({
         auto_install = false,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = { "org" },
         },
       })
     end
-  },
-  {
-    "nvim-orgmode/orgmode",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    ft = "org",
-    keys = {"<leader>oa", "<leader>oc"},
-    config = function()
-      -- Setup treesitter
-      require("nvim-treesitter.configs").setup({
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { "org" },
-        },
-        ensure_installed = { "org" },
-      })
-
-      -- Load treesitter grammar for org
-      require("orgmode").setup_ts_grammar()
-
-      -- Setup orgmode
-      require("orgmode").setup({
-        org_agenda_files = "~/org/*",
-        org_default_notes_file = "~/org/notes.org",
-        org_todo_keywords = {"TODO(t)", "PROGRESS(p)", "|", "DONE(d)"},
-        org_log_done = nil,
-        org_highlight_latex_and_related = "entities",
-      })
-
-      vim.cmd([[hi OrgAgendaScheduled guifg=Grey]])
-      vim.cmd([[hi OrgAgendaDeadline guifg=Grey]])
-    end,
   },
   {
     "neovim/nvim-lspconfig",
