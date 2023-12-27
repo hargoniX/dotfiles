@@ -21,14 +21,6 @@ dotfiles:
   f_bashrc:
     src: bashrc
     dst: ~/.bashrc
-  f_i3_config:
-    src: i3_config
-    dst: ~/.config/i3/config
-    actions:
-    - st_installation
-  f_i3status_config:
-    src: i3status_config
-    dst: ~/.config/i3status/config
   d_vim:
     src: vim
     dst: ~/.vim
@@ -70,7 +62,6 @@ profiles:
     - bash
     - vim
     - x11
-    - i3
     - tmux
     - mutt
     - latex
@@ -83,7 +74,6 @@ profiles:
     - bash
     - vim
     - x11
-    - i3
     - tmux
     - mutt
     - emacs
@@ -118,10 +108,6 @@ profiles:
     dotfiles:
     - f_xinitrc
     - f_xresources
-  i3:
-    dotfiles:
-    - f_i3_config
-    - f_i3status_config
   tmux:
     dotfiles:
     - f_tmux.conf
