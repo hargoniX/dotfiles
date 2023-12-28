@@ -54,6 +54,18 @@ dotfiles:
   d_alacritty:
     src: alacritty
     dst: ~/.config/alacritty
+  f_sway:
+    src: sway
+    dst: ~/.config/sway/config
+  f_gammastep:
+    src: gammastep
+    dst: ~/.config/gammastep/config.ini
+  f_mako:
+    src: mako
+    dst: ~/.config/mako/config
+  d_waybar:
+    src: waybar
+    dst: ~/.config/waybar
 
 profiles:
   laptop:
@@ -61,35 +73,21 @@ profiles:
     - zsh
     - bash
     - vim
-    - x11
     - tmux
-    - mutt
     - latex
-    - emacs
     - alacritty
-  # 2 monitor setup at work
-  workstation:
-    include:
-    - zsh
-    - bash
-    - vim
-    - x11
-    - tmux
-    - mutt
-    - emacs
+    - sway
   # dev server zsh setup
   dev-zsh:
     include:
     - zsh
     - vim
-    - emacs
     - tmux
   # dev server bash setup
   dev-bash:
     include:
     - bash
     - vim
-    - emacs
     - tmux
   # Actual packages supposed to be consumed through meta packages
   zsh:
@@ -126,3 +124,9 @@ profiles:
   alacritty:
     dotfiles:
     - d_alacritty
+  sway:
+    dotfiles:
+    - f_sway
+    - f_gammastep
+    - f_mako
+    - d_waybar

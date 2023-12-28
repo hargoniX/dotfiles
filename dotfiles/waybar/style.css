@@ -1,0 +1,77 @@
+@define-color bg1   #ebdbb2;
+@define-color bg0   #fbf1c7;
+@define-color font #3c3836;
+@define-color red #cc241d;
+@define-color blue #458588;
+@define-color green #98971a;
+@define-color yellow #d79921;
+
+window#waybar {
+    background-color: @bg0;
+}
+* {
+    color: @font;
+    font-size: 11pt;
+    min-height: 0px;
+    font-weight: 400;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+/* left module */
+#workspaces {
+    background-color: @bg1;
+    border-radius: 8px;
+}
+
+#workspaces button.visible {
+    background-color: @blue;
+    border-radius: 8px;
+}
+
+#workspaces button.current_output.focused {
+    background: @green;
+    border-radius: 8px;
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+    border-radius: 8px;
+}
+
+/* center module */
+#clock{
+    margin: 2px 0px 2px 0px ;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: @bg1;
+    border-radius: 8px;
+}
+
+/* right module */
+#tray {
+    margin: 2px 0px 2px 0px ;
+    padding: 0px 2px 0px 2px;
+    background-color: @bg1;
+    color: #bf616a;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+}
+
+#wireplumber {
+    background-color: @bg1;
+    border-radius: 8px;
+}
+
+#battery {
+    margin: 2px 0px 2px 0px ;
+    padding: 0px 8px 0px 8px;
+    background-color: @bg1;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+}
