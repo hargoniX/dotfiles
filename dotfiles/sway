@@ -216,6 +216,7 @@ exec /usr/libexec/evolution-data-server/evolution-alarm-notify
 
 # Window manager
 for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [app_id="gnome-pomodoro"] inhibit_idle
 
 # Gaps
 default_border  pixel 2
