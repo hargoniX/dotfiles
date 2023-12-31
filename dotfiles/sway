@@ -50,7 +50,7 @@ exec swayidle -w \
 # The EgoDox appears as multiple devices in swaymsg -t get_inputs.
 # This one appears to be the important one.
 input "12951:18806:ZSA_Technology_Labs_ErgoDox_EZ_Glow" {
-    xkb_layout de
+    xkb_layout de(nodeadkeys)
 }
 
 ### Key bindings
