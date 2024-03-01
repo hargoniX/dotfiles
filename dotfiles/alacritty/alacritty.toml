@@ -1,0 +1,56 @@
+live_config_reload = true
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "0x928374"
+blue = "0x076678"
+cyan = "0x427b58"
+green = "0x79740e"
+magenta = "0x8f3f71"
+red = "0x9d0006"
+white = "0x3c3836"
+yellow = "0xb57614"
+
+[colors.normal]
+black = "0xfbf1c7"
+blue = "0x458588"
+cyan = "0x689d6a"
+green = "0x98971a"
+magenta = "0xb16286"
+red = "0xcc241d"
+white = "0x7c6f64"
+yellow = "0xd79921"
+
+[colors.primary]
+background = "0xfbf1c7"
+foreground = "0x3c3836"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 11
+
+[font.bold]
+family = "JuliaMono"
+style = "Bold"
+
+[font.bold_italic]
+family = "JuliaMono"
+style = "Bold Italic"
+
+[font.italic]
+family = "JuliaMono"
+style = "Italic"
+
+[font.normal]
+family = "JuliaMono"
+style = "Regular"
+
+[mouse]
+hide_when_typing = true
+
+[window]
+decorations = "none"
