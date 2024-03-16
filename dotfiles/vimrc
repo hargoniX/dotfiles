@@ -43,7 +43,7 @@ set t_Co=256
 hi Normal guibg=NONE ctermbg=NONE
 
 " line limit column
-set colorcolumn=80
+set colorcolumn=100
 
 " highlight current line
 set cursorline
