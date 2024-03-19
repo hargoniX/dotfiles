@@ -71,6 +71,7 @@ require("lazy").setup({
       { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>" },
       { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>" },
       { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>" },
+      { "<leader>fs", "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>" },
     },
   },
   {
@@ -173,10 +174,31 @@ require("lazy").setup({
           vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "gc", vim.lsp.buf.incoming_calls, opts)
           vim.keymap.set("n", "<space>f", function()
             vim.lsp.buf.format { async = true }
           end, opts)
         end,
+      })
+    end
+  },
+  {
+    "ldelossa/litee.nvim",
+    ft = lsp_fts,
+    config = function()
+      local litee = require"litee.lib"
+      litee.setup({})
+    end
+  },
+  {
+    "ldelossa/litee-calltree.nvim",
+    ft = lsp_fts,
+    config = function()
+      local calltree = require"litee.calltree"
+      calltree.setup({
+        resolve_symbols = false,
+        no_hls = true,
+        on_open = "panel",
       })
     end
   },
