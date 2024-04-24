@@ -2,7 +2,7 @@
     "layer": "top",
     "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "wireplumber", "battery"],
+    "modules-right": ["tray", "pulseaudio", "battery"],
     "sway/window": {
         "max-length": 50
     },
@@ -17,10 +17,10 @@
       "icon-size": 21,
       "spacing": 10
     },
-    "wireplumber": {
+    "pulseaudio": {
         "format": "{volume}% {icon}",
         "format-muted": "Muted",
-        "on-click": "helvum",
+        "on-click": "pavucontrol",
         "format-icons": ["", "", ""]
     },
     "clock": {
