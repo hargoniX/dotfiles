@@ -62,7 +62,7 @@ window#waybar {
     border-radius: 8px;
 }
 
-#wireplumber {
+#pulseaudio {
     background-color: @bg1;
     border-radius: 8px;
 }
