@@ -107,6 +107,9 @@ require("lazy").setup({
           end
         end,
       },
+      init_options = {
+        editDelay = 200,
+      },
       mappings = true,
     }
   },
