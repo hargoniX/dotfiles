@@ -94,7 +94,18 @@ require("lazy").setup({
 
     opts = {
       lsp = {
-        on_attach = on_attach,
+        on_attach = function()
+          vim.api.nvim_create_autocmd('VimResized', { callback = require('lean.infoview').reposition })
+          local mappings = {
+            ['@lsp.type.variable'] = 'Identifier',
+            ['@lsp.type.function'] = 'Function',
+            ['@lsp.type.property'] = 'Identifier',
+          }
+
+          for from, to in pairs(mappings) do
+            vim.cmd.highlight('link ' .. from .. ' ' .. to)
+          end
+        end,
       },
       mappings = true,
     }
@@ -163,6 +174,7 @@ require("lazy").setup({
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', '<space>K', function() vim.diagnostic.open_float(0, { scope = "line", header = false, focus = false }) end)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
           vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
@@ -178,6 +190,7 @@ require("lazy").setup({
           vim.keymap.set("n", "<space>f", function()
             vim.lsp.buf.format { async = true }
           end, opts)
+          vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
         end,
       })
     end
