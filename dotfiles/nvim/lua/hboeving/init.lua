@@ -194,6 +194,7 @@ require("lazy").setup({
             vim.lsp.buf.format { async = true }
           end, opts)
           vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+          vim.lsp.inlay_hint.enable()
         end,
       })
     end
