@@ -1,6 +1,5 @@
 let mapleader = "\<Space>"
 " General settings
-behave xterm
 syntax enable
 set nocompatible
 set autoindent
