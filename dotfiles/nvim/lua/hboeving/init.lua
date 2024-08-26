@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
-local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java" }
+local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java", "cpp" }
 local ts_fts = {"c", "cpp", "agda", "lua", "java", "haskell", "markdown" }
 
 require("lazy").setup({
@@ -141,6 +141,7 @@ require("lazy").setup({
       lspconfig.rust_analyzer.setup { capabilities = capabilities }
       lspconfig.pyright.setup { capabilities = capabilities }
       lspconfig.hls.setup { capabilities = capabilities }
+      lspconfig.clangd.setup { capabilities = capabilities }
       lspconfig.typst_lsp.setup{
       	settings = {
 		      exportPdf = "onSave",
