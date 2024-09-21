@@ -4,7 +4,7 @@ syntax enable
 set nocompatible
 set autoindent
 set smarttab
-set textwidth=120
+set textwidth=100
 set expandtab
 set nowrap
 set showfulltag

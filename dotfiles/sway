@@ -57,6 +57,10 @@ input "12951:18806:ZSA_Technology_Labs_ErgoDox_EZ_Glow" {
     xkb_layout de(nodeadkeys)
 }
 
+input "12951:8208:ZSA_Technology_Labs_Ergodox_EZ" {
+    xkb_layout de(nodeadkeys)
+}
+
 ### Key bindings
 #
 # Basics:
