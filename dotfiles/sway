@@ -61,6 +61,12 @@ input "12951:8208:ZSA_Technology_Labs_Ergodox_EZ" {
     xkb_layout de(nodeadkeys)
 }
 
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
+    tap enabled
+    tap_button_map lrm
+    dwt enabled
+}
+
 ### Key bindings
 #
 # Basics:
