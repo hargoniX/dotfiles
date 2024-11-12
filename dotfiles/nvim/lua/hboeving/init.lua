@@ -86,7 +86,6 @@ require("lazy").setup({
   {
     "Julian/lean.nvim",
     ft = "lean",
-    dev = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
