@@ -207,6 +207,8 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 exec nm-applet --indicator
 # Bluetooth
 exec blueman-applet
+# Polkit
+exec lxpolkit
 
 # Screenshots
 bindsym Print exec grim -g "$(slurp)" - | wl-copy
