@@ -141,10 +141,10 @@ require("lazy").setup({
       lspconfig.pyright.setup { capabilities = capabilities }
       lspconfig.hls.setup { capabilities = capabilities }
       lspconfig.clangd.setup { capabilities = capabilities }
-      lspconfig.typst_lsp.setup{
+      lspconfig.tinymist.setup{
       	settings = {
-		      exportPdf = "onSave",
-	      }
+          exportPdf = "onSave",
+        }
       }
 
       lspconfig.lua_ls.setup {
