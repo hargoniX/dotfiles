@@ -127,12 +127,11 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     ft = lsp_fts,
     dependencies = {
-      "hrsh7th/nvim-cmp",
+      "saghen/blink.cmp",
     },
     config = function()
       local lspconfig = require"lspconfig"
-      -- The nvim-cmp almost supports LSP"s capabilities so You should advertise it to LSP servers..
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- The following example advertise capabilities to `clangd`.
       lspconfig.rust_analyzer.setup { capabilities = capabilities }
@@ -238,105 +237,31 @@ require("lazy").setup({
     end
   },
   {
-    "hrsh7th/nvim-cmp",
+    'saghen/blink.cmp',
     event = "InsertEnter",
-    dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-      "FelipeLema/cmp-async-path",
-      "ray-x/cmp-treesitter",
-      "petertriho/cmp-git",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-    },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            require"luasnip".lsp_expand(args.body)
+    version = 'v0.*',
+    opts = {
+      keymap = { preset = 'enter' },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 50,
+        }
+      },
+      snippets = {
+        expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require('luasnip').jumpable(filter.direction)
           end
-        },
-
-        sources = cmp.config.sources({
-          { name = "luasnip" },
-          { name = "async_path" },
-        }, {
-          { name = "buffer" }
-        }),
-
-
-        mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        }),
-      }
-
-      for _, lsp_ft in ipairs(lsp_fts) do
-        cmp.setup.filetype(lsp_ft, {
-          sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-          }, {
-            { name = "buffer" },
-          })
-        })
-      end
-
-      for _, ts_ft in ipairs(ts_fts) do
-        cmp.setup.filetype(ts_ft, {
-          sources = cmp.config.sources({
-            { name = "treesitter" },
-          }, {
-            { name = "buffer" },
-          })
-        })
-      end
-
-      cmp.setup.filetype("gitcommit", {
-        sources = cmp.config.sources({
-          { name = "git" },
-        }, {
-          { name = "buffer" },
-        })
-      })
-
-      cmp.setup.filetype("NeogitCommitMessage", {
-        sources = cmp.config.sources({
-          { name = "git" },
-        }, {
-          { name = "buffer" },
-        })
-      })
-
-    end,
+          return require('luasnip').in_snippet()
+        end,
+        jump = function(direction) require('luasnip').jump(direction) end,
+      },
+      sources = {
+        default = { 'lsp', 'path', 'luasnip', 'buffer' },
+      },
+    }
   },
   {
     "NeogitOrg/neogit",
