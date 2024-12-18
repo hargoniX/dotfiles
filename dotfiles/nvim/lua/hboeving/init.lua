@@ -65,13 +65,12 @@ require("lazy").setup({
     opts = {},
   },
   {
-    "nvim-telescope/telescope.nvim", tag = "0.1.3",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "ibhagwan/fzf-lua",
     keys = {
-      { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>" },
-      { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>" },
-      { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>" },
-      { "<leader>fs", "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>" },
+      { "<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>" },
+      { "<leader>fg", "<cmd>lua require('fzf-lua').live_grep()<cr>" },
+      { "<leader>fb", "<cmd>lua require('fzf-lua').buffers()<cr>" },
+      { "<leader>fs", "<cmd>lua require('fzf-lua').lsp_live_workspace_symbols()<cr>" },
     },
   },
   {
@@ -88,7 +87,6 @@ require("lazy").setup({
     ft = "lean",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
     },
 
     opts = {
@@ -344,7 +342,6 @@ require("lazy").setup({
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
       "sindrets/diffview.nvim",
     },
     keys = {"<leader>gs"},
