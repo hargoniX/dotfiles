@@ -228,15 +228,6 @@ require("lazy").setup({
     end
   },
   {
-    "petertriho/cmp-git",
-    ft = {"gitcommit", "NeogitCommitMessage"},
-    config = function()
-      require("cmp_git").setup{
-        filetypes = { "gitcommit", "NeogitCommitMessage" },
-      }
-    end
-  },
-  {
     'saghen/blink.cmp',
     event = "InsertEnter",
     version = 'v0.*',
