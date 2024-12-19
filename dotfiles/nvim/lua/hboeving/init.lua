@@ -139,6 +139,7 @@ require("lazy").setup({
       lspconfig.hls.setup { capabilities = capabilities }
       lspconfig.clangd.setup { capabilities = capabilities }
       lspconfig.tinymist.setup{
+        offset_encoding = "utf-8",
       	settings = {
           exportPdf = "onSave",
         }
@@ -237,6 +238,14 @@ require("lazy").setup({
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 50,
+        },
+        accept = {
+          auto_brackets = {
+            enabled = false,
+            semantic_token_resolution = {
+              enabled = false
+            }
+          }
         }
       },
       snippets = {
