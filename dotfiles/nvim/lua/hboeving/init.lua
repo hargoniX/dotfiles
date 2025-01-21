@@ -60,8 +60,9 @@ require("lazy").setup({
     end
   },
   {
-    "windwp/nvim-autopairs",
+    "m4xshen/autoclose.nvim",
     event = "InsertEnter",
+    config = true,
     opts = {},
   },
   {
@@ -241,7 +242,7 @@ require("lazy").setup({
         },
         accept = {
           auto_brackets = {
-            enabled = false,
+            enabled = true,
           }
         }
       },
