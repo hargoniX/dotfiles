@@ -242,13 +242,13 @@ require("lazy").setup({
         },
         accept = {
           auto_brackets = {
-            enabled = true,
+            enabled = false,
           }
         }
       },
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'snippets', 'lsp', 'path', 'buffer' },
         cmdline = {}
       },
     }
@@ -290,19 +290,3 @@ for _, spell_ft in ipairs(spell_fts) do
   	end,
   })
 end
-
-local function copy_file(src, dst)
-  os.execute("cp " .. src .. " " .. dst)
-end
-
-vim.api.nvim_create_user_command("OrgSync",
-  function(_)
-    copy_file("~/org/notes.org", "~/webdav/notes.org")
-    copy_file("~/org/personal.org", "~/webdav/personal.org")
-    copy_file("~/org/uni.org", "~/webdav/uni.org")
-    copy_file("~/org/weekly.org", "~/webdav/weekly.org")
-    copy_file("~/org/goals.org", "~/webdav/goals.org")
-    copy_file("~/webdav/mobile-notes.org", "~/org/mobile-notes.org")
-  end,
-  { nargs = 0 }
-)
