@@ -28,7 +28,6 @@ set autoread
 set smartindent
 
 set encoding=utf-8
-set termencoding=utf-8
 set fileencodings=ucs-bom,ascii,utf-8,latin1
 
 filetype on
