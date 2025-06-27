@@ -14,8 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
-local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java", "c", "cpp" }
-local ts_fts = {"c", "cpp", "agda", "lua", "java", "haskell", "markdown" }
+local lsp_fts = { "python", "rust", "lean", "haskell", "typst", "lua", "java", "c", "cpp", "ocaml" }
+local ts_fts = {"c", "cpp", "agda", "lua", "java", "haskell", "markdown", "ocaml" }
 
 require("lazy").setup({
   {
@@ -34,14 +34,6 @@ require("lazy").setup({
     config = function()
       require("guess-indent").setup {}
     end,
-  },
-  {
-    "linrongbin16/lsp-progress.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    ft = lsp_fts,
-    config = function()
-      require("lsp-progress").setup()
-    end
   },
   {
     -- integrate with lualine
@@ -146,6 +138,8 @@ require("lazy").setup({
         }
       }
 
+      lspconfig.ocamllsp.setup { capabilities = capabilities }
+
       lspconfig.lua_ls.setup {
         on_init = function(client)
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
@@ -232,9 +226,10 @@ require("lazy").setup({
   {
     'saghen/blink.cmp',
     event = "InsertEnter",
-    version = 'v0.*',
+    version = 'v1.*',
     opts = {
       keymap = { preset = 'enter' },
+      signature = { enabled = true },
       completion = {
         documentation = {
           auto_show = true,
