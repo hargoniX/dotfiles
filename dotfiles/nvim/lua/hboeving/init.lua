@@ -81,9 +81,16 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    config = function()
+      require('lean').setup{
+        init_options = {
+          editDelay = 200,
+        },
+        mappings = true,
+      }
 
-    opts = {
-      lsp = {
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      vim.lsp.config('leanls', {
         on_attach = function()
           vim.api.nvim_create_autocmd('VimResized', { callback = require('lean.infoview').reposition })
           local mappings = {
@@ -96,12 +103,10 @@ require("lazy").setup({
             vim.cmd.highlight('link ' .. from .. ' ' .. to)
           end
         end,
-      },
-      init_options = {
-        editDelay = 200,
-      },
-      mappings = true,
-    }
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('leanls')
+    end
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -123,24 +128,19 @@ require("lazy").setup({
       "saghen/blink.cmp",
     },
     config = function()
-      local lspconfig = require"lspconfig"
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      vim.lsp.config('*', {
+        capabilities = capabilities
+      })
 
-      -- The following example advertise capabilities to `clangd`.
-      lspconfig.rust_analyzer.setup { capabilities = capabilities }
-      lspconfig.pyright.setup { capabilities = capabilities }
-      lspconfig.hls.setup { capabilities = capabilities }
-      lspconfig.clangd.setup { capabilities = capabilities }
-      lspconfig.tinymist.setup{
+      vim.lsp.config('tinymist', {
         offset_encoding = "utf-8",
       	settings = {
           exportPdf = "onSave",
         }
-      }
+      })
 
-      lspconfig.ocamllsp.setup { capabilities = capabilities }
-
-      lspconfig.lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         on_init = function(client)
           client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
             Lua = {
@@ -155,9 +155,15 @@ require("lazy").setup({
           client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
           return true
         end,
-        on_attach=on_attach,
-        capabilities=capabilities,
-      }
+      })
+
+      vim.lsp.enable('rust_analyzer')
+      vim.lsp.enable('pyright')
+      vim.lsp.enable('hls')
+      vim.lsp.enable('clangd')
+      vim.lsp.enable('ocamllsp')
+      vim.lsp.enable('tinymist')
+      vim.lsp.enable('lua_ls')
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
