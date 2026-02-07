@@ -66,7 +66,9 @@ dotfiles:
   d_waybar:
     src: waybar
     dst: ~/.config/waybar
-
+  d_scripts:
+    src: scripts
+    dst: ~/.local/scripts
 profiles:
   laptop:
     include:
@@ -94,6 +96,7 @@ profiles:
     dotfiles:
     - f_zshrc
     - f_zprofile
+    - d_scripts
   bash:
     dotfiles:
     - f_bashrc
