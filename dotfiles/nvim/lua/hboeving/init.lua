@@ -259,12 +259,13 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
     },
-    keys = {"<leader>gs"},
-    cmd = {"Neogit"},
+    keys = {"<leader>gs", "<leader>gl"},
+    cmd = {"Neogit", "NeogitLogCurrent"},
     config = function()
       local neogit = require("neogit")
       neogit.setup {}
       vim.keymap.set("n", "<leader>gs", neogit.open)
+      vim.keymap.set("n", "<leader>gl", "<cmd>NeogitLogCurrent<cr>", { desc = "Open Neogit Log UI" })
     end
   },
   {
