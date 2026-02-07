@@ -269,6 +269,15 @@ require("lazy").setup({
     end
   },
   {
+    "lewis6991/gitsigns.nvim",
+    keys = {"<leader>gb"},
+    cmd = {"Gitsigns"},
+    config = function()
+      require("gitsigns").setup {}
+      vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>")
+    end
+  },
+  {
     "kaarmu/typst.vim",
     ft = "typst",
     lazy=false,
