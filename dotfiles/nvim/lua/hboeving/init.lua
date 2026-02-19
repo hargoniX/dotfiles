@@ -112,7 +112,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     ft = ts_fts,
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.config").setup({
         ensure_installed = ts_fts,
         auto_install = false,
         highlight = {
