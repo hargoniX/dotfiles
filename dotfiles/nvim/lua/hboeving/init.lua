@@ -64,6 +64,7 @@ require("lazy").setup({
       { "<leader>fg", "<cmd>lua require('fzf-lua').live_grep()<cr>" },
       { "<leader>fb", "<cmd>lua require('fzf-lua').buffers()<cr>" },
       { "<leader>fs", "<cmd>lua require('fzf-lua').lsp_live_workspace_symbols()<cr>" },
+      { "<leader>gc", "<cmd>lua require('fzf-lua').lsp_incoming_calls()<cr>" },
     },
   },
   {
@@ -187,8 +188,6 @@ require("lazy").setup({
           vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
           vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "gc", vim.lsp.buf.incoming_calls, opts)
           vim.keymap.set("n", "<space>f", function()
             vim.lsp.buf.format { async = true }
           end, opts)
