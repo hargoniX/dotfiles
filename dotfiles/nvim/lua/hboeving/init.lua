@@ -83,7 +83,7 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      vim.g.lean_config.setup{
+      vim.g.lean_config = {
         init_options = {
           editDelay = 200,
         },
